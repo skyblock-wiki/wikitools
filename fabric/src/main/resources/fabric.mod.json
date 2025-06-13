@@ -1,0 +1,28 @@
+{
+	"schemaVersion": 1,
+	"id": "wikitools",
+	"version": "${version}",
+	"name": "WikiTools",
+	"description": "Wiki-specific utilities for Minecraft",
+	"authors": [
+	],
+	"contact": {
+	},
+	"license": "",
+	"icon": "assets/wikitools/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"org.hsw.wikitools.WikiTools"
+		]
+	},
+	"mixins": [
+		"wikitools.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
