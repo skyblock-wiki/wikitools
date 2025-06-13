@@ -11,7 +11,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
-import org.hsw.wikitools.application.port.out.FindHoveredInvslot;
+import org.hsw.wikitools.application.port.out_port.FindHoveredInvslot;
 import org.hsw.wikitools.domain.value.Invslot;
 import org.hsw.wikitools.mixin.HandledScreenAccessor;
 

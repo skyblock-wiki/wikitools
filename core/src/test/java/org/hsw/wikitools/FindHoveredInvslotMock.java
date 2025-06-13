@@ -1,6 +1,6 @@
 package org.hsw.wikitools;
 
-import org.hsw.wikitools.application.port.out.FindHoveredInvslot;
+import org.hsw.wikitools.application.port.out_port.FindHoveredInvslot;
 import org.hsw.wikitools.domain.value.Invslot;
 
 import java.util.Optional;

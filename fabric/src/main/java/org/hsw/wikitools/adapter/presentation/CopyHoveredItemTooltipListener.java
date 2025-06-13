@@ -1,6 +1,6 @@
 package org.hsw.wikitools.adapter.presentation;
 
-import org.hsw.wikitools.application.port.in.GetHoveredItemTooltip;
+import org.hsw.wikitools.application.port.in_port.GetHoveredItemTooltip;
 import org.hsw.wikitools.domain.value.WikiTooltip;
 import org.lwjgl.glfw.GLFW;
 

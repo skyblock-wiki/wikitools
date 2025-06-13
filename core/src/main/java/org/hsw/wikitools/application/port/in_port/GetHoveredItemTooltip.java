@@ -1,4 +1,4 @@
-package org.hsw.wikitools.application.port.in;
+package org.hsw.wikitools.application.port.in_port;
 
 import org.hsw.wikitools.domain.value.WikiTooltip;
 

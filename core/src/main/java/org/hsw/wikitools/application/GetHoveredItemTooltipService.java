@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.hsw.wikitools.application.port.in.GetHoveredItemTooltip;
-import org.hsw.wikitools.application.port.out.FindHoveredInvslot;
+import org.hsw.wikitools.application.port.in_port.GetHoveredItemTooltip;
+import org.hsw.wikitools.application.port.out_port.FindHoveredInvslot;
 import org.hsw.wikitools.domain.value.Invslot;
 import org.hsw.wikitools.domain.value.WikiTooltip;
 
