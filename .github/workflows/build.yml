@@ -7,32 +7,32 @@ name: build
 on: [pull_request, push]
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-24.04
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: validate gradle wrapper
+      - name: Validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
-      - name: setup jdk
+      - name: Setup jdk
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: make gradle wrapper executable
+      - name: Make gradle wrapper executable
         run: chmod +x ./gradlew
-      - name: build
+      - name: Execute gradle build
         run: ./gradlew build
-      - name: capture build artifacts
+      - name: Capture build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: store artifacts
+          name: Store artifacts
           path: '**/build/libs/'
-      - name: store reports
+      - name: Store reports
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: reports
+          name: Reports
           path: |
             **/build/reports/
             **/build/test-results/
