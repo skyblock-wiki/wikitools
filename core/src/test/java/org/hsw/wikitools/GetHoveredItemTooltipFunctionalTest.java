@@ -3,13 +3,14 @@ package org.hsw.wikitools;
 import java.util.Arrays;
 import java.util.Optional;
 
+import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
 import org.junit.jupiter.api.Test;
 
 import org.hsw.wikitools.application.GetHoveredItemTooltipService;
 import org.hsw.wikitools.application.port.in_port.GetHoveredItemTooltip;
 import org.hsw.wikitools.application.port.out_port.FindHoveredInvslot;
 import org.hsw.wikitools.domain.value.Invslot;
-import org.hsw.wikitools.domain.value.WikiTooltip;
+import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,29 +19,25 @@ class GetHoveredItemTooltipFunctionalTest {
         FindHoveredInvslot invslotMock = new FindHoveredInvslotMock(invslot);
         GetHoveredItemTooltip classUnderTest = new GetHoveredItemTooltipService(invslotMock);
 
-        boolean isTemplate = true;
-        Optional<WikiTooltip> wikiTooltip = classUnderTest.getHoveredItemTooltip(isTemplate);
-        assertFalse(wikiTooltip.isPresent());
+        Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getHoveredItemAsTemplateCall();
+        assertFalse(inventorySlotTemplateCall.isPresent());
 
-        isTemplate = false;
-        wikiTooltip = classUnderTest.getHoveredItemTooltip(isTemplate);
-        assertFalse(wikiTooltip.isPresent());
+        Optional<TooltipModuleDataItem> tooltipModuleDataItem = classUnderTest.getHoveredItemAsModuleData();
+        assertFalse(tooltipModuleDataItem.isPresent());
     }
 
     private void runTest(Optional<Invslot> invslot, String expectedTemplateString, String expectedModuleString) {
         FindHoveredInvslot invslotMock = new FindHoveredInvslotMock(invslot);
         GetHoveredItemTooltip classUnderTest = new GetHoveredItemTooltipService(invslotMock);
 
-        boolean isTemplate = true;
-        Optional<WikiTooltip> wikiTooltip = classUnderTest.getHoveredItemTooltip(isTemplate);
-        assertTrue(wikiTooltip.isPresent());
-        String templateString = wikiTooltip.get().toTemplateString();
+        Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getHoveredItemAsTemplateCall();
+        assertTrue(inventorySlotTemplateCall.isPresent());
+        String templateString = inventorySlotTemplateCall.get().string;
         assertEquals(expectedTemplateString, templateString);
 
-        isTemplate = false;
-        wikiTooltip = classUnderTest.getHoveredItemTooltip(isTemplate);
-        assertTrue(wikiTooltip.isPresent());
-        String moduleString = wikiTooltip.get().toModuleString();
+        Optional<TooltipModuleDataItem> tooltipModuleDataItem = classUnderTest.getHoveredItemAsModuleData();
+        assertTrue(tooltipModuleDataItem.isPresent());
+        String moduleString = tooltipModuleDataItem.get().string;
         assertEquals(expectedModuleString, moduleString);
     }
 

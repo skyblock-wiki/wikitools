@@ -1,7 +1,8 @@
 package org.hsw.wikitools.adapter.presentation;
 
 import org.hsw.wikitools.application.port.in_port.GetHoveredItemTooltip;
-import org.hsw.wikitools.domain.value.WikiTooltip;
+import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
+import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
 import org.lwjgl.glfw.GLFW;
 
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
@@ -58,21 +59,31 @@ public class CopyHoveredItemTooltipListener {
         boolean xIsPressedWithShift = key == GLFW.GLFW_KEY_X && modifiers == GLFW.GLFW_MOD_SHIFT;
 
         if (xIsPressed && xIsPressedWithShift) {
-            copyTooltip(client, false);
+            copyTooltipAsTemplateCall(client);
         }
         else if (xIsPressed) {
-            copyTooltip(client, true);
+            copyTooltipAsModuleData(client);
         }
     }
 
-    private void copyTooltip(MinecraftClient client, boolean toTemplateFormatting) {
-        Optional<WikiTooltip> tooltip = getHoveredItemTooltip.getHoveredItemTooltip(toTemplateFormatting);
+    private void copyTooltipAsTemplateCall(MinecraftClient client) {
+        Optional<InventorySlotTemplateCall> tooltip = getHoveredItemTooltip.getHoveredItemAsTemplateCall();
         if (tooltip.isEmpty()) {
             return; // No tooltip to copy
         }
-        WikiTooltip wikiTooltip = tooltip.get();
-        ClipboardHelper.setClipboard(toTemplateFormatting ? wikiTooltip.toTemplateString() : wikiTooltip.toModuleString());
-        client.getMessageHandler().onGameMessage(Text.of("Copied tooltip (" + (toTemplateFormatting ? "template" : "module") +" formatting)"), false);
+        String stringToCopy = tooltip.get().string;
+        ClipboardHelper.setClipboard(stringToCopy);
+        client.getMessageHandler().onGameMessage(Text.of("Copied tooltip (template formatting)"), false);
+    }
+
+    private void copyTooltipAsModuleData(MinecraftClient client) {
+        Optional<TooltipModuleDataItem> tooltip = getHoveredItemTooltip.getHoveredItemAsModuleData();
+        if (tooltip.isEmpty()) {
+            return; // No tooltip to copy
+        }
+        String stringToCopy = tooltip.get().string;
+        ClipboardHelper.setClipboard(stringToCopy);
+        client.getMessageHandler().onGameMessage(Text.of("Copied tooltip (template formatting)"), false);
     }
 
 }
