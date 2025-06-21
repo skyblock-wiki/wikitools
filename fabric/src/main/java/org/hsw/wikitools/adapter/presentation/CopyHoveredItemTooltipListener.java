@@ -59,10 +59,10 @@ public class CopyHoveredItemTooltipListener {
         boolean xIsPressedWithShift = key == GLFW.GLFW_KEY_X && modifiers == GLFW.GLFW_MOD_SHIFT;
 
         if (xIsPressed && xIsPressedWithShift) {
-            copyTooltipAsTemplateCall(client);
+            copyTooltipAsModuleData(client);
         }
         else if (xIsPressed) {
-            copyTooltipAsModuleData(client);
+            copyTooltipAsTemplateCall(client);
         }
     }
 
@@ -83,7 +83,7 @@ public class CopyHoveredItemTooltipListener {
         }
         String stringToCopy = tooltip.get().string;
         ClipboardHelper.setClipboard(stringToCopy);
-        client.getMessageHandler().onGameMessage(Text.of("Copied tooltip (template formatting)"), false);
+        client.getMessageHandler().onGameMessage(Text.of("Copied tooltip (module formatting)"), false);
     }
 
 }
