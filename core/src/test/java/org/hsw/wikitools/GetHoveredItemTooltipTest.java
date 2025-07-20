@@ -6,36 +6,36 @@ import java.util.Optional;
 import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
 import org.junit.jupiter.api.Test;
 
-import org.hsw.wikitools.application.GetHoveredItemTooltipService;
-import org.hsw.wikitools.application.port.in_port.GetHoveredItemTooltip;
-import org.hsw.wikitools.application.port.out_port.FindHoveredInvslot;
+import org.hsw.wikitools.application.HoveredItemTooltipAccessor;
+import org.hsw.wikitools.application.in_port.GetHoveredItemTooltip;
+import org.hsw.wikitools.application.out_port.FindHoveredInvslot;
 import org.hsw.wikitools.domain.value.Invslot;
 import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetHoveredItemTooltipFunctionalTest {
+class GetHoveredItemTooltipTest {
     private void runTestExpectEmpty(Optional<Invslot> invslot) {
-        FindHoveredInvslot invslotMock = new FindHoveredInvslotMock(invslot);
-        GetHoveredItemTooltip classUnderTest = new GetHoveredItemTooltipService(invslotMock);
+        FindHoveredInvslot invslotMock = new HoveredInvslotFinderStub(invslot);
+        GetHoveredItemTooltip classUnderTest = new HoveredItemTooltipAccessor(invslotMock);
 
-        Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getHoveredItemAsTemplateCall();
+        Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getInventorySlotTemplateCall();
         assertFalse(inventorySlotTemplateCall.isPresent());
 
-        Optional<TooltipModuleDataItem> tooltipModuleDataItem = classUnderTest.getHoveredItemAsModuleData();
+        Optional<TooltipModuleDataItem> tooltipModuleDataItem = classUnderTest.getTooltipModuleDataItem();
         assertFalse(tooltipModuleDataItem.isPresent());
     }
 
     private void runTest(Optional<Invslot> invslot, String expectedTemplateString, String expectedModuleString) {
-        FindHoveredInvslot invslotMock = new FindHoveredInvslotMock(invslot);
-        GetHoveredItemTooltip classUnderTest = new GetHoveredItemTooltipService(invslotMock);
+        FindHoveredInvslot invslotMock = new HoveredInvslotFinderStub(invslot);
+        GetHoveredItemTooltip classUnderTest = new HoveredItemTooltipAccessor(invslotMock);
 
-        Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getHoveredItemAsTemplateCall();
+        Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getInventorySlotTemplateCall();
         assertTrue(inventorySlotTemplateCall.isPresent());
         String templateString = inventorySlotTemplateCall.get().string;
         assertEquals(expectedTemplateString, templateString);
 
-        Optional<TooltipModuleDataItem> tooltipModuleDataItem = classUnderTest.getHoveredItemAsModuleData();
+        Optional<TooltipModuleDataItem> tooltipModuleDataItem = classUnderTest.getTooltipModuleDataItem();
         assertTrue(tooltipModuleDataItem.isPresent());
         String moduleString = tooltipModuleDataItem.get().string;
         assertEquals(expectedModuleString, moduleString);

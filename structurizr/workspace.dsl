@@ -5,7 +5,7 @@ workspace "WikiTools" {
     model {
         user = person "User"
 
-        wikiSystem = softwareSystem "Wiki System" {
+        moddingAPI = softwareSystem "Minecraft & Modding API" {
             tags "External"
 
             user -> this "Uses"
@@ -13,34 +13,39 @@ workspace "WikiTools" {
 
         wikitoolsSystem = softwareSystem "WikiTools System" {
             wikitools = container "WikiTools" {
-                copyHoveredItemTooltipListener = component "CopyHoveredItemTooltipListener"
-
-                wikitoolsCore = group "WikiTools Core" {
-                    getHoveredItemTooltipService = component "GetHoveredItemTooltipService" {
-                        tags "Core"
-
-                        copyHoveredItemTooltipListener -> this "Uses"
+                dataAccess = group "Data Access" {
+                    hoveredInvslotFinder = component "HoveredInvslotFinder" {
+                        this -> moddingAPI "Uses"
                     }
                 }
 
-                findHoveredItemFromMC = component "FindHoveredItemFromMC" {
-                    getHoveredItemTooltipService -> this "Uses"
+                application = group "Application (WikiTools Core)" {
+                    hoveredItemTooltipAccessor = component "HoveredItemTooltipAccessor" {
+                        tag "Core"
+
+                        this -> hoveredInvslotFinder "Uses"
+                    }
                 }
 
-                user -> this "Uses"
+                presentation = group "Presentation" {
+                    copyHoveredItemTooltipListener = component "CopyHoveredItemTooltipListener" {
+                        this -> hoveredItemTooltipAccessor "Uses"
+                        moddingAPI -> this "Uses"
+                    }
+                }
             }
 
             wikitoolsRenders = container "WikiTools Renders" {
-                user -> this "Uses"
+                this -> moddingAPI "Uses"
+                moddingAPI -> this "Uses"
             }
-
-            this -> wikiSystem "Gets data from"
         }
     }
 
     views {
         systemContext wikitoolsSystem {
             include *
+            include user
             autoLayout lr
         }
 

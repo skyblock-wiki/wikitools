@@ -1,4 +1,4 @@
-package org.hsw.wikitools.application.port.in_port;
+package org.hsw.wikitools.application.in_port;
 
 import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
 import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
@@ -6,7 +6,7 @@ import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
 import java.util.Optional;
 
 public interface GetHoveredItemTooltip {
-    Optional<InventorySlotTemplateCall> getHoveredItemAsTemplateCall();
+    Optional<InventorySlotTemplateCall> getInventorySlotTemplateCall();
 
-    Optional<TooltipModuleDataItem> getHoveredItemAsModuleData();
+    Optional<TooltipModuleDataItem> getTooltipModuleDataItem();
 }

@@ -11,7 +11,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
-import org.hsw.wikitools.application.port.out_port.FindHoveredInvslot;
+import org.hsw.wikitools.application.out_port.FindHoveredInvslot;
 import org.hsw.wikitools.domain.value.Invslot;
 import org.hsw.wikitools.mixin.HandledScreenAccessor;
 
@@ -22,7 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
 
-public class FindHoveredItemFromMC implements FindHoveredInvslot {
+public class HoveredInvslotFinder implements FindHoveredInvslot {
 
     @Override
     public Optional<Invslot> findHoveredInvslot() {
@@ -72,7 +72,7 @@ public class FindHoveredItemFromMC implements FindHoveredInvslot {
             loreTexts = loreComponent.styledLines();
         }
 
-        List<String> loreLines = loreTexts.stream().map(FindHoveredItemFromMC::toFormattedText).toList();
+        List<String> loreLines = loreTexts.stream().map(HoveredInvslotFinder::toFormattedText).toList();
 
         return new Invslot(itemName, loreLines);
     }

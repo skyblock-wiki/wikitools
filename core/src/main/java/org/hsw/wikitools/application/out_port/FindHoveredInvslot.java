@@ -1,4 +1,4 @@
-package org.hsw.wikitools.application.port.out_port;
+package org.hsw.wikitools.application.out_port;
 
 import org.hsw.wikitools.domain.value.Invslot;
 

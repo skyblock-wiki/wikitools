@@ -1,6 +1,6 @@
 package org.hsw.wikitools.adapter.presentation;
 
-import org.hsw.wikitools.application.port.in_port.GetHoveredItemTooltip;
+import org.hsw.wikitools.application.in_port.GetHoveredItemTooltip;
 import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
 import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
 import org.lwjgl.glfw.GLFW;
@@ -67,7 +67,7 @@ public class CopyHoveredItemTooltipListener {
     }
 
     private void copyTooltipAsTemplateCall(MinecraftClient client) {
-        Optional<InventorySlotTemplateCall> tooltip = getHoveredItemTooltip.getHoveredItemAsTemplateCall();
+        Optional<InventorySlotTemplateCall> tooltip = getHoveredItemTooltip.getInventorySlotTemplateCall();
         if (tooltip.isEmpty()) {
             return; // No tooltip to copy
         }
@@ -77,7 +77,7 @@ public class CopyHoveredItemTooltipListener {
     }
 
     private void copyTooltipAsModuleData(MinecraftClient client) {
-        Optional<TooltipModuleDataItem> tooltip = getHoveredItemTooltip.getHoveredItemAsModuleData();
+        Optional<TooltipModuleDataItem> tooltip = getHoveredItemTooltip.getTooltipModuleDataItem();
         if (tooltip.isEmpty()) {
             return; // No tooltip to copy
         }
