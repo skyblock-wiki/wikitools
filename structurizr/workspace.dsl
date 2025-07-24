@@ -13,24 +13,47 @@ workspace "WikiTools" {
 
         wikitoolsSystem = softwareSystem "WikiTools System" {
             wikitools = container "WikiTools" {
-                dataAccess = group "Data Access" {
+                getItemTooltip = group "get-item-tooltip" {
                     hoveredInvslotFinder = component "HoveredInvslotFinder" {
                         this -> moddingAPI "Uses"
                     }
-                }
 
-                application = group "Application (WikiTools Core)" {
                     hoveredItemTooltipAccessor = component "HoveredItemTooltipAccessor" {
                         tag "Core"
 
                         this -> hoveredInvslotFinder "Uses"
                     }
-                }
 
-                presentation = group "Presentation" {
                     copyHoveredItemTooltipListener = component "CopyHoveredItemTooltipListener" {
                         this -> hoveredItemTooltipAccessor "Uses"
                         moddingAPI -> this "Uses"
+                    }
+                }
+
+                getSkullId = group "get-skull-id" {
+                    hoveredSkullItemFinder = component "HoveredSkullItemFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    facingEntitySkullFinder = component "FacingEntitySkullFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    facingBlockSkullFinder = component "FacingBlockSkullFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    getSkullIdHandler = component "GetSkullIdHandler" {
+                        tag "Core"
+
+                        this -> hoveredSkullItemFinder "Uses"
+                        this -> facingEntitySkullFinder "Uses"
+                        this -> facingBlockSkullFinder "Uses"
+                    }
+
+                    copySkullIdListener = component "CopySkullIdListener" {
+                        this -> getSkullIdHandler "Uses"
+                        moddingApi -> this "Uses"
                     }
                 }
             }
