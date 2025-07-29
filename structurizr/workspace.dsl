@@ -18,14 +18,14 @@ workspace "WikiTools" {
                         this -> moddingAPI "Uses"
                     }
 
-                    hoveredItemTooltipAccessor = component "HoveredItemTooltipAccessor" {
+                    getItemTooltipHandler = component "GetItemTooltipHandler" {
                         tag "Core"
 
                         this -> hoveredInvslotFinder "Uses"
                     }
 
                     copyHoveredItemTooltipListener = component "CopyHoveredItemTooltipListener" {
-                        this -> hoveredItemTooltipAccessor "Uses"
+                        this -> getItemTooltipHandler "Uses"
                         moddingAPI -> this "Uses"
                     }
                 }

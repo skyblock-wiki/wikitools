@@ -14,15 +14,15 @@ public class GetSkullIdHandler {
     }
 
     public Optional<GetSkullIdResponse> getSkullId(GetSkullIdRequest request) {
-        Optional<Skull> hoveredSkullItem = findHoveredSkullItem.getHoveredSkull();
+        Optional<Skull> hoveredSkullItem = findHoveredSkullItem.findHoveredSkull();
         if (hoveredSkullItem.isPresent()) {
             return GetSkullIdResponse.of(hoveredSkullItem);
         }
-        Optional<Skull> facingEntitySkull = findFacingEntitySkull.getFacingSkull();
+        Optional<Skull> facingEntitySkull = findFacingEntitySkull.findFacingSkull();
         if (facingEntitySkull.isPresent()) {
             return GetSkullIdResponse.of(facingEntitySkull);
         }
-        Optional<Skull> facingBlockSkull = findFacingBlockSkull.getFacingSkull();
+        Optional<Skull> facingBlockSkull = findFacingBlockSkull.findFacingSkull();
         return GetSkullIdResponse.of(facingBlockSkull);
     }
 

@@ -1,43 +1,41 @@
-package org.hsw.wikitools.adapter.presentation;
+package org.hsw.wikitools.feature.get_item_tooltip.inbound;
 
-import org.hsw.wikitools.application.in_port.GetHoveredItemTooltip;
-import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
-import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
-import org.lwjgl.glfw.GLFW;
-
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
+import org.hsw.wikitools.common.ClipboardHelper;
+import org.hsw.wikitools.feature.get_item_tooltip.app.GetItemTooltipHandler;
+import org.hsw.wikitools.feature.get_item_tooltip.app.InventorySlotTemplateCall;
+import org.hsw.wikitools.feature.get_item_tooltip.app.TooltipModuleDataItem;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
-// import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-// import net.minecraft.client.MinecraftClient;
-// import net.minecraft.client.option.KeyBinding;
-// import net.minecraft.client.util.InputUtil;
-
 public class CopyHoveredItemTooltipListener {
-    private final GetHoveredItemTooltip getHoveredItemTooltip;
-    // private KeyBinding copyTooltipKeyBinding;
+    private final GetItemTooltipHandler getItemTooltipHandler;
+     private KeyBinding copyTooltipKeyBinding;
 
-    public CopyHoveredItemTooltipListener(GetHoveredItemTooltip getHoveredItemTooltip) {
-        this.getHoveredItemTooltip = getHoveredItemTooltip;
+    public CopyHoveredItemTooltipListener(GetItemTooltipHandler getItemTooltipHandler) {
+        this.getItemTooltipHandler = getItemTooltipHandler;
 
-        // registerKeyBinding();
+        registerKeyBinding();
 
         registerEvent();
     }
 
-    // private void registerKeyBinding() {
-    //     copyTooltipKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-    //         "key.wikitools.copy_tooltip",
-    //         InputUtil.Type.KEYSYM,
-    //         GLFW.GLFW_KEY_X,
-    //         "key.categories.wikitools"
-    //     ));
-    // }
+     private void registerKeyBinding() {
+         copyTooltipKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+             "key.wikitools.copy-tooltip",
+             InputUtil.Type.KEYSYM,
+             GLFW.GLFW_KEY_X,
+             "key.categories.wikitools"
+         ));
+     }
 
     private void registerEvent() {
         // Add a listener for screen events (when a screen is opened)
@@ -55,8 +53,8 @@ public class CopyHoveredItemTooltipListener {
     }
 
     private void handleEvent(MinecraftClient client, int key, int modifiers) {
-        boolean xIsPressed = key == GLFW.GLFW_KEY_X;
-        boolean xIsPressedWithShift = key == GLFW.GLFW_KEY_X && modifiers == GLFW.GLFW_MOD_SHIFT;
+        boolean xIsPressed = copyTooltipKeyBinding.matchesKey(key, 0);
+        boolean xIsPressedWithShift = xIsPressed && modifiers == GLFW.GLFW_MOD_SHIFT;
 
         if (xIsPressed && xIsPressedWithShift) {
             copyTooltipAsModuleData(client);
@@ -67,7 +65,7 @@ public class CopyHoveredItemTooltipListener {
     }
 
     private void copyTooltipAsTemplateCall(MinecraftClient client) {
-        Optional<InventorySlotTemplateCall> tooltip = getHoveredItemTooltip.getInventorySlotTemplateCall();
+        Optional<InventorySlotTemplateCall> tooltip = getItemTooltipHandler.getInventorySlotTemplateCall();
         if (tooltip.isEmpty()) {
             return; // No tooltip to copy
         }
@@ -77,7 +75,7 @@ public class CopyHoveredItemTooltipListener {
     }
 
     private void copyTooltipAsModuleData(MinecraftClient client) {
-        Optional<TooltipModuleDataItem> tooltip = getHoveredItemTooltip.getTooltipModuleDataItem();
+        Optional<TooltipModuleDataItem> tooltip = getItemTooltipHandler.getTooltipModuleDataItem();
         if (tooltip.isEmpty()) {
             return; // No tooltip to copy
         }

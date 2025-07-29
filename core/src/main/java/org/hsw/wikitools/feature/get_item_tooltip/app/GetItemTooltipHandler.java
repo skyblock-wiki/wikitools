@@ -1,23 +1,16 @@
-package org.hsw.wikitools.application;
+package org.hsw.wikitools.feature.get_item_tooltip.app;
 
 import java.util.Optional;
 
-import org.hsw.wikitools.application.in_port.GetHoveredItemTooltip;
-import org.hsw.wikitools.application.out_port.FindHoveredInvslot;
-import org.hsw.wikitools.domain.value.Invslot;
-import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
-import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
-
-public class HoveredItemTooltipAccessor implements GetHoveredItemTooltip {
+public class GetItemTooltipHandler {
     private final FindHoveredInvslot findHoveredInvslot;
     private final InventoryContentFormattingService inventoryContentFormattingService;
 
-    public HoveredItemTooltipAccessor(FindHoveredInvslot findHoveredInvslot) {
+    public GetItemTooltipHandler(FindHoveredInvslot findHoveredInvslot) {
         this.findHoveredInvslot = findHoveredInvslot;
         this.inventoryContentFormattingService = new InventoryContentFormattingService();
     }
 
-    @Override
     public Optional<InventorySlotTemplateCall> getInventorySlotTemplateCall() {
         Optional<Invslot> invslot = findHoveredInvslot.findHoveredInvslot();
         if (!invslot.isPresent()) {
@@ -28,7 +21,6 @@ public class HoveredItemTooltipAccessor implements GetHoveredItemTooltip {
         return Optional.of(inventorySlotTemplateCall);
     }
 
-    @Override
     public Optional<TooltipModuleDataItem> getTooltipModuleDataItem() {
         Optional<Invslot> invslot = findHoveredInvslot.findHoveredInvslot();
         if (!invslot.isPresent()) {

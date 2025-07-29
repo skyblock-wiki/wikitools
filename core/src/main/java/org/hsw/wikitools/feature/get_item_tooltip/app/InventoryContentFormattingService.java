@@ -1,8 +1,4 @@
-package org.hsw.wikitools.application;
-
-import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
-import org.hsw.wikitools.domain.value.Invslot;
-import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
+package org.hsw.wikitools.feature.get_item_tooltip.app;
 
 import java.util.ArrayList;
 import java.util.List;

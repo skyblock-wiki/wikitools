@@ -1,7 +1,7 @@
-package org.hsw.wikitools;
+package org.hsw.wikitools.feature.get_item_tooltip;
 
-import org.hsw.wikitools.application.out_port.FindHoveredInvslot;
-import org.hsw.wikitools.domain.value.Invslot;
+import org.hsw.wikitools.feature.get_item_tooltip.app.FindHoveredInvslot;
+import org.hsw.wikitools.feature.get_item_tooltip.app.Invslot;
 
 import java.util.Optional;
 

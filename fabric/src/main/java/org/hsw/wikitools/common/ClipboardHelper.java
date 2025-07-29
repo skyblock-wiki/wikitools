@@ -1,4 +1,4 @@
-package org.hsw.wikitools.adapter.presentation;
+package org.hsw.wikitools.common;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.Clipboard;

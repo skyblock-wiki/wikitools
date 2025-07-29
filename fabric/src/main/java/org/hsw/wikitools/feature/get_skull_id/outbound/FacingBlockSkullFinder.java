@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class FacingBlockSkullFinder implements FindFacingBlockSkull {
     @Override
-    public Optional<Skull> getFacingSkull() {
+    public Optional<Skull> findFacingSkull() {
         Optional<BlockEntity> blockEntity = findFacingBlock();
 
         if (blockEntity.isEmpty()) {

@@ -1,7 +1,6 @@
 package org.hsw.wikitools.feature.get_skull_id;
 
 import org.hsw.wikitools.feature.get_skull_id.app.FindFacingEntitySkull;
-import org.hsw.wikitools.feature.get_skull_id.app.FindHoveredSkullItem;
 import org.hsw.wikitools.feature.get_skull_id.app.Skull;
 
 import java.util.Optional;
@@ -14,7 +13,7 @@ public class FindFacingEntitySkullStub implements FindFacingEntitySkull {
     }
 
     @Override
-    public Optional<Skull> getFacingSkull() {
+    public Optional<Skull> findFacingSkull() {
         return skull;
     }
 }

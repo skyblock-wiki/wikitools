@@ -1,8 +1,8 @@
 package org.hsw.wikitools;
 
-import org.hsw.wikitools.adapter.data_access.HoveredInvslotFinder;
-import org.hsw.wikitools.adapter.presentation.CopyHoveredItemTooltipListener;
-import org.hsw.wikitools.application.HoveredItemTooltipAccessor;
+import org.hsw.wikitools.feature.get_item_tooltip.outbound.HoveredInvslotFinder;
+import org.hsw.wikitools.feature.get_item_tooltip.inbound.CopyHoveredItemTooltipListener;
+import org.hsw.wikitools.feature.get_item_tooltip.app.GetItemTooltipHandler;
 import org.hsw.wikitools.feature.get_skull_id.app.GetSkullIdHandler;
 import org.hsw.wikitools.feature.get_skull_id.inbound.CopySkullIdListener;
 import org.hsw.wikitools.feature.get_skull_id.outbound.FacingBlockSkullFinder;
@@ -23,8 +23,8 @@ class ListenerManager {
 
 	private CopyHoveredItemTooltipListener createCopyHoveredItemTooltipListener() {
 		HoveredInvslotFinder hoveredInvslotFinder = new HoveredInvslotFinder();
-		HoveredItemTooltipAccessor hoveredItemTooltipAccessor = new HoveredItemTooltipAccessor(hoveredInvslotFinder);
-		return new CopyHoveredItemTooltipListener(hoveredItemTooltipAccessor);
+		GetItemTooltipHandler getItemTooltipHandler = new GetItemTooltipHandler(hoveredInvslotFinder);
+		return new CopyHoveredItemTooltipListener(getItemTooltipHandler);
 	}
 
 	private CopySkullIdListener createCopySkullIdListener() {

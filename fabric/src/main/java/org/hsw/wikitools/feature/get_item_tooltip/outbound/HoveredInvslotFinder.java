@@ -1,4 +1,4 @@
-package org.hsw.wikitools.adapter.data_access;
+package org.hsw.wikitools.feature.get_item_tooltip.outbound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
-import org.hsw.wikitools.application.out_port.FindHoveredInvslot;
-import org.hsw.wikitools.domain.value.Invslot;
+import org.hsw.wikitools.feature.get_item_tooltip.app.FindHoveredInvslot;
+import org.hsw.wikitools.feature.get_item_tooltip.app.Invslot;
 import org.hsw.wikitools.mixin.HandledScreenAccessor;
 
 import net.minecraft.client.MinecraftClient;

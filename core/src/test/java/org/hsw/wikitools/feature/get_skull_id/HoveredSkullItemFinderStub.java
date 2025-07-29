@@ -13,7 +13,7 @@ public class HoveredSkullItemFinderStub implements FindHoveredSkullItem {
     }
 
     @Override
-    public Optional<Skull> getHoveredSkull() {
+    public Optional<Skull> findHoveredSkull() {
         return skull;
     }
 }

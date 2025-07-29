@@ -1,6 +1,4 @@
-package org.hsw.wikitools.application.out_port;
-
-import org.hsw.wikitools.domain.value.Invslot;
+package org.hsw.wikitools.feature.get_item_tooltip.app;
 
 import java.util.Optional;
 

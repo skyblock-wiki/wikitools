@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class FacingEntitySkullFinder implements FindFacingEntitySkull {
     @Override
-    public Optional<Skull> getFacingSkull() {
+    public Optional<Skull> findFacingSkull() {
         MinecraftClient client = MinecraftClient.getInstance();
         Entity targetedEntity = client.targetedEntity;
 

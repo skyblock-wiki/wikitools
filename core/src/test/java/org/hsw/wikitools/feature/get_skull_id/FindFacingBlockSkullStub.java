@@ -13,7 +13,7 @@ public class FindFacingBlockSkullStub implements FindFacingBlockSkull {
     }
 
     @Override
-    public Optional<Skull> getFacingSkull() {
+    public Optional<Skull> findFacingSkull() {
         return skull;
     }
 }

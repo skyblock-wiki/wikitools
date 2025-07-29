@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public class HoveredSkullItemFinder implements FindHoveredSkullItem {
     @Override
-    public Optional<Skull> getHoveredSkull() {
+    public Optional<Skull> findHoveredSkull() {
         Optional<ItemStack> focusedItemStack = findFocusedItemStack();
 
         if (focusedItemStack.isEmpty()) {

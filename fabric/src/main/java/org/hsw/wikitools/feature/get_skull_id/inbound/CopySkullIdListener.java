@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
-import org.hsw.wikitools.adapter.presentation.ClipboardHelper;
+import org.hsw.wikitools.common.ClipboardHelper;
 import org.hsw.wikitools.feature.get_skull_id.app.GetSkullIdHandler;
 import org.lwjgl.glfw.GLFW;
 

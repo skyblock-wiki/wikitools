@@ -1,23 +1,21 @@
-package org.hsw.wikitools;
+package org.hsw.wikitools.feature.get_item_tooltip;
+
+import org.hsw.wikitools.feature.get_item_tooltip.app.GetItemTooltipHandler;
+import org.hsw.wikitools.feature.get_item_tooltip.app.FindHoveredInvslot;
+import org.hsw.wikitools.feature.get_item_tooltip.app.InventorySlotTemplateCall;
+import org.hsw.wikitools.feature.get_item_tooltip.app.Invslot;
+import org.hsw.wikitools.feature.get_item_tooltip.app.TooltipModuleDataItem;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Optional;
 
-import org.hsw.wikitools.domain.value.TooltipModuleDataItem;
-import org.junit.jupiter.api.Test;
-
-import org.hsw.wikitools.application.HoveredItemTooltipAccessor;
-import org.hsw.wikitools.application.in_port.GetHoveredItemTooltip;
-import org.hsw.wikitools.application.out_port.FindHoveredInvslot;
-import org.hsw.wikitools.domain.value.Invslot;
-import org.hsw.wikitools.domain.value.InventorySlotTemplateCall;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetHoveredItemTooltipTest {
+class GetItemTooltipHandlerTest {
     private void runTestExpectEmpty(Optional<Invslot> invslot) {
         FindHoveredInvslot invslotMock = new HoveredInvslotFinderStub(invslot);
-        GetHoveredItemTooltip classUnderTest = new HoveredItemTooltipAccessor(invslotMock);
+        GetItemTooltipHandler classUnderTest = new GetItemTooltipHandler(invslotMock);
 
         Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getInventorySlotTemplateCall();
         assertFalse(inventorySlotTemplateCall.isPresent());
@@ -28,7 +26,7 @@ class GetHoveredItemTooltipTest {
 
     private void runTest(Optional<Invslot> invslot, String expectedTemplateString, String expectedModuleString) {
         FindHoveredInvslot invslotMock = new HoveredInvslotFinderStub(invslot);
-        GetHoveredItemTooltip classUnderTest = new HoveredItemTooltipAccessor(invslotMock);
+        GetItemTooltipHandler classUnderTest = new GetItemTooltipHandler(invslotMock);
 
         Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getInventorySlotTemplateCall();
         assertTrue(inventorySlotTemplateCall.isPresent());

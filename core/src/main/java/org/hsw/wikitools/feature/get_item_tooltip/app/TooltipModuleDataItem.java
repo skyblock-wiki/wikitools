@@ -1,4 +1,4 @@
-package org.hsw.wikitools.domain.value;
+package org.hsw.wikitools.feature.get_item_tooltip.app;
 
 public class TooltipModuleDataItem {
     public final String string;
