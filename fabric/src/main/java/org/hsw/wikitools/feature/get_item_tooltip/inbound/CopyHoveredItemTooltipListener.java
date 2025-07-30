@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class CopyHoveredItemTooltipListener {
     private final GetItemTooltipHandler getItemTooltipHandler;
-     private KeyBinding copyTooltipKeyBinding;
+    private KeyBinding copyTooltipKeyBinding;
 
     public CopyHoveredItemTooltipListener(GetItemTooltipHandler getItemTooltipHandler) {
         this.getItemTooltipHandler = getItemTooltipHandler;

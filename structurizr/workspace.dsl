@@ -13,7 +13,7 @@ workspace "WikiTools" {
 
         wikitoolsSystem = softwareSystem "WikiTools System" {
             wikitools = container "WikiTools" {
-                getItemTooltip = group "get-item-tooltip" {
+                getItemTooltip = group "get_item_tooltip" {
                     hoveredInvslotFinder = component "HoveredInvslotFinder" {
                         this -> moddingAPI "Uses"
                     }
@@ -26,11 +26,11 @@ workspace "WikiTools" {
 
                     copyHoveredItemTooltipListener = component "CopyHoveredItemTooltipListener" {
                         this -> getItemTooltipHandler "Uses"
-                        moddingAPI -> this "Uses"
+                        moddingAPI -> this "Triggers"
                     }
                 }
 
-                getSkullId = group "get-skull-id" {
+                getSkullId = group "get_skull_id" {
                     hoveredSkullItemFinder = component "HoveredSkullItemFinder" {
                         this -> moddingAPI "Uses"
                     }
@@ -53,7 +53,24 @@ workspace "WikiTools" {
 
                     copySkullIdListener = component "CopySkullIdListener" {
                         this -> getSkullIdHandler "Uses"
-                        moddingApi -> this "Uses"
+                        moddingApi -> this "Triggers"
+                    }
+                }
+
+                viewItemId = group "view_item_id" {
+                    hoveredItemIdFinder = component "HoveredItemIdFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    getItemIdHandler = component "GetItemIdHandler" {
+                        tag "Core"
+
+                        this -> hoveredItemIdFinder "Uses"
+                    }
+
+                    tooltipItemIdAppender = component "TooltipItemIdAppender" {
+                        this -> getItemIdHandler "Uses"
+                        moddingAPI -> this "Triggers"
                     }
                 }
             }

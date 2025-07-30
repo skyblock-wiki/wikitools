@@ -1,11 +1,12 @@
 {
-	"required": true,
-	"package": "org.hsw.wikitools.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"HandledScreenAccessor"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "org.hsw.wikitools.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "HandledScreenAccessor",
+    "get_item_id.inbound.TooltipItemIdAppender"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
