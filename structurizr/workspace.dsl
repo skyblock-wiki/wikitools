@@ -13,7 +13,7 @@ workspace "WikiTools" {
 
         wikitoolsSystem = softwareSystem "WikiTools System" {
             wikitools = container "WikiTools" {
-                getItemTooltip = group "get_item_tooltip" {
+                copyItemTooltip = group "copy_item_tooltip" {
                     hoveredInvslotFinder = component "HoveredInvslotFinder" {
                         this -> moddingAPI "Uses"
                     }
@@ -30,7 +30,7 @@ workspace "WikiTools" {
                     }
                 }
 
-                getSkullId = group "get_skull_id" {
+                copySkullId = group "copy_skull_id" {
                     hoveredSkullItemFinder = component "HoveredSkullItemFinder" {
                         this -> moddingAPI "Uses"
                     }

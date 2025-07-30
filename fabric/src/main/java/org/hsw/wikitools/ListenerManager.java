@@ -1,13 +1,13 @@
 package org.hsw.wikitools;
 
-import org.hsw.wikitools.feature.get_item_tooltip.outbound.HoveredInvslotFinder;
-import org.hsw.wikitools.feature.get_item_tooltip.inbound.CopyHoveredItemTooltipListener;
-import org.hsw.wikitools.feature.get_item_tooltip.app.GetItemTooltipHandler;
-import org.hsw.wikitools.feature.get_skull_id.app.GetSkullIdHandler;
-import org.hsw.wikitools.feature.get_skull_id.inbound.CopySkullIdListener;
-import org.hsw.wikitools.feature.get_skull_id.outbound.FacingBlockSkullFinder;
-import org.hsw.wikitools.feature.get_skull_id.outbound.FacingEntitySkullFinder;
-import org.hsw.wikitools.feature.get_skull_id.outbound.HoveredSkullItemFinder;
+import org.hsw.wikitools.feature.copy_item_tooltip.outbound.HoveredInvslotFinder;
+import org.hsw.wikitools.feature.copy_item_tooltip.inbound.CopyHoveredItemTooltipListener;
+import org.hsw.wikitools.feature.copy_item_tooltip.app.GetItemTooltipHandler;
+import org.hsw.wikitools.feature.copy_skull_id.app.GetSkullIdHandler;
+import org.hsw.wikitools.feature.copy_skull_id.inbound.CopySkullIdListener;
+import org.hsw.wikitools.feature.copy_skull_id.outbound.FacingBlockSkullFinder;
+import org.hsw.wikitools.feature.copy_skull_id.outbound.FacingEntitySkullFinder;
+import org.hsw.wikitools.feature.copy_skull_id.outbound.HoveredSkullItemFinder;
 
 /**
  * Manages the lifecycle and instantiation of listeners.
