@@ -1,12 +1,13 @@
 package org.hsw.wikitools.feature.get_item_tooltip.outbound;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LoreComponent;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -14,13 +15,11 @@ import net.minecraft.util.Formatting;
 import org.hsw.wikitools.feature.get_item_tooltip.app.FindHoveredInvslot;
 import org.hsw.wikitools.feature.get_item_tooltip.app.Invslot;
 import org.hsw.wikitools.mixin.HandledScreenAccessor;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class HoveredInvslotFinder implements FindHoveredInvslot {
 

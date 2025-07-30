@@ -51,3 +51,13 @@ Tester should perform each test and write the test result in the `Result` field.
   - Game message: Copied skull ID
   - Clipboard content should start with: 848a19
   - Clipboard content should end with: c77ba6
+
+#### SkyBlock item ID is shown on hovered SkyBlock item when advanced tooltip is set to "shown"
+- Action: Toggle advanced tooltip to "shown" by using F3+H. Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon.
+- Expected Output:
+  - Displayed tooltip content should end with: SkyBlock Item ID: SKYBLOCK_MENU
+
+### SkyBlock item ID is not shown on hovered SkyBlock item when advanced tooltip is set to "hidden"
+- Action: Toggle advanced tooltip to "hidden" by using F3+H. Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon.
+- Expected Output:
+  - Displayed tooltip content should end with: Click to open!

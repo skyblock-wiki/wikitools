@@ -4,7 +4,7 @@
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2025-07-29T19:23:45Z",
+  "lastModifiedDate" : "2025-07-30T08:43:22Z",
   "model" : {
     "people" : [ {
       "id" : "1",
@@ -31,33 +31,39 @@
         "structurizr.dsl.identifier" : "moddingapi"
       },
       "relationships" : [ {
-        "description" : "Uses",
+        "description" : "Triggers",
         "destinationId" : "12",
         "id" : "14",
         "sourceId" : "2",
         "tags" : "Relationship"
       }, {
-        "description" : "Uses",
+        "description" : "Triggers",
         "destinationId" : "5",
         "id" : "15",
         "linkedRelationshipId" : "14",
         "sourceId" : "2"
       }, {
-        "description" : "Uses",
+        "description" : "Triggers",
         "destinationId" : "4",
         "id" : "16",
         "linkedRelationshipId" : "14",
         "sourceId" : "2"
       }, {
-        "description" : "Uses",
+        "description" : "Triggers",
         "destinationId" : "27",
         "id" : "29",
         "sourceId" : "2",
         "tags" : "Relationship"
       }, {
+        "description" : "Triggers",
+        "destinationId" : "34",
+        "id" : "36",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      }, {
         "description" : "Uses",
-        "destinationId" : "30",
-        "id" : "32",
+        "destinationId" : "37",
+        "id" : "39",
         "sourceId" : "2",
         "tags" : "Relationship"
       } ],
@@ -66,7 +72,7 @@
       "containers" : [ {
         "components" : [ {
           "documentation" : { },
-          "group" : "get-item-tooltip",
+          "group" : "get_item_tooltip",
           "id" : "6",
           "name" : "HoveredInvslotFinder",
           "properties" : {
@@ -82,7 +88,7 @@
           "tags" : "Element,Component"
         }, {
           "documentation" : { },
-          "group" : "get-item-tooltip",
+          "group" : "get_item_tooltip",
           "id" : "10",
           "name" : "GetItemTooltipHandler",
           "properties" : {
@@ -98,7 +104,7 @@
           "tags" : "Element,Component,Core"
         }, {
           "documentation" : { },
-          "group" : "get-item-tooltip",
+          "group" : "get_item_tooltip",
           "id" : "12",
           "name" : "CopyHoveredItemTooltipListener",
           "properties" : {
@@ -114,7 +120,7 @@
           "tags" : "Element,Component"
         }, {
           "documentation" : { },
-          "group" : "get-skull-id",
+          "group" : "get_skull_id",
           "id" : "17",
           "name" : "HoveredSkullItemFinder",
           "properties" : {
@@ -130,7 +136,7 @@
           "tags" : "Element,Component"
         }, {
           "documentation" : { },
-          "group" : "get-skull-id",
+          "group" : "get_skull_id",
           "id" : "19",
           "name" : "FacingEntitySkullFinder",
           "properties" : {
@@ -146,7 +152,7 @@
           "tags" : "Element,Component"
         }, {
           "documentation" : { },
-          "group" : "get-skull-id",
+          "group" : "get_skull_id",
           "id" : "21",
           "name" : "FacingBlockSkullFinder",
           "properties" : {
@@ -162,7 +168,7 @@
           "tags" : "Element,Component"
         }, {
           "documentation" : { },
-          "group" : "get-skull-id",
+          "group" : "get_skull_id",
           "id" : "23",
           "name" : "GetSkullIdHandler",
           "properties" : {
@@ -190,7 +196,7 @@
           "tags" : "Element,Component,Core"
         }, {
           "documentation" : { },
-          "group" : "get-skull-id",
+          "group" : "get_skull_id",
           "id" : "27",
           "name" : "CopySkullIdListener",
           "properties" : {
@@ -201,6 +207,54 @@
             "destinationId" : "23",
             "id" : "28",
             "sourceId" : "27",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "group" : "view_item_id",
+          "id" : "30",
+          "name" : "HoveredItemIdFinder",
+          "properties" : {
+            "structurizr.dsl.identifier" : "wikitoolssystem.wikitools.hovereditemidfinder"
+          },
+          "relationships" : [ {
+            "description" : "Uses",
+            "destinationId" : "2",
+            "id" : "31",
+            "sourceId" : "30",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
+          "group" : "view_item_id",
+          "id" : "32",
+          "name" : "GetItemIdHandler",
+          "properties" : {
+            "structurizr.dsl.identifier" : "wikitoolssystem.wikitools.getitemidhandler"
+          },
+          "relationships" : [ {
+            "description" : "Uses",
+            "destinationId" : "30",
+            "id" : "33",
+            "sourceId" : "32",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component,Core"
+        }, {
+          "documentation" : { },
+          "group" : "view_item_id",
+          "id" : "34",
+          "name" : "TooltipItemIdAppender",
+          "properties" : {
+            "structurizr.dsl.identifier" : "wikitoolssystem.wikitools.tooltipitemidappender"
+          },
+          "relationships" : [ {
+            "description" : "Uses",
+            "destinationId" : "32",
+            "id" : "35",
+            "sourceId" : "34",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component"
@@ -221,7 +275,7 @@
         "tags" : "Element,Container"
       }, {
         "documentation" : { },
-        "id" : "30",
+        "id" : "37",
         "name" : "WikiTools Renders",
         "properties" : {
           "structurizr.dsl.identifier" : "wikitoolssystem.wikitoolsrenders"
@@ -229,12 +283,11 @@
         "relationships" : [ {
           "description" : "Uses",
           "destinationId" : "2",
-          "id" : "31",
-          "sourceId" : "30",
+          "id" : "38",
+          "sourceId" : "37",
           "tags" : "Relationship"
         } ],
-        "tags" : "Element,Container",
-        "technology" : "java"
+        "tags" : "Element,Container"
       } ],
       "documentation" : { },
       "id" : "4",
@@ -255,12 +308,12 @@
   },
   "name" : "WikiTools",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlICJXaWtpVG9vbHMiIHsKCiAgICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIHVzZXIgPSBwZXJzb24gIlVzZXIiCgogICAgICAgIG1vZGRpbmdBUEkgPSBzb2Z0d2FyZVN5c3RlbSAiTWluZWNyYWZ0ICYgTW9kZGluZyBBUEkiIHsKICAgICAgICAgICAgdGFncyAiRXh0ZXJuYWwiCgogICAgICAgICAgICB1c2VyIC0+IHRoaXMgIlVzZXMiCiAgICAgICAgfQoKICAgICAgICB3aWtpdG9vbHNTeXN0ZW0gPSBzb2Z0d2FyZVN5c3RlbSAiV2lraVRvb2xzIFN5c3RlbSIgewogICAgICAgICAgICB3aWtpdG9vbHMgPSBjb250YWluZXIgIldpa2lUb29scyIgewogICAgICAgICAgICAgICAgZ2V0SXRlbVRvb2x0aXAgPSBncm91cCAiZ2V0LWl0ZW0tdG9vbHRpcCIgewogICAgICAgICAgICAgICAgICAgIGhvdmVyZWRJbnZzbG90RmluZGVyID0gY29tcG9uZW50ICJIb3ZlcmVkSW52c2xvdEZpbmRlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IG1vZGRpbmdBUEkgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBnZXRJdGVtVG9vbHRpcEhhbmRsZXIgPSBjb21wb25lbnQgIkdldEl0ZW1Ub29sdGlwSGFuZGxlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWcgIkNvcmUiCgogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IGhvdmVyZWRJbnZzbG90RmluZGVyICJVc2VzIgogICAgICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAgICAgY29weUhvdmVyZWRJdGVtVG9vbHRpcExpc3RlbmVyID0gY29tcG9uZW50ICJDb3B5SG92ZXJlZEl0ZW1Ub29sdGlwTGlzdGVuZXIiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGhpcyAtPiBnZXRJdGVtVG9vbHRpcEhhbmRsZXIgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgICAgIG1vZGRpbmdBUEkgLT4gdGhpcyAiVXNlcyIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgZ2V0U2t1bGxJZCA9IGdyb3VwICJnZXQtc2t1bGwtaWQiIHsKICAgICAgICAgICAgICAgICAgICBob3ZlcmVkU2t1bGxJdGVtRmluZGVyID0gY29tcG9uZW50ICJIb3ZlcmVkU2t1bGxJdGVtRmluZGVyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMgLT4gbW9kZGluZ0FQSSAiVXNlcyIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIGZhY2luZ0VudGl0eVNrdWxsRmluZGVyID0gY29tcG9uZW50ICJGYWNpbmdFbnRpdHlTa3VsbEZpbmRlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IG1vZGRpbmdBUEkgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBmYWNpbmdCbG9ja1NrdWxsRmluZGVyID0gY29tcG9uZW50ICJGYWNpbmdCbG9ja1NrdWxsRmluZGVyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMgLT4gbW9kZGluZ0FQSSAiVXNlcyIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIGdldFNrdWxsSWRIYW5kbGVyID0gY29tcG9uZW50ICJHZXRTa3VsbElkSGFuZGxlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWcgIkNvcmUiCgogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IGhvdmVyZWRTa3VsbEl0ZW1GaW5kZXIgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMgLT4gZmFjaW5nRW50aXR5U2t1bGxGaW5kZXIgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMgLT4gZmFjaW5nQmxvY2tTa3VsbEZpbmRlciAiVXNlcyIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIGNvcHlTa3VsbElkTGlzdGVuZXIgPSBjb21wb25lbnQgIkNvcHlTa3VsbElkTGlzdGVuZXIiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGhpcyAtPiBnZXRTa3VsbElkSGFuZGxlciAiVXNlcyIKICAgICAgICAgICAgICAgICAgICAgICAgbW9kZGluZ0FwaSAtPiB0aGlzICJVc2VzIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgd2lraXRvb2xzUmVuZGVycyA9IGNvbnRhaW5lciAiV2lraVRvb2xzIFJlbmRlcnMiICIiICJqYXZhIiB7CiAgICAgICAgICAgICAgICB0aGlzIC0+IG1vZGRpbmdBUEkgIlVzZXMiCiAgICAgICAgICAgICAgICBtb2RkaW5nQVBJIC0+IHRoaXMgIlVzZXMiCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9CgogICAgdmlld3MgewogICAgICAgIHN5c3RlbUNvbnRleHQgd2lraXRvb2xzU3lzdGVtIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGluY2x1ZGUgdXNlcgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgd2lraXRvb2xzU3lzdGVtIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIGNvbXBvbmVudCB3aWtpdG9vbHNTeXN0ZW0ud2lraXRvb2xzIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIGVsZW1lbnQgIkVsZW1lbnQiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgRGFya0dvbGRlblJvZAogICAgICAgICAgICAgICAgY29sb3Igd2hpdGUKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiUGVyc29uIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBQZXJzb24KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiRXh0ZXJuYWwiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgR3JheQogICAgICAgICAgICAgICAgY29sb3Igd2hpdGUKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiQ29yZSIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCBEYXJrQ3lhbgogICAgICAgICAgICAgICAgY29sb3Igd2hpdGUKICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgICJzdHJ1Y3R1cml6ci50aW1lem9uZSIgIlVUQyIKICAgICAgICB9CiAgICB9Cn0="
+    "structurizr.dsl" : "d29ya3NwYWNlICJXaWtpVG9vbHMiIHsKCiAgICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIHVzZXIgPSBwZXJzb24gIlVzZXIiCgogICAgICAgIG1vZGRpbmdBUEkgPSBzb2Z0d2FyZVN5c3RlbSAiTWluZWNyYWZ0ICYgTW9kZGluZyBBUEkiIHsKICAgICAgICAgICAgdGFncyAiRXh0ZXJuYWwiCgogICAgICAgICAgICB1c2VyIC0+IHRoaXMgIlVzZXMiCiAgICAgICAgfQoKICAgICAgICB3aWtpdG9vbHNTeXN0ZW0gPSBzb2Z0d2FyZVN5c3RlbSAiV2lraVRvb2xzIFN5c3RlbSIgewogICAgICAgICAgICB3aWtpdG9vbHMgPSBjb250YWluZXIgIldpa2lUb29scyIgewogICAgICAgICAgICAgICAgZ2V0SXRlbVRvb2x0aXAgPSBncm91cCAiZ2V0X2l0ZW1fdG9vbHRpcCIgewogICAgICAgICAgICAgICAgICAgIGhvdmVyZWRJbnZzbG90RmluZGVyID0gY29tcG9uZW50ICJIb3ZlcmVkSW52c2xvdEZpbmRlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IG1vZGRpbmdBUEkgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBnZXRJdGVtVG9vbHRpcEhhbmRsZXIgPSBjb21wb25lbnQgIkdldEl0ZW1Ub29sdGlwSGFuZGxlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWcgIkNvcmUiCgogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IGhvdmVyZWRJbnZzbG90RmluZGVyICJVc2VzIgogICAgICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAgICAgY29weUhvdmVyZWRJdGVtVG9vbHRpcExpc3RlbmVyID0gY29tcG9uZW50ICJDb3B5SG92ZXJlZEl0ZW1Ub29sdGlwTGlzdGVuZXIiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGhpcyAtPiBnZXRJdGVtVG9vbHRpcEhhbmRsZXIgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgICAgIG1vZGRpbmdBUEkgLT4gdGhpcyAiVHJpZ2dlcnMiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGdldFNrdWxsSWQgPSBncm91cCAiZ2V0X3NrdWxsX2lkIiB7CiAgICAgICAgICAgICAgICAgICAgaG92ZXJlZFNrdWxsSXRlbUZpbmRlciA9IGNvbXBvbmVudCAiSG92ZXJlZFNrdWxsSXRlbUZpbmRlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IG1vZGRpbmdBUEkgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBmYWNpbmdFbnRpdHlTa3VsbEZpbmRlciA9IGNvbXBvbmVudCAiRmFjaW5nRW50aXR5U2t1bGxGaW5kZXIiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGhpcyAtPiBtb2RkaW5nQVBJICJVc2VzIgogICAgICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAgICAgZmFjaW5nQmxvY2tTa3VsbEZpbmRlciA9IGNvbXBvbmVudCAiRmFjaW5nQmxvY2tTa3VsbEZpbmRlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IG1vZGRpbmdBUEkgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBnZXRTa3VsbElkSGFuZGxlciA9IGNvbXBvbmVudCAiR2V0U2t1bGxJZEhhbmRsZXIiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGFnICJDb3JlIgoKICAgICAgICAgICAgICAgICAgICAgICAgdGhpcyAtPiBob3ZlcmVkU2t1bGxJdGVtRmluZGVyICJVc2VzIgogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IGZhY2luZ0VudGl0eVNrdWxsRmluZGVyICJVc2VzIgogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IGZhY2luZ0Jsb2NrU2t1bGxGaW5kZXIgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBjb3B5U2t1bGxJZExpc3RlbmVyID0gY29tcG9uZW50ICJDb3B5U2t1bGxJZExpc3RlbmVyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMgLT4gZ2V0U2t1bGxJZEhhbmRsZXIgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgICAgIG1vZGRpbmdBcGkgLT4gdGhpcyAiVHJpZ2dlcnMiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIHZpZXdJdGVtSWQgPSBncm91cCAidmlld19pdGVtX2lkIiB7CiAgICAgICAgICAgICAgICAgICAgaG92ZXJlZEl0ZW1JZEZpbmRlciA9IGNvbXBvbmVudCAiSG92ZXJlZEl0ZW1JZEZpbmRlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0aGlzIC0+IG1vZGRpbmdBUEkgIlVzZXMiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBnZXRJdGVtSWRIYW5kbGVyID0gY29tcG9uZW50ICJHZXRJdGVtSWRIYW5kbGVyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRhZyAiQ29yZSIKCiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMgLT4gaG92ZXJlZEl0ZW1JZEZpbmRlciAiVXNlcyIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIHRvb2x0aXBJdGVtSWRBcHBlbmRlciA9IGNvbXBvbmVudCAiVG9vbHRpcEl0ZW1JZEFwcGVuZGVyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMgLT4gZ2V0SXRlbUlkSGFuZGxlciAiVXNlcyIKICAgICAgICAgICAgICAgICAgICAgICAgbW9kZGluZ0FQSSAtPiB0aGlzICJUcmlnZ2VycyIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIHdpa2l0b29sc1JlbmRlcnMgPSBjb250YWluZXIgIldpa2lUb29scyBSZW5kZXJzIiB7CiAgICAgICAgICAgICAgICB0aGlzIC0+IG1vZGRpbmdBUEkgIlVzZXMiCiAgICAgICAgICAgICAgICBtb2RkaW5nQVBJIC0+IHRoaXMgIlVzZXMiCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9CgogICAgdmlld3MgewogICAgICAgIHN5c3RlbUNvbnRleHQgd2lraXRvb2xzU3lzdGVtIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGluY2x1ZGUgdXNlcgogICAgICAgICAgICBhdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgd2lraXRvb2xzU3lzdGVtIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIGNvbXBvbmVudCB3aWtpdG9vbHNTeXN0ZW0ud2lraXRvb2xzIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIGVsZW1lbnQgIkVsZW1lbnQiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgRGFya0dvbGRlblJvZAogICAgICAgICAgICAgICAgY29sb3Igd2hpdGUKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiUGVyc29uIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBQZXJzb24KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiRXh0ZXJuYWwiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgR3JheQogICAgICAgICAgICAgICAgY29sb3Igd2hpdGUKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiQ29yZSIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCBEYXJrQ3lhbgogICAgICAgICAgICAgICAgY29sb3Igd2hpdGUKICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgICJzdHJ1Y3R1cml6ci50aW1lem9uZSIgIlVUQyIKICAgICAgICB9CiAgICB9Cn0="
   },
   "views" : {
     "componentViews" : [ {
       "automaticLayout" : {
-        "applied" : false,
+        "applied" : true,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -269,42 +322,58 @@
         "vertices" : false
       },
       "containerId" : "5",
+      "dimensions" : {
+        "height" : 4472,
+        "width" : 3140
+      },
       "elements" : [ {
         "id" : "2",
-        "x" : 0,
-        "y" : 0
+        "x" : 2489,
+        "y" : 2326
       }, {
         "id" : "6",
-        "x" : 0,
-        "y" : 0
+        "x" : 1739,
+        "y" : 205
       }, {
         "id" : "10",
-        "x" : 0,
-        "y" : 0
+        "x" : 989,
+        "y" : 205
       }, {
         "id" : "12",
-        "x" : 0,
-        "y" : 0
+        "x" : 239,
+        "y" : 205
       }, {
         "id" : "17",
-        "x" : 0,
-        "y" : 0
+        "x" : 1739,
+        "y" : 1417
       }, {
         "id" : "19",
-        "x" : 0,
-        "y" : 0
+        "x" : 1739,
+        "y" : 817
       }, {
         "id" : "21",
-        "x" : 0,
-        "y" : 0
+        "x" : 1739,
+        "y" : 2017
       }, {
         "id" : "23",
-        "x" : 0,
-        "y" : 0
+        "x" : 989,
+        "y" : 1717
       }, {
         "id" : "27",
-        "x" : 0,
-        "y" : 0
+        "x" : 239,
+        "y" : 2017
+      }, {
+        "id" : "30",
+        "x" : 1739,
+        "y" : 2630
+      }, {
+        "id" : "32",
+        "x" : 989,
+        "y" : 2630
+      }, {
+        "id" : "34",
+        "x" : 239,
+        "y" : 2630
       } ],
       "externalContainerBoundariesVisible" : false,
       "generatedKey" : true,
@@ -315,11 +384,29 @@
       }, {
         "id" : "13"
       }, {
-        "id" : "14"
+        "id" : "14",
+        "vertices" : [ {
+          "x" : 2397,
+          "y" : 3109
+        }, {
+          "x" : 989,
+          "y" : 3109
+        }, {
+          "x" : 689,
+          "y" : 638
+        } ]
       }, {
-        "id" : "18"
+        "id" : "18",
+        "vertices" : [ {
+          "x" : 2397,
+          "y" : 1867
+        } ]
       }, {
-        "id" : "20"
+        "id" : "20",
+        "vertices" : [ {
+          "x" : 2397,
+          "y" : 1267
+        } ]
       }, {
         "id" : "22"
       }, {
@@ -331,14 +418,43 @@
       }, {
         "id" : "28"
       }, {
-        "id" : "29"
+        "id" : "29",
+        "vertices" : [ {
+          "x" : 2397,
+          "y" : 3613
+        }, {
+          "x" : 989,
+          "y" : 3613
+        }, {
+          "x" : 689,
+          "y" : 2451
+        } ]
       }, {
-        "id" : "7"
+        "id" : "31"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "36",
+        "vertices" : [ {
+          "x" : 2397,
+          "y" : 4222
+        }, {
+          "x" : 989,
+          "y" : 4222
+        } ]
+      }, {
+        "id" : "7",
+        "vertices" : [ {
+          "x" : 2397,
+          "y" : 638
+        } ]
       } ]
     } ],
     "configuration" : {
       "branding" : { },
-      "lastSavedView" : "Container-001",
+      "lastSavedView" : "Component-001",
       "metadataSymbols" : "SquareBrackets",
       "properties" : {
         "structurizr.timezone" : "UTC"
@@ -365,7 +481,7 @@
     },
     "containerViews" : [ {
       "automaticLayout" : {
-        "applied" : true,
+        "applied" : false,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -373,51 +489,31 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
-      "dimensions" : {
-        "height" : 1411,
-        "width" : 1620
-      },
       "elements" : [ {
         "id" : "2",
-        "x" : 199,
-        "y" : 485
+        "x" : 0,
+        "y" : 0
       }, {
         "id" : "5",
-        "x" : 949,
-        "y" : 785
+        "x" : 0,
+        "y" : 0
       }, {
-        "id" : "30",
-        "x" : 949,
-        "y" : 185
+        "id" : "37",
+        "x" : 0,
+        "y" : 0
       } ],
       "externalSoftwareSystemBoundariesVisible" : false,
       "generatedKey" : true,
       "key" : "Container-001",
       "order" : 2,
       "relationships" : [ {
-        "id" : "15",
-        "vertices" : [ {
-          "x" : 743,
-          "y" : 924
-        } ]
+        "id" : "15"
       }, {
-        "id" : "31",
-        "vertices" : [ {
-          "x" : 743,
-          "y" : 345
-        } ]
+        "id" : "38"
       }, {
-        "id" : "32",
-        "vertices" : [ {
-          "x" : 854,
-          "y" : 624
-        } ]
+        "id" : "39"
       }, {
-        "id" : "8",
-        "vertices" : [ {
-          "x" : 854,
-          "y" : 645
-        } ]
+        "id" : "8"
       } ],
       "softwareSystemId" : "4"
     } ],
