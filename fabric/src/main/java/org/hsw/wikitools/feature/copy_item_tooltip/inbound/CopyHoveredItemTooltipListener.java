@@ -48,11 +48,11 @@ public class CopyHoveredItemTooltipListener {
                 return; // Only register for InventoryScreen
             }
 
-            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, key, scanCode, modifiers) -> handleEvent(client, key, modifiers));
+            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, key, scanCode, modifiers) -> onKeyPress(client, key, modifiers));
         });
     }
 
-    private void handleEvent(MinecraftClient client, int key, int modifiers) {
+    private void onKeyPress(MinecraftClient client, int key, int modifiers) {
         boolean xIsPressed = copyTooltipKeyBinding.matchesKey(key, 0);
         boolean xIsPressedWithShift = xIsPressed && modifiers == GLFW.GLFW_MOD_SHIFT;
 

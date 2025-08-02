@@ -47,19 +47,19 @@ public class CopySkullIdListener {
                 return; // Only register for InventoryScreen
             }
 
-            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, key, scanCode, modifiers) -> handleEvent(client, key, scanCode));
+            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, key, scanCode, modifiers) -> onKeyPress(client, key, scanCode));
         });
 
-        ClientTickEvents.START_CLIENT_TICK.register(this::handleEvent);
+        ClientTickEvents.END_CLIENT_TICK.register(this::onClientTick);
     }
 
-    private void handleEvent(MinecraftClient client) {
-        if (copyTooltipKeyBinding.isPressed()) {
+    private void onClientTick(MinecraftClient client) {
+        while (client.currentScreen == null && copyTooltipKeyBinding.wasPressed()) {
             copySkullId(client);
         }
     }
 
-    private void handleEvent(MinecraftClient client, int key, int scanCode) {
+    private void onKeyPress(MinecraftClient client, int key, int scanCode) {
         if (copyTooltipKeyBinding.matchesKey(key, scanCode)) {
             copySkullId(client);
         }
