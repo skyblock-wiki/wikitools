@@ -61,3 +61,31 @@ Tester should perform each test and write the test result in the `Result` field.
 - Action: Toggle advanced tooltip to "hidden" by using F3+H. Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon.
 - Expected Output:
   - Displayed tooltip content should end with: Click to open!
+
+#### Copy data tags of hovered item by pressing N
+- Action: Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon. Press N.
+- Expected Output:
+  - Game message: Copied data tags
+  - Clipboard content contains: `id:"minecraft:nether_star"`
+  - Clipboard content contains: `"minecraft:custom_data":{id:"SKYBLOCK_MENU"}`
+
+#### Copy data tags of facing NPC by pressing N
+- Action: Go to the SkyBlock hub and head to -9 70 -67. When facing the Hub Selector NPC, press N.
+- Expected Output:
+  - Game message: Copied data tags
+  - Clipboard content contains: `Pos:[-10.0d,70.0d,-67.0d]`
+  - Clipboard content contains: `value:"ewogICJ0aW`
+
+#### Copy texture ID of the head equipment slot of an entity by pressing N
+- Action: Go to the SkyBlock hub and head to -15 69 -109. Slowly sink into the village well at the next water block while facing East. A fairy soul can be seen at -15 65 -109. Point the cursor at it and press N.
+- Expected Output:
+  - Game message: Copied data tags
+  - Clipboard content should include: `Pos:[0:-15.5d,1:64.53125d,2:-109.5d]`
+  - Clipboard content should include: `Value:"eyJ0aW1lc3`
+
+#### Copy data tags of a placed player head by pressing N
+- Action: Go to the SkyBlock hub and head to -15 68 -108. Point cursor to the placed player head of a cauldron of water. Press N.
+- Expected Output:
+  - Game message: Copied data tags
+  - Clipboard content should include: `x:-16,y:69,z:-110`
+  - Clipboard content should include: `Value:"eyJ0ZXh0dX`

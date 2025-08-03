@@ -1,5 +1,9 @@
 package org.hsw.wikitools;
 
+import org.hsw.wikitools.feature.copy_data_tags.app.GetDataTagsHandler;
+import org.hsw.wikitools.feature.copy_data_tags.inbound.CopyDataTagsListener;
+import org.hsw.wikitools.feature.copy_data_tags.outbound.FacingEntityDataTagsFinder;
+import org.hsw.wikitools.feature.copy_data_tags.outbound.HoveredItemDataTagsFinder;
 import org.hsw.wikitools.feature.copy_item_tooltip.outbound.HoveredInvslotFinder;
 import org.hsw.wikitools.feature.copy_item_tooltip.inbound.CopyHoveredItemTooltipListener;
 import org.hsw.wikitools.feature.copy_item_tooltip.app.GetItemTooltipHandler;
@@ -15,10 +19,12 @@ import org.hsw.wikitools.feature.copy_skull_id.outbound.HoveredSkullItemFinder;
 class ListenerManager {
     private final CopyHoveredItemTooltipListener copyHoveredItemTooltipListener;
 	private final CopySkullIdListener copySkullIdListener;
+	private final CopyDataTagsListener copyDataTagsListener;
 
 	public ListenerManager() {
 		copyHoveredItemTooltipListener = createCopyHoveredItemTooltipListener();
 		copySkullIdListener = createCopySkullIdListener();
+		copyDataTagsListener = createCopyDataTagsListener();
 	}
 
 	private CopyHoveredItemTooltipListener createCopyHoveredItemTooltipListener() {
@@ -33,6 +39,13 @@ class ListenerManager {
 		FacingBlockSkullFinder facingBlockSkullFinder = new FacingBlockSkullFinder();
 		GetSkullIdHandler getSkullIdHandler = new GetSkullIdHandler(hoveredSkullItemFinder, facingEntitySkullFinder, facingBlockSkullFinder);
 		return new CopySkullIdListener(getSkullIdHandler);
+	}
+
+	private CopyDataTagsListener createCopyDataTagsListener() {
+		HoveredItemDataTagsFinder hoveredItemDataTagsFinder = new HoveredItemDataTagsFinder();
+		FacingEntityDataTagsFinder facingEntityDataTagsFinder = new FacingEntityDataTagsFinder();
+		GetDataTagsHandler getDataTagsHandler = new GetDataTagsHandler(hoveredItemDataTagsFinder, facingEntityDataTagsFinder);
+		return new CopyDataTagsListener(getDataTagsHandler);
 	}
 
 }

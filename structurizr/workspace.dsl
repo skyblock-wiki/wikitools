@@ -73,6 +73,28 @@ workspace "WikiTools" {
                         moddingAPI -> this "Triggers"
                     }
                 }
+
+                copyDataTags = group "copy_data_tags" {
+                    hoveredItemDataTagsFinder = component "HoveredItemDataTagsFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    facingEntityDataTagsFinder = component "FacingEntityDataTagsFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    getDataTagsHandler = component "GetDataTagsHandler" {
+                        tag "Core"
+
+                        this -> hoveredItemDataTagsFinder "Uses"
+                        this -> facingEntityDataTagsFinder "Uses"
+                    }
+
+                    copyDataTagsListener = component "CopyDataTagsListener" {
+                        this -> getDataTagsHandler "Uses"
+                        moddingAPI -> this "Triggers"
+                    }
+                }
             }
 
             wikitoolsRenders = container "WikiTools Renders" {
