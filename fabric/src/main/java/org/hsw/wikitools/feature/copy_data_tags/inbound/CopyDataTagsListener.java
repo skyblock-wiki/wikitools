@@ -1,4 +1,4 @@
-package org.hsw.wikitools.feature.copy_skull_id.inbound;
+package org.hsw.wikitools.feature.copy_data_tags.inbound;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -9,19 +9,18 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
-import org.hsw.wikitools.WikiToolsIdentity;
 import org.hsw.wikitools.common.inbound.ClipboardHelper;
-import org.hsw.wikitools.feature.copy_skull_id.app.GetSkullIdHandler;
+import org.hsw.wikitools.feature.copy_data_tags.app.GetDataTagsHandler;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
-public class CopySkullIdListener {
-    private final GetSkullIdHandler getSkullIdHandler;
+public class CopyDataTagsListener {
+    private final GetDataTagsHandler getDataTagsHandler;
     private KeyBinding copyTooltipKeyBinding;
 
-    public CopySkullIdListener(GetSkullIdHandler getSkullIdHandler) {
-        this.getSkullIdHandler = getSkullIdHandler;
+    public CopyDataTagsListener(GetDataTagsHandler getDataTagsHandler) {
+        this.getDataTagsHandler = getDataTagsHandler;
 
         registerKeyBinding();
 
@@ -30,9 +29,9 @@ public class CopySkullIdListener {
 
      private void registerKeyBinding() {
          copyTooltipKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-             "key.wikitools.copy-skull-id",
+             "key.wikitools.copy-data-tags",
              InputUtil.Type.KEYSYM,
-             GLFW.GLFW_KEY_Z,
+             GLFW.GLFW_KEY_N,
              "key.categories.wikitools"
          ));
      }
@@ -56,23 +55,23 @@ public class CopySkullIdListener {
 
     private void onClientTick(MinecraftClient client) {
         while (client.currentScreen == null && copyTooltipKeyBinding.wasPressed()) {
-            copySkullId(client);
+            copyDataTags(client);
         }
     }
 
     private void onKeyPress(MinecraftClient client, int key, int scanCode) {
         if (copyTooltipKeyBinding.matchesKey(key, scanCode)) {
-            copySkullId(client);
+            copyDataTags(client);
         }
     }
 
-    private void copySkullId(MinecraftClient client) {
-        Optional<GetSkullIdHandler.GetSkullIdResponse> response = getSkullIdHandler.getSkullId(new GetSkullIdHandler.GetSkullIdRequest());
+    private void copyDataTags(MinecraftClient client) {
+        Optional<GetDataTagsHandler.GetDataTagsResponse> response = getDataTagsHandler.getDataTags(new GetDataTagsHandler.GetDataTagsRequest());
         if (response.isEmpty()) {
             return;
         }
-        String stringToCopy = response.get().textureId;
+        String stringToCopy = response.get().dataTags;
         ClipboardHelper.setClipboard(stringToCopy);
-        client.getMessageHandler().onGameMessage(Text.of("Copied skull ID"), false);
+        client.getMessageHandler().onGameMessage(Text.of("Copied data tags"), false);
     }
 }
