@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GetSkullIdTest {
     private static @NotNull GetSkullIdHandler getSkullIdHandler(Optional<Skull> hoveredSkullItem, Optional<Skull> facingEntitySkull, Optional<Skull> facingBlockSkull) {
         FindHoveredSkullItem findHoveredSkullItem = new HoveredSkullItemFinderStub(hoveredSkullItem);
-        FindFacingEntitySkull findFacingEntitySkull = new FindFacingEntitySkullStub(facingEntitySkull);
-        FindFacingBlockSkull findFacingBlockSkull = new FindFacingBlockSkullStub(facingBlockSkull);
+        FindFacingEntitySkull findFacingEntitySkull = new FacingEntitySkullFinderStub(facingEntitySkull);
+        FindFacingBlockSkull findFacingBlockSkull = new FacingBlockSkullFinderStub(facingBlockSkull);
         return new GetSkullIdHandler(findHoveredSkullItem, findFacingEntitySkull, findFacingBlockSkull);
     }
 

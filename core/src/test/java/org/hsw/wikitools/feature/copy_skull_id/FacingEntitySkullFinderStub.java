@@ -5,10 +5,10 @@ import org.hsw.wikitools.feature.copy_skull_id.app.Skull;
 
 import java.util.Optional;
 
-public class FindFacingEntitySkullStub implements FindFacingEntitySkull {
+public class FacingEntitySkullFinderStub implements FindFacingEntitySkull {
     Optional<Skull> skull;
 
-    public FindFacingEntitySkullStub(Optional<Skull> skull) {
+    public FacingEntitySkullFinderStub(Optional<Skull> skull) {
         this.skull = skull;
     }
 
