@@ -7,6 +7,9 @@ import org.hsw.wikitools.feature.copy_data_tags.outbound.HoveredItemDataTagsFind
 import org.hsw.wikitools.feature.copy_item_tooltip.outbound.HoveredInvslotFinder;
 import org.hsw.wikitools.feature.copy_item_tooltip.inbound.CopyHoveredItemTooltipListener;
 import org.hsw.wikitools.feature.copy_item_tooltip.app.GetItemTooltipHandler;
+import org.hsw.wikitools.feature.copy_opened_ui.app.GetOpenedUiHandler;
+import org.hsw.wikitools.feature.copy_opened_ui.inbound.CopyOpenedUiListener;
+import org.hsw.wikitools.feature.copy_opened_ui.outbound.OpenedChestContainerFinder;
 import org.hsw.wikitools.feature.copy_skull_id.app.GetSkullIdHandler;
 import org.hsw.wikitools.feature.copy_skull_id.inbound.CopySkullIdListener;
 import org.hsw.wikitools.feature.copy_skull_id.outbound.FacingBlockSkullFinder;
@@ -20,11 +23,13 @@ class ListenerManager {
     private final CopyHoveredItemTooltipListener copyHoveredItemTooltipListener;
 	private final CopySkullIdListener copySkullIdListener;
 	private final CopyDataTagsListener copyDataTagsListener;
+	private final CopyOpenedUiListener copyOpenedUiListener;
 
 	public ListenerManager() {
 		copyHoveredItemTooltipListener = createCopyHoveredItemTooltipListener();
 		copySkullIdListener = createCopySkullIdListener();
 		copyDataTagsListener = createCopyDataTagsListener();
+		copyOpenedUiListener = createOpenedUiListener();
 	}
 
 	private CopyHoveredItemTooltipListener createCopyHoveredItemTooltipListener() {
@@ -46,6 +51,12 @@ class ListenerManager {
 		FacingEntityDataTagsFinder facingEntityDataTagsFinder = new FacingEntityDataTagsFinder();
 		GetDataTagsHandler getDataTagsHandler = new GetDataTagsHandler(hoveredItemDataTagsFinder, facingEntityDataTagsFinder);
 		return new CopyDataTagsListener(getDataTagsHandler);
+	}
+
+	private CopyOpenedUiListener createOpenedUiListener() {
+		OpenedChestContainerFinder openedChestContainerFinder = new OpenedChestContainerFinder();
+		GetOpenedUiHandler getOpenedUiHandler = new GetOpenedUiHandler(openedChestContainerFinder);
+		return new CopyOpenedUiListener(getOpenedUiHandler);
 	}
 
 }
