@@ -2,9 +2,7 @@ package org.hsw.wikitools.feature.copy_item_tooltip;
 
 import org.hsw.wikitools.feature.copy_item_tooltip.app.GetItemTooltipHandler;
 import org.hsw.wikitools.feature.copy_item_tooltip.app.FindHoveredInvslot;
-import org.hsw.wikitools.feature.copy_item_tooltip.app.InventorySlotTemplateCall;
 import org.hsw.wikitools.feature.copy_item_tooltip.app.Invslot;
-import org.hsw.wikitools.feature.copy_item_tooltip.app.TooltipModuleDataItem;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -17,10 +15,12 @@ class GetItemTooltipHandlerTest {
         FindHoveredInvslot invslotMock = new HoveredInvslotFinderStub(invslot);
         GetItemTooltipHandler classUnderTest = new GetItemTooltipHandler(invslotMock);
 
-        Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getInventorySlotTemplateCall();
+        Optional<GetItemTooltipHandler.GetItemTooltipResponse> inventorySlotTemplateCall =
+                classUnderTest.getInventorySlotTemplateCall(new GetItemTooltipHandler.GetItemTooltipRequest());
         assertFalse(inventorySlotTemplateCall.isPresent());
 
-        Optional<TooltipModuleDataItem> tooltipModuleDataItem = classUnderTest.getTooltipModuleDataItem();
+        Optional<GetItemTooltipHandler.GetItemTooltipResponse> tooltipModuleDataItem =
+                classUnderTest.getTooltipModuleDataItem(new GetItemTooltipHandler.GetItemTooltipRequest());
         assertFalse(tooltipModuleDataItem.isPresent());
     }
 
@@ -28,14 +28,16 @@ class GetItemTooltipHandlerTest {
         FindHoveredInvslot invslotMock = new HoveredInvslotFinderStub(invslot);
         GetItemTooltipHandler classUnderTest = new GetItemTooltipHandler(invslotMock);
 
-        Optional<InventorySlotTemplateCall> inventorySlotTemplateCall = classUnderTest.getInventorySlotTemplateCall();
+        Optional<GetItemTooltipHandler.GetItemTooltipResponse> inventorySlotTemplateCall =
+                classUnderTest.getInventorySlotTemplateCall(new GetItemTooltipHandler.GetItemTooltipRequest());
         assertTrue(inventorySlotTemplateCall.isPresent());
-        String templateString = inventorySlotTemplateCall.get().string;
+        String templateString = inventorySlotTemplateCall.get().tooltip;
         assertEquals(expectedTemplateString, templateString);
 
-        Optional<TooltipModuleDataItem> tooltipModuleDataItem = classUnderTest.getTooltipModuleDataItem();
+        Optional<GetItemTooltipHandler.GetItemTooltipResponse> tooltipModuleDataItem =
+                classUnderTest.getTooltipModuleDataItem(new GetItemTooltipHandler.GetItemTooltipRequest());
         assertTrue(tooltipModuleDataItem.isPresent());
-        String moduleString = tooltipModuleDataItem.get().string;
+        String moduleString = tooltipModuleDataItem.get().tooltip;
         assertEquals(expectedModuleString, moduleString);
     }
 
@@ -62,64 +64,10 @@ class GetItemTooltipHandlerTest {
     }
 
     @Test
-    void shouldDealWithFormattingCode() {
+    void shouldFormatItem() {
         Optional<Invslot> invslot = Optional.of(new Invslot("§5Formatted Item", Arrays.asList("Line with §a green text", "Line with §b blue text")));
         String expectedTemplateString = "{{Slot|Formatted Item|title=&5Formatted Item|text=Line with &a green text\\nLine with &b blue text}}";
         String expectedModuleString = "['Formatted Item'] = { name = 'Formatted Item', title = '&5Formatted Item', text = 'Line with &a green text\\nLine with &b blue text', },";
-        runTest(invslot, expectedTemplateString, expectedModuleString);
-    }
-
-    /* Test escape common special characters */
-
-    @Test
-    void shouldEscapeBackslash() {
-        Optional<Invslot> invslot = Optional.of(new Invslot("Special Item", Arrays.asList("Line with \\ backslash")));
-        String expectedTemplateString = "{{Slot|Special Item|title=Special Item|text=Line with \\\\ backslash}}";
-        String expectedModuleString = "['Special Item'] = { name = 'Special Item', title = 'Special Item', text = 'Line with \\\\\\\\ backslash', },";
-        runTest(invslot, expectedTemplateString, expectedModuleString);
-    }
-
-    @Test
-    void shouldEscapeAmpersand() {
-        Optional<Invslot> invslot = Optional.of(new Invslot("Special Item", Arrays.asList("Line with & ampersand")));
-        String expectedTemplateString = "{{Slot|Special Item|title=Special Item|text=Line with \\& ampersand}}";
-        String expectedModuleString = "['Special Item'] = { name = 'Special Item', title = 'Special Item', text = 'Line with \\\\& ampersand', },";
-        runTest(invslot, expectedTemplateString, expectedModuleString);
-    }
-
-    @Test
-    void shouldEscapeForwardSlash() {
-        Optional<Invslot> invslot = Optional.of(new Invslot("Special Item", Arrays.asList("Line with / forward slash")));
-        String expectedTemplateString = "{{Slot|Special Item|title=Special Item|text=Line with \\/ forward slash}}";
-        String expectedModuleString = "['Special Item'] = { name = 'Special Item', title = 'Special Item', text = 'Line with \\\\/ forward slash', },";
-        runTest(invslot, expectedTemplateString, expectedModuleString);
-    }
-
-    /* Test escape template special characters */
-
-    @Test
-    void shouldEscapePipe() {
-        Optional<Invslot> invslot = Optional.of(new Invslot("Special Item", Arrays.asList("Line with | pipe")));
-        String expectedTemplateString = "{{Slot|Special Item|title=Special Item|text=Line with {{!}} pipe}}";
-        String expectedModuleString = "['Special Item'] = { name = 'Special Item', title = 'Special Item', text = 'Line with | pipe', },";
-        runTest(invslot, expectedTemplateString, expectedModuleString);
-    }
-
-    @Test
-    void shouldEscapeEquals() {
-        Optional<Invslot> invslot = Optional.of(new Invslot("Special Item", Arrays.asList("Line with = equals")));
-        String expectedTemplateString = "{{Slot|Special Item|title=Special Item|text=Line with {{=}} equals}}";
-        String expectedModuleString = "['Special Item'] = { name = 'Special Item', title = 'Special Item', text = 'Line with = equals', },";
-        runTest(invslot, expectedTemplateString, expectedModuleString);
-    }
-
-    /* Test escape module special characters */
-
-    @Test
-    void shouldEscapeSingleQuote() {
-        Optional<Invslot> invslot = Optional.of(new Invslot("Special Item", Arrays.asList("Line with ' single quote")));
-        String expectedTemplateString = "{{Slot|Special Item|title=Special Item|text=Line with ' single quote}}";
-        String expectedModuleString = "['Special Item'] = { name = 'Special Item', title = 'Special Item', text = 'Line with \\' single quote', },";
         runTest(invslot, expectedTemplateString, expectedModuleString);
     }
 

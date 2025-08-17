@@ -22,14 +22,16 @@ Tester should perform each test and write the test result in the `Result` field.
 #### Copy tooltip of hovered item as template call by pressing X
 - Action: Go to a Hypixel lobby and open the inventory. At the bottom-left, hover over the compass for game menu. Press X.
 - Expected Output:
-  - Game message: `Copied tooltip (template formatting)`
+  - Game message starts with: `Copied tooltip`
+  - Game message contains: `template formatting`
   - Clipboard content: `{{Slot|Game Menu (Right Click)|title=&aGame Menu &7(Right Click)|text=&5&7Right Click to bring up the Game Menu!}}`
 - Result: Not set
 
-#### Copy tooltip of hovered item as template call by pressing Shift-X
+#### Copy tooltip of hovered item as module data by pressing Shift-X
 - Action: Go to a Hypixel lobby and open the inventory. At the bottom-left, hover over the compass for game menu. Press Shift-X.
 - Expected Output:
-  - Game message: `Copied tooltip (module formatting)`
+  - Game message starts with: `Copied tooltip`
+  - Game message contains: `module formatting`
   - Clipboard content: `['Game Menu (Right Click)'] = { name = 'Game Menu (Right Click)', title = '&aGame Menu &7(Right Click)', text = '&5&7Right Click to bring up the Game Menu!', },`
 - Result: Not set
 

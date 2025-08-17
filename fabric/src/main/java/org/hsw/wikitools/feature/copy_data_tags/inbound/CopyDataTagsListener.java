@@ -17,18 +17,18 @@ import java.util.Optional;
 
 public class CopyDataTagsListener {
     private final GetDataTagsHandler getDataTagsHandler;
-    private KeyBinding copyTooltipKeyBinding;
+    private final KeyBinding copyTooltipKeyBinding;
 
     public CopyDataTagsListener(GetDataTagsHandler getDataTagsHandler) {
         this.getDataTagsHandler = getDataTagsHandler;
 
-        registerKeyBinding();
+        this.copyTooltipKeyBinding = registerKeyBinding();
 
         registerEvent();
     }
 
-     private void registerKeyBinding() {
-         copyTooltipKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+     private KeyBinding registerKeyBinding() {
+         return KeyBindingHelper.registerKeyBinding(new KeyBinding(
              "key.wikitools.copy-data-tags",
              InputUtil.Type.KEYSYM,
              GLFW.GLFW_KEY_N,

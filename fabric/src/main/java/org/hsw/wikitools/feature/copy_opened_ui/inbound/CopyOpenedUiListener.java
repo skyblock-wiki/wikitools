@@ -75,15 +75,18 @@ public class CopyOpenedUiListener {
         }
         String stringToCopy = response.get().templateCall;
         ClipboardHelper.setClipboard(stringToCopy);
+
         Text tick = Text.literal("(✔)");
         Text cross = Text.literal("(✘)");
-        MutableText fwbbdOptionText = Text.literal("fill with blank by default")
-                .setStyle(Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Text.literal("This mode is activated by Shift+Keybind."))));
-        MutableText auminfnsiOptionText = Text.literal("always use Minecraft item name for non skull items")
-                .setStyle(Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Text.literal("This mode is activated by Control+Keybind."))));
+        MutableText fwbbdOptionTips = Text.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
+                new HoverEvent.ShowText(Text.literal("This mode is activated by Shift+Keybind."))));
+        MutableText auminfnsiOptionTips = Text.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
+                new HoverEvent.ShowText(Text.literal("This mode is activated by Control+Keybind."))));
         MutableText outputText = Text.literal("Copied UI").append("\n")
-                .append("├ ").append(fillWithBlankByDefault ? tick : cross).append(" ").append(fwbbdOptionText).append("\n")
-                .append("└ ").append(alwaysUseMcItemNameForNonSkullItems ? tick : cross).append(" ").append(auminfnsiOptionText);
+                .append("├ ").append(fillWithBlankByDefault ? tick : cross).append(" ")
+                    .append("fill with blank by default").append(" ").append(fwbbdOptionTips).append("\n")
+                .append("└ ").append(alwaysUseMcItemNameForNonSkullItems ? tick : cross).append(" ")
+                    .append("always use Minecraft item name for non skull items").append(" ").append(auminfnsiOptionTips);
         client.getMessageHandler().onGameMessage(outputText, false);
     }
 }

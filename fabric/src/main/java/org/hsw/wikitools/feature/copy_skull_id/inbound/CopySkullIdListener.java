@@ -9,7 +9,6 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
-import org.hsw.wikitools.WikiToolsIdentity;
 import org.hsw.wikitools.common.inbound.ClipboardHelper;
 import org.hsw.wikitools.feature.copy_skull_id.app.GetSkullIdHandler;
 import org.lwjgl.glfw.GLFW;
@@ -18,18 +17,18 @@ import java.util.Optional;
 
 public class CopySkullIdListener {
     private final GetSkullIdHandler getSkullIdHandler;
-    private KeyBinding copyTooltipKeyBinding;
+    private final KeyBinding copyTooltipKeyBinding;
 
     public CopySkullIdListener(GetSkullIdHandler getSkullIdHandler) {
         this.getSkullIdHandler = getSkullIdHandler;
 
-        registerKeyBinding();
+        this.copyTooltipKeyBinding = registerKeyBinding();
 
         registerEvent();
     }
 
-     private void registerKeyBinding() {
-         copyTooltipKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+     private KeyBinding registerKeyBinding() {
+         return KeyBindingHelper.registerKeyBinding(new KeyBinding(
              "key.wikitools.copy-skull-id",
              InputUtil.Type.KEYSYM,
              GLFW.GLFW_KEY_Z,

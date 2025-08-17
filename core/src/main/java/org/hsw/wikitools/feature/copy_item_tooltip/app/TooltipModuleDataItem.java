@@ -1,10 +1,22 @@
 package org.hsw.wikitools.feature.copy_item_tooltip.app;
 
-public class TooltipModuleDataItem {
-    public final String string;
+import org.hsw.wikitools.common.InventoryItemFormattingService;
 
-    public TooltipModuleDataItem(String name, String title, String text) {
-        this.string = toModuleString(name, title, text);
+class TooltipModuleDataItem {
+    public final String tooltip;
+
+    private TooltipModuleDataItem(String name, String title, String text) {
+        this.tooltip = toModuleString(name, title, text);
+    }
+
+    public static TooltipModuleDataItem of(Invslot invslot) {
+        boolean toTemplateFormatting = false;
+
+        String name = InventoryItemFormattingService.formatName(invslot.name, toTemplateFormatting);
+        String title = InventoryItemFormattingService.formatTitle(invslot.name, toTemplateFormatting);
+        String loreString = InventoryItemFormattingService.formatLore(invslot.lore, toTemplateFormatting);
+
+        return new TooltipModuleDataItem(name, title, loreString);
     }
 
     private String toModuleString(String name, String title, String text) {

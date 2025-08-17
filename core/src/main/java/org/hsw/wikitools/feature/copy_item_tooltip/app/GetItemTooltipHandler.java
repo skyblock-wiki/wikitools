@@ -4,31 +4,41 @@ import java.util.Optional;
 
 public class GetItemTooltipHandler {
     private final FindHoveredInvslot findHoveredInvslot;
-    private final InventoryContentFormattingService inventoryContentFormattingService;
 
     public GetItemTooltipHandler(FindHoveredInvslot findHoveredInvslot) {
         this.findHoveredInvslot = findHoveredInvslot;
-        this.inventoryContentFormattingService = new InventoryContentFormattingService();
     }
 
-    public Optional<InventorySlotTemplateCall> getInventorySlotTemplateCall() {
+    public Optional<GetItemTooltipResponse> getInventorySlotTemplateCall(GetItemTooltipRequest request) {
         Optional<Invslot> invslot = findHoveredInvslot.findHoveredInvslot();
         if (!invslot.isPresent()) {
             return Optional.empty();
         }
-        InventorySlotTemplateCall inventorySlotTemplateCall =
-                inventoryContentFormattingService.inventorySlotTemplateCallOf(invslot.get());
-        return Optional.of(inventorySlotTemplateCall);
+        InventorySlotTemplateCall inventorySlotTemplateCall = InventorySlotTemplateCall.of(invslot.get());
+        GetItemTooltipResponse response = new GetItemTooltipResponse(inventorySlotTemplateCall.tooltip);
+        return Optional.of(response);
     }
 
-    public Optional<TooltipModuleDataItem> getTooltipModuleDataItem() {
+    public Optional<GetItemTooltipResponse> getTooltipModuleDataItem(GetItemTooltipRequest request) {
         Optional<Invslot> invslot = findHoveredInvslot.findHoveredInvslot();
         if (!invslot.isPresent()) {
             return Optional.empty();
         }
-        TooltipModuleDataItem tooltipModuleDataItem =
-                inventoryContentFormattingService.tooltipModuleDataItemOf(invslot.get());
-        return Optional.of(tooltipModuleDataItem);
+        TooltipModuleDataItem tooltipModuleDataItem = TooltipModuleDataItem.of(invslot.get());
+        GetItemTooltipResponse response = new GetItemTooltipResponse(tooltipModuleDataItem.tooltip);
+        return Optional.of(response);
+    }
+
+    public static class GetItemTooltipRequest {
+        public GetItemTooltipRequest() {}
+    }
+
+    public static class GetItemTooltipResponse {
+        public final String tooltip;
+
+        public GetItemTooltipResponse(String tooltip) {
+            this.tooltip = tooltip;
+        }
     }
 
 }
