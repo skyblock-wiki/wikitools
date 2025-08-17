@@ -95,6 +95,23 @@ workspace "WikiTools" {
                         moddingAPI -> this "Triggers"
                     }
                 }
+
+                copyOpenedUi = group "copy_opened_ui" {
+                    openedChestContainerFinder = component "OpenedChestContainerFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    getOpenedUiHandler = component "GetOpenedUiHandler" {
+                        tag "Core"
+
+                        this -> openedChestContainerFinder "Uses"
+                    }
+
+                    copyOpenedUiListener = component "CopyOpenedUiListener" {
+                        this -> getOpenedUiHandler "Uses"
+                        moddingAPI -> this "Triggers"
+                    }
+                }
             }
 
             wikitoolsRenders = container "WikiTools Renders" {
