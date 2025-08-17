@@ -5,7 +5,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
 import org.hsw.wikitools.feature.copy_data_tags.app.EntityDataTags;
 import org.hsw.wikitools.feature.copy_data_tags.app.FindFacingEntityDataTags;
 
@@ -24,12 +23,9 @@ public class FacingEntityDataTagsFinder implements FindFacingEntityDataTags {
         NbtCompound nbtCompound = new NbtCompound();
         targetedEntity.writeNbt(nbtCompound);
 
-        Optional<Text> entityCustomNameText = Optional.ofNullable(targetedEntity.getCustomName());
-        Optional<String> entityCustomName = entityCustomNameText.map(Text::getString);
-
         Optional<String> textureValue = findGameProfile(targetedEntity);
 
-        EntityDataTags entityDataTags = new EntityDataTags(nbtCompound.toString(), entityCustomName, textureValue);
+        EntityDataTags entityDataTags = new EntityDataTags(nbtCompound.toString(), textureValue);
         return Optional.of(entityDataTags);
     }
 

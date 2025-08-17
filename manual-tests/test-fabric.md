@@ -88,6 +88,7 @@ Tester should perform each test and write the test result in the `Result` field.
 - Expected Output:
   - Game message: `Copied data tags`
   - Clipboard content contains: `Pos:[-10.0d,70.0d,-67.0d]`
+  - Clipboard content contains: `__gameProfile:`
   - Clipboard content contains: `value:"ewogICJ0aW`
 - Result: Not set
 

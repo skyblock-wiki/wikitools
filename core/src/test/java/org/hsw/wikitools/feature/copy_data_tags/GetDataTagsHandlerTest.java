@@ -45,7 +45,7 @@ public class GetDataTagsHandlerTest {
         @Test
         public void whenFoundItemDataTags_withEntityDataTags() {
             Optional<ItemDataTags> itemDataTags = Optional.of(new ItemDataTags("{id:\"minecraft:nether_star\"}"));
-            Optional<EntityDataTags> entityDataTags = Optional.of(new EntityDataTags("{Air:300s}", Optional.empty(), Optional.empty()));
+            Optional<EntityDataTags> entityDataTags = Optional.of(new EntityDataTags("{Air:300s}", Optional.empty()));
             GetDataTagsHandler classUnderTest = getDataTagsHandler(itemDataTags, entityDataTags);
 
             Optional<GetDataTagsHandler.GetDataTagsResponse> response = classUnderTest.getDataTags(new GetDataTagsHandler.GetDataTagsRequest());
@@ -60,17 +60,16 @@ public class GetDataTagsHandlerTest {
     class shouldReturnFacingEntityDataTags {
         @Test
         public void whenFoundEntityDataTags_withoutFindingOthers() {
-            Optional<String> customName = Optional.of("Custom Name");
             String gamePropertyString = "textures=[Property[name=textures, value=ewogIC, signature=yGPTZD]]";
             Optional<String> gameProperty = Optional.of(gamePropertyString);
-            Optional<EntityDataTags> entityDataTags = Optional.of(new EntityDataTags("{Air:300s}", customName, gameProperty));
+            Optional<EntityDataTags> entityDataTags = Optional.of(new EntityDataTags("{Air:300s}", gameProperty));
             GetDataTagsHandler classUnderTest = getDataTagsHandler(Optional.empty(), entityDataTags);
 
             Optional<GetDataTagsHandler.GetDataTagsResponse> response = classUnderTest.getDataTags(new GetDataTagsHandler.GetDataTagsRequest());
 
             assertTrue(response.isPresent());
 
-            assertEquals("{Air:300s,__customName:Custom Name,__gameProfile:" + gamePropertyString + "}", response.get().dataTags);
+            assertEquals("{Air:300s,__gameProfile:" + gamePropertyString + "}", response.get().dataTags);
         }
     }
 }

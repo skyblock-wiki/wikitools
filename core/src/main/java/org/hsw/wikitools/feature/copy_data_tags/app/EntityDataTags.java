@@ -5,12 +5,8 @@ import java.util.Optional;
 public class EntityDataTags {
     public final String serialized;
 
-    public EntityDataTags(String serializedDataTags, Optional<String> customName, Optional<String> gameProfileProperties) {
+    public EntityDataTags(String serializedDataTags, Optional<String> gameProfileProperties) {
         validateSerializedDataTags(serializedDataTags);
-
-        if (customName.isPresent()) {
-            serializedDataTags = insertCustomStringDataTag(serializedDataTags, "__customName", customName.get());
-        }
 
         if (gameProfileProperties.isPresent()) {
             serializedDataTags = insertCustomStringDataTag(serializedDataTags, "__gameProfile", gameProfileProperties.get());
