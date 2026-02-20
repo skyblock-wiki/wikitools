@@ -6,6 +6,7 @@ import org.hsw.wikitools.feature.copy_data_tags.app.FindFacingEntityDataTags;
 import java.util.Optional;
 
 public class FacingEntityDataTagsFinderStub implements FindFacingEntityDataTags {
+    public int callCount = 0;
     private final Optional<EntityDataTags> entityDataTags;
 
     public FacingEntityDataTagsFinderStub(Optional<EntityDataTags> entityDataTags) {
@@ -14,6 +15,7 @@ public class FacingEntityDataTagsFinderStub implements FindFacingEntityDataTags 
 
     @Override
     public Optional<EntityDataTags> findFacingEntityDataTags() {
+        callCount += 1;
         return entityDataTags;
     }
 }

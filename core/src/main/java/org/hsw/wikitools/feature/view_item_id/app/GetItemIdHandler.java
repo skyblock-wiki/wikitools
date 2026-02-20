@@ -3,7 +3,7 @@ package org.hsw.wikitools.feature.view_item_id.app;
 import java.util.Optional;
 
 public class GetItemIdHandler {
-    private FindHoveredItemId findHoveredItemId;
+    private final FindHoveredItemId findHoveredItemId;
 
     public GetItemIdHandler(FindHoveredItemId findHoveredItemId) {
         this.findHoveredItemId = findHoveredItemId;

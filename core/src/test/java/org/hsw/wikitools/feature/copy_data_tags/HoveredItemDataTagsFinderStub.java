@@ -6,6 +6,7 @@ import org.hsw.wikitools.feature.copy_data_tags.app.ItemDataTags;
 import java.util.Optional;
 
 public class HoveredItemDataTagsFinderStub implements FindHoveredItemDataTags {
+    public int callCount = 0;
     private final Optional<ItemDataTags> itemDataTags;
 
     public HoveredItemDataTagsFinderStub(Optional<ItemDataTags> itemDataTags) {
@@ -14,6 +15,7 @@ public class HoveredItemDataTagsFinderStub implements FindHoveredItemDataTags {
 
     @Override
     public Optional<ItemDataTags> findHoveredItemDataTags() {
+        callCount += 1;
         return itemDataTags;
     }
 }

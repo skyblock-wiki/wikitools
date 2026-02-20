@@ -3,7 +3,7 @@ package org.hsw.wikitools.feature.copy_opened_ui.app;
 import java.util.Optional;
 
 public class GetOpenedUiHandler {
-    FindOpenedChestContainer findOpenedChestContainer;
+    private final FindOpenedChestContainer findOpenedChestContainer;
 
     public GetOpenedUiHandler(FindOpenedChestContainer findOpenedChestContainer) {
         this.findOpenedChestContainer = findOpenedChestContainer;

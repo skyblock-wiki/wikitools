@@ -76,7 +76,7 @@ public class CopyHoveredItemTooltipListener {
 
         MutableText formattingModeTip = Text.literal("(◕‿◕)").setStyle(
                 Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Text.literal(
-                        "Template formatting is used by default.\nModule formatting is activated by Shift+Keybind."))));
+                        "Template formatting is used by default.\nModule formatting is activated by Shift+Key."))));
         MutableText outputText = Text.literal("Copied tooltip").append("\n")
                 .append("└ ").append("with template formatting").append(" ").append(formattingModeTip);
         client.getMessageHandler().onGameMessage(Text.of(outputText), false);
@@ -94,7 +94,7 @@ public class CopyHoveredItemTooltipListener {
 
         MutableText formattingModeTip = Text.literal("(◕‿◕)").setStyle(
                 Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Text.literal(
-                        "Template formatting is used by default.\nModule formatting is activated by Shift+Keybind."))));
+                        "Template formatting is used by default.\nModule formatting is activated by Shift+Key."))));
         MutableText outputText = Text.literal("Copied tooltip").append("\n")
                 .append("└ ").append("with module formatting").append(" ").append(formattingModeTip);
         client.getMessageHandler().onGameMessage(Text.of(outputText), false);

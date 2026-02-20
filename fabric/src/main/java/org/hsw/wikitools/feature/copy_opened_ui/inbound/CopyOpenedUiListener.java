@@ -79,9 +79,9 @@ public class CopyOpenedUiListener {
         Text tick = Text.literal("(✔)");
         Text cross = Text.literal("(✘)");
         MutableText fwbbdOptionTips = Text.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent.ShowText(Text.literal("This mode is activated by Shift+Keybind."))));
+                new HoverEvent.ShowText(Text.literal("This mode is activated by Shift+Key."))));
         MutableText auminfnsiOptionTips = Text.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent.ShowText(Text.literal("This mode is activated by Control+Keybind."))));
+                new HoverEvent.ShowText(Text.literal("This mode is activated by Control+Key."))));
         MutableText outputText = Text.literal("Copied UI").append("\n")
                 .append("├ ").append(fillWithBlankByDefault ? tick : cross).append(" ")
                     .append("fill with blank by default").append(" ").append(fwbbdOptionTips).append("\n")
