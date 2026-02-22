@@ -1,5 +1,6 @@
 package org.hsw.wikitools.feature.copy_item_tooltip.inbound;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
@@ -18,8 +19,6 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Optional;
 
 import static org.hsw.wikitools.WikiToolsIdentity.CATEGORY;
-
-import com.mojang.blaze3d.platform.InputConstants;
 
 public class CopyHoveredItemTooltipListener {
     private final GetItemTooltipHandler getItemTooltipHandler;
@@ -79,10 +78,10 @@ public class CopyHoveredItemTooltipListener {
         ClipboardHelper.setClipboard(stringToCopy);
 
         MutableComponent formattingModeTip = Component.literal("(◕‿◕)").setStyle(
-                Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Component.literal(
-                        "Template formatting is used by default.\nModule formatting is activated by Shift+Key."))));
-        MutableComponent outputText = Component.literal("Copied tooltip").append("\n")
-                .append("└ ").append("with template formatting").append(" ").append(formattingModeTip);
+                Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Component.translatable(
+                        "message.wikitools.copy-tooltip.formatting-mode-tip"))));
+        MutableComponent outputText = Component.translatable("message.wikitools.copy-tooltip.success").append("\n")
+                .append("└ ").append(Component.translatable("message.wikitools.copy-tooltip.with-template-formatting")).append(" ").append(formattingModeTip);
         client.getChatListener().handleSystemMessage(Component.translationArg(outputText), false);
     }
 
@@ -97,10 +96,10 @@ public class CopyHoveredItemTooltipListener {
         ClipboardHelper.setClipboard(stringToCopy);
 
         MutableComponent formattingModeTip = Component.literal("(◕‿◕)").setStyle(
-                Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Component.literal(
-                        "Template formatting is used by default.\nModule formatting is activated by Shift+Key."))));
-        MutableComponent outputText = Component.literal("Copied tooltip").append("\n")
-                .append("└ ").append("with module formatting").append(" ").append(formattingModeTip);
+                Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Component.translatable(
+                        "message.wikitools.copy-tooltip.formatting-mode-tip"))));
+        MutableComponent outputText = Component.translatable("message.wikitools.copy-tooltip.success").append("\n")
+                .append("└ ").append(Component.translatable("message.wikitools.copy-tooltip.with-module-formatting")).append(" ").append(formattingModeTip);
         client.getChatListener().handleSystemMessage(Component.translationArg(outputText), false);
     }
 

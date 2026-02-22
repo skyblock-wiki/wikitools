@@ -1,5 +1,6 @@
 package org.hsw.wikitools.feature.copy_opened_ui.inbound;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
@@ -18,8 +19,6 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Optional;
 
 import static org.hsw.wikitools.WikiToolsIdentity.CATEGORY;
-
-import com.mojang.blaze3d.platform.InputConstants;
 
 public class CopyOpenedUiListener {
     private final GetOpenedUiHandler getOpenedUiHandler;
@@ -83,14 +82,16 @@ public class CopyOpenedUiListener {
         Component tick = Component.literal("(✔)");
         Component cross = Component.literal("(✘)");
         MutableComponent fwbbdOptionTips = Component.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent.ShowText(Component.literal("This mode is activated by Shift+Key."))));
+                new HoverEvent.ShowText(Component.translatable("message.wikitools.copy-opened-ui.fwbbd-mode-tip"))));
         MutableComponent auminfnsiOptionTips = Component.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent.ShowText(Component.literal("This mode is activated by Control+Key."))));
-        MutableComponent outputText = Component.literal("Copied UI").append("\n")
+                new HoverEvent.ShowText(Component.translatable("message.wikitools.copy-opened-ui.auminfnsi-mode-tip"))));
+        MutableComponent outputText = Component.translatable("message.wikitools.copy-opened-ui.success").append("\n")
                 .append("├ ").append(fillWithBlankByDefault ? tick : cross).append(" ")
-                    .append("fill with blank by default").append(" ").append(fwbbdOptionTips).append("\n")
+                    .append(Component.translatable("message.wikitools.copy-opened-ui.fwbbd-mode-name")).append(" ")
+                    .append(fwbbdOptionTips).append("\n")
                 .append("└ ").append(alwaysUseMcItemNameForNonSkullItems ? tick : cross).append(" ")
-                    .append("always use Minecraft item name for non skull items").append(" ").append(auminfnsiOptionTips);
+                    .append(Component.translatable("message.wikitools.copy-opened-ui.auminfnsi-mode-name")).append(" ")
+                    .append(auminfnsiOptionTips);
         client.getChatListener().handleSystemMessage(outputText, false);
     }
 }

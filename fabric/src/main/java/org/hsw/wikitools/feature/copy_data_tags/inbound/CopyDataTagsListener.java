@@ -1,5 +1,6 @@
 package org.hsw.wikitools.feature.copy_data_tags.inbound;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
@@ -16,8 +17,6 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Optional;
 
 import static org.hsw.wikitools.WikiToolsIdentity.CATEGORY;
-
-import com.mojang.blaze3d.platform.InputConstants;
 
 public class CopyDataTagsListener {
     private final GetDataTagsHandler getDataTagsHandler;
@@ -76,6 +75,6 @@ public class CopyDataTagsListener {
         }
         String stringToCopy = response.get().dataTags;
         ClipboardHelper.setClipboard(stringToCopy);
-        client.getChatListener().handleSystemMessage(Component.nullToEmpty("Copied data tags"), false);
+        client.getChatListener().handleSystemMessage(Component.translatable("message.wikitools.copy-data-tags.success"), false);
     }
 }

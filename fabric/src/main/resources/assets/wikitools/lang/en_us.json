@@ -1,0 +1,24 @@
+{
+  "key.category.wikitools.main": "WikiTools",
+  "key.wikitools.copy-data-tags": "Copy Data Tags",
+  "key.wikitools.copy-tooltip": "Copy Tooltip",
+  "key.wikitools.copy-opened-ui": "Copy Opened UI",
+  "key.wikitools.copy-skull-id": "Copy Skull ID",
+
+  "message.wikitools.copy-data-tags.success": "Copied data tags",
+
+  "message.wikitools.copy-tooltip.success": "Copied tooltip",
+  "message.wikitools.copy-tooltip.with-template-formatting": "with template formatting",
+  "message.wikitools.copy-tooltip.with-module-formatting": "with module formatting",
+  "message.wikitools.copy-tooltip.formatting-mode-tip": "Template formatting is used by default.\nModule formatting is activated by Shift+Key.",
+
+  "message.wikitools.copy-opened-ui.success": "Copied UI",
+  "message.wikitools.copy-opened-ui.fwbbd-mode-name": "fill with blank by default",
+  "message.wikitools.copy-opened-ui.auminfnsi-mode-name": "always use Minecraft item name for non skull items",
+  "message.wikitools.copy-opened-ui.fwbbd-mode-tip": "This mode is activated by Shift+Key.",
+  "message.wikitools.copy-opened-ui.auminfnsi-mode-tip": "This mode is activated by Control+Key.",
+
+  "message.wikitools.copy-skull-id.success": "Copied skull ID",
+
+  "message.wikitools.view-item-id.item-id-display": "Item ID: %s"
+}

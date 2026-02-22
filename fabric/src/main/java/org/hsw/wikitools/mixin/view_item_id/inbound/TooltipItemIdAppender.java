@@ -1,5 +1,13 @@
 package org.hsw.wikitools.mixin.view_item_id.inbound;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.util.CommonColors;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import org.hsw.wikitools.feature.view_item_id.app.GetItemIdHandler;
 import org.hsw.wikitools.feature.view_item_id.outbound.HoveredItemIdFinder;
 import org.jetbrains.annotations.NotNull;
@@ -12,14 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Optional;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.util.CommonColors;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 
 @Mixin(ItemStack.class)
 public class TooltipItemIdAppender {
@@ -52,10 +52,12 @@ public class TooltipItemIdAppender {
     @Unique
     private static void appendTooltipWithItemId(CallbackInfoReturnable<List<Component>> cir, String skyBlockItemId) {
         Style textStyle = Style.EMPTY.withColor(CommonColors.GRAY);
-        List<Component> textsToAdd = Component.nullToEmpty("SkyBlock Item ID: " + skyBlockItemId).toFlatList(textStyle);
+        Component textToAdd = Component
+                .translatable("message.wikitools.view-item-id.item-id-display", skyBlockItemId.strip())
+                .setStyle(textStyle);
 
         List<Component> textList = cir.getReturnValue();
-        textList.addAll(textsToAdd);
+        textList.add(textToAdd);
         cir.setReturnValue(textList);
     }
 }

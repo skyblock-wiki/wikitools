@@ -77,10 +77,10 @@ Tester should perform each test and write the test result in the `Result` field.
 
 ### View Item ID
 
-#### SkyBlock item ID is shown on hovered SkyBlock item when advanced tooltip is set to "shown"
+#### Item ID is shown on hovered SkyBlock item when advanced tooltip is set to "shown"
 - Action: Toggle advanced tooltip to "shown" by using F3+H. Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon.
 - Expected Output:
-  - Displayed tooltip content should end with: SkyBlock Item ID: `SKYBLOCK_MENU`
+  - Displayed tooltip content should end with: Item ID: `SKYBLOCK_MENU`
 - Result: Not set
 
 #### SkyBlock item ID is not shown on hovered SkyBlock item when advanced tooltip is set to "hidden"
