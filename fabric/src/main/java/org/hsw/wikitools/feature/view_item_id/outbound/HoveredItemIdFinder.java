@@ -1,14 +1,14 @@
 package org.hsw.wikitools.feature.view_item_id.outbound;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import org.hsw.wikitools.feature.view_item_id.app.FindHoveredItemId;
 import org.hsw.wikitools.mixin.common.outbound.HandledScreenAccessor;
 
@@ -18,34 +18,34 @@ public class HoveredItemIdFinder implements FindHoveredItemId {
 
     @Override
     public Optional<String> findHoveredItemId() {
-        MinecraftClient client = MinecraftClient.getInstance();
-        Screen screen = client.currentScreen;
+        Minecraft client = Minecraft.getInstance();
+        Screen screen = client.screen;
 
-        if (!(screen instanceof HandledScreen<?> handledScreen)) {
+        if (!(screen instanceof AbstractContainerScreen<?> handledScreen)) {
             return Optional.empty(); // Not a handled screen, cannot find hovered item
         }
 
-        Slot focusedSlot = ((HandledScreenAccessor) handledScreen).getFocusedSlot();
+        Slot focusedSlot = ((HandledScreenAccessor) handledScreen).getHoveredSlot();
 
         if (focusedSlot == null) {
             return Optional.empty(); // No focused slot, cannot find hovered item
         }
 
-        ItemStack focusedItemStack = focusedSlot.getStack();
+        ItemStack focusedItemStack = focusedSlot.getItem();
 
         return getItemIdFromItemStack(focusedItemStack);
     }
 
     private Optional<String> getItemIdFromItemStack(ItemStack itemStack) {
-        ComponentMap components = itemStack.getComponents();
+        DataComponentMap components = itemStack.getComponents();
 
-        NbtComponent nbtComponent = components.get(DataComponentTypes.CUSTOM_DATA);
+        CustomData nbtComponent = components.get(DataComponents.CUSTOM_DATA);
 
         if (nbtComponent == null) {
             return Optional.empty();  // Cannot find custom data component
         }
 
-        NbtCompound nbtCompound = nbtComponent.copyNbt();
+        CompoundTag nbtCompound = nbtComponent.copyTag();
 
         if (!nbtCompound.contains("id")) {
             return Optional.empty();  // Cannot find the key "id" in the custom data component

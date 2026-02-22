@@ -1,13 +1,12 @@
 package org.hsw.wikitools.mixin.common.outbound;
 
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.inventory.Slot;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.screen.slot.Slot;
-
-@Mixin(HandledScreen.class)
+@Mixin(AbstractContainerScreen.class)
 public interface HandledScreenAccessor {
-	@Accessor
-	Slot getFocusedSlot();
+	@Accessor("hoveredSlot")
+	Slot getHoveredSlot();
 }

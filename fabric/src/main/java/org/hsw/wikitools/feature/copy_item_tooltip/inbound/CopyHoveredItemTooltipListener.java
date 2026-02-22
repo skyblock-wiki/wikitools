@@ -3,23 +3,27 @@ package org.hsw.wikitools.feature.copy_item_tooltip.inbound;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import org.hsw.wikitools.common.inbound.ClipboardHelper;
 import org.hsw.wikitools.feature.copy_item_tooltip.app.GetItemTooltipHandler;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
+import static org.hsw.wikitools.WikiToolsIdentity.CATEGORY;
+
+import com.mojang.blaze3d.platform.InputConstants;
+
 public class CopyHoveredItemTooltipListener {
     private final GetItemTooltipHandler getItemTooltipHandler;
-    private final KeyBinding copyTooltipKeyBinding;
+    private final KeyMapping copyTooltipKeyBinding;
 
     public CopyHoveredItemTooltipListener(GetItemTooltipHandler getItemTooltipHandler) {
         this.getItemTooltipHandler = getItemTooltipHandler;
@@ -29,12 +33,12 @@ public class CopyHoveredItemTooltipListener {
         registerEvent();
     }
 
-     private KeyBinding registerKeyBinding() {
-         return KeyBindingHelper.registerKeyBinding(new KeyBinding(
+     private KeyMapping registerKeyBinding() {
+         return KeyBindingHelper.registerKeyBinding(new KeyMapping(
              "key.wikitools.copy-tooltip",
-             InputUtil.Type.KEYSYM,
+             InputConstants.Type.KEYSYM,
              GLFW.GLFW_KEY_X,
-             "key.categories.wikitools"
+             CATEGORY
          ));
      }
 
@@ -45,17 +49,17 @@ public class CopyHoveredItemTooltipListener {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
             // Add a listener for keyboard events if the screen is a HandledScreen
 
-            if (!(screen instanceof HandledScreen<?>)) {
+            if (!(screen instanceof AbstractContainerScreen<?>)) {
                 return; // Only register for InventoryScreen
             }
 
-            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, key, scanCode, modifiers) -> onKeyPress(client, key, modifiers));
+            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, keyInput) -> onKeyPress(client, keyInput));
         });
     }
 
-    private void onKeyPress(MinecraftClient client, int key, int modifiers) {
-        boolean xIsPressed = copyTooltipKeyBinding.matchesKey(key, 0);
-        boolean xIsPressedWithShift = xIsPressed && (modifiers & GLFW.GLFW_MOD_SHIFT) > 0;
+    private void onKeyPress(Minecraft client, KeyEvent keyInput) {
+        boolean xIsPressed = copyTooltipKeyBinding.matches(keyInput);
+        boolean xIsPressedWithShift = xIsPressed && (keyInput.hasShiftDown());
 
         if (xIsPressed && xIsPressedWithShift) {
             copyTooltipAsModuleData(client);
@@ -65,7 +69,7 @@ public class CopyHoveredItemTooltipListener {
         }
     }
 
-    private void copyTooltipAsTemplateCall(MinecraftClient client) {
+    private void copyTooltipAsTemplateCall(Minecraft client) {
         Optional<GetItemTooltipHandler.GetItemTooltipResponse> tooltip =
                 getItemTooltipHandler.getInventorySlotTemplateCall(new GetItemTooltipHandler.GetItemTooltipRequest());
         if (tooltip.isEmpty()) {
@@ -74,15 +78,15 @@ public class CopyHoveredItemTooltipListener {
         String stringToCopy = tooltip.get().tooltip;
         ClipboardHelper.setClipboard(stringToCopy);
 
-        MutableText formattingModeTip = Text.literal("(◕‿◕)").setStyle(
-                Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Text.literal(
+        MutableComponent formattingModeTip = Component.literal("(◕‿◕)").setStyle(
+                Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Component.literal(
                         "Template formatting is used by default.\nModule formatting is activated by Shift+Key."))));
-        MutableText outputText = Text.literal("Copied tooltip").append("\n")
+        MutableComponent outputText = Component.literal("Copied tooltip").append("\n")
                 .append("└ ").append("with template formatting").append(" ").append(formattingModeTip);
-        client.getMessageHandler().onGameMessage(Text.of(outputText), false);
+        client.getChatListener().handleSystemMessage(Component.translationArg(outputText), false);
     }
 
-    private void copyTooltipAsModuleData(MinecraftClient client) {
+    private void copyTooltipAsModuleData(Minecraft client) {
         Optional<GetItemTooltipHandler.GetItemTooltipResponse> tooltip =
                 getItemTooltipHandler.getTooltipModuleDataItem(new GetItemTooltipHandler.GetItemTooltipRequest());
 
@@ -92,12 +96,12 @@ public class CopyHoveredItemTooltipListener {
         String stringToCopy = tooltip.get().tooltip;
         ClipboardHelper.setClipboard(stringToCopy);
 
-        MutableText formattingModeTip = Text.literal("(◕‿◕)").setStyle(
-                Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Text.literal(
+        MutableComponent formattingModeTip = Component.literal("(◕‿◕)").setStyle(
+                Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Component.literal(
                         "Template formatting is used by default.\nModule formatting is activated by Shift+Key."))));
-        MutableText outputText = Text.literal("Copied tooltip").append("\n")
+        MutableComponent outputText = Component.literal("Copied tooltip").append("\n")
                 .append("└ ").append("with module formatting").append(" ").append(formattingModeTip);
-        client.getMessageHandler().onGameMessage(Text.of(outputText), false);
+        client.getChatListener().handleSystemMessage(Component.translationArg(outputText), false);
     }
 
 }

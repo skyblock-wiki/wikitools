@@ -4,20 +4,24 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.Text;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.network.chat.Component;
 import org.hsw.wikitools.common.inbound.ClipboardHelper;
 import org.hsw.wikitools.feature.copy_skull_id.app.GetSkullIdHandler;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
+import static org.hsw.wikitools.WikiToolsIdentity.CATEGORY;
+
+import com.mojang.blaze3d.platform.InputConstants;
+
 public class CopySkullIdListener {
     private final GetSkullIdHandler getSkullIdHandler;
-    private final KeyBinding copyTooltipKeyBinding;
+    private final KeyMapping copyTooltipKeyBinding;
 
     public CopySkullIdListener(GetSkullIdHandler getSkullIdHandler) {
         this.getSkullIdHandler = getSkullIdHandler;
@@ -27,12 +31,12 @@ public class CopySkullIdListener {
         registerEvent();
     }
 
-     private KeyBinding registerKeyBinding() {
-         return KeyBindingHelper.registerKeyBinding(new KeyBinding(
+     private KeyMapping registerKeyBinding() {
+         return KeyBindingHelper.registerKeyBinding(new KeyMapping(
              "key.wikitools.copy-skull-id",
-             InputUtil.Type.KEYSYM,
+             InputConstants.Type.KEYSYM,
              GLFW.GLFW_KEY_Z,
-             "key.categories.wikitools"
+             CATEGORY
          ));
      }
 
@@ -43,35 +47,35 @@ public class CopySkullIdListener {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
             // Add a listener for keyboard events if the screen is a HandledScreen
 
-            if (!(screen instanceof HandledScreen<?>)) {
+            if (!(screen instanceof AbstractContainerScreen<?>)) {
                 return; // Only register for InventoryScreen
             }
 
-            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, key, scanCode, modifiers) -> onKeyPress(client, key, scanCode));
+            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, keyInput) -> onKeyPress(client, keyInput));
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(this::onClientTick);
     }
 
-    private void onClientTick(MinecraftClient client) {
-        while (client.currentScreen == null && copyTooltipKeyBinding.wasPressed()) {
+    private void onClientTick(Minecraft client) {
+        while (client.screen == null && copyTooltipKeyBinding.consumeClick()) {
             copySkullId(client);
         }
     }
 
-    private void onKeyPress(MinecraftClient client, int key, int scanCode) {
-        if (copyTooltipKeyBinding.matchesKey(key, scanCode)) {
+    private void onKeyPress(Minecraft client, KeyEvent keyInput) {
+        if (copyTooltipKeyBinding.matches(keyInput)) {
             copySkullId(client);
         }
     }
 
-    private void copySkullId(MinecraftClient client) {
+    private void copySkullId(Minecraft client) {
         Optional<GetSkullIdHandler.GetSkullIdResponse> response = getSkullIdHandler.getSkullId(new GetSkullIdHandler.GetSkullIdRequest());
         if (response.isEmpty()) {
             return;
         }
         String stringToCopy = response.get().textureId;
         ClipboardHelper.setClipboard(stringToCopy);
-        client.getMessageHandler().onGameMessage(Text.of("Copied skull ID"), false);
+        client.getChatListener().handleSystemMessage(Component.nullToEmpty("Copied skull ID"), false);
     }
 }

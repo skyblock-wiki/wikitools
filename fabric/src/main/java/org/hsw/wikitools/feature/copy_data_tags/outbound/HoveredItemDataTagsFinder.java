@@ -1,12 +1,12 @@
 package org.hsw.wikitools.feature.copy_data_tags.outbound;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.component.TypedDataComponent;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import org.hsw.wikitools.feature.copy_data_tags.app.FindHoveredItemDataTags;
 import org.hsw.wikitools.feature.copy_data_tags.app.ItemDataTags;
 import org.hsw.wikitools.mixin.common.outbound.HandledScreenAccessor;
@@ -23,34 +23,35 @@ public class HoveredItemDataTagsFinder implements FindHoveredItemDataTags {
             return Optional.empty();  // No hovered item
         }
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        ClientWorld clientWorld = client.world;
+        Minecraft client = Minecraft.getInstance();
+        ClientLevel clientWorld = client.level;
 
         if (clientWorld == null) {
             return Optional.empty(); // Cannot find world
         }
 
-        NbtElement nbtElement = focusedItemStack.get().toNbt(clientWorld.getRegistryManager());
+        String data = focusedItemStack.get().getComponents().stream().map(TypedDataComponent::toString)
+                .reduce("", (partialString, element) -> partialString + "\n" + element);
 
-        ItemDataTags itemDataTags = new ItemDataTags(nbtElement.toString());
+        ItemDataTags itemDataTags = new ItemDataTags(data);
         return Optional.of(itemDataTags);
     }
 
     private static @NotNull Optional<ItemStack> findFocusedItemStack() {
-        MinecraftClient client = MinecraftClient.getInstance();
-        Screen screen = client.currentScreen;
+        Minecraft client = Minecraft.getInstance();
+        Screen screen = client.screen;
 
-        if (!(screen instanceof HandledScreen<?> handledScreen)) {
+        if (!(screen instanceof AbstractContainerScreen<?> handledScreen)) {
             return Optional.empty(); // Not a handled screen, cannot find hovered item
         }
 
-        Slot focusedSlot = ((HandledScreenAccessor) handledScreen).getFocusedSlot();
+        Slot focusedSlot = ((HandledScreenAccessor) handledScreen).getHoveredSlot();
 
         if (focusedSlot == null) {
             return Optional.empty(); // No focused slot, cannot find hovered item
         }
 
-        ItemStack focusedItemStack = focusedSlot.getStack();
+        ItemStack focusedItemStack = focusedSlot.getItem();
 
         if (focusedItemStack.isEmpty()) {
             return Optional.empty(); // No item hovered

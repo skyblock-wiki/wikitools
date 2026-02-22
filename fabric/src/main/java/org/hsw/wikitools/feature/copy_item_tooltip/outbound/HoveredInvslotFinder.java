@@ -1,17 +1,17 @@
 package org.hsw.wikitools.feature.copy_item_tooltip.outbound;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.LoreComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemLore;
 import org.hsw.wikitools.feature.copy_item_tooltip.app.FindHoveredInvslot;
 import org.hsw.wikitools.feature.copy_item_tooltip.app.Invslot;
 import org.hsw.wikitools.mixin.common.outbound.HandledScreenAccessor;
@@ -29,20 +29,20 @@ public class HoveredInvslotFinder implements FindHoveredInvslot {
         // This method should interact with Minecraft's API to retrieve the hovered item
         // and return it as an Invslot object.
 
-        MinecraftClient client = MinecraftClient.getInstance();
-        Screen screen = client.currentScreen;
+        Minecraft client = Minecraft.getInstance();
+        Screen screen = client.screen;
 
-        if (!(screen instanceof HandledScreen<?> handledScreen)) {
+        if (!(screen instanceof AbstractContainerScreen<?> handledScreen)) {
             return Optional.empty(); // Not a handled screen, cannot find hovered item
         }
 
-        Slot focusedSlot = ((HandledScreenAccessor) handledScreen).getFocusedSlot();
+        Slot focusedSlot = ((HandledScreenAccessor) handledScreen).getHoveredSlot();
 
         if (focusedSlot == null) {
             return Optional.empty(); // No focused slot, cannot find hovered item
         }
 
-        ItemStack focusedItemStack = focusedSlot.getStack();
+        ItemStack focusedItemStack = focusedSlot.getItem();
 
         if (focusedItemStack.isEmpty()) {
             return Optional.empty(); // No item hovered
@@ -54,19 +54,19 @@ public class HoveredInvslotFinder implements FindHoveredInvslot {
     }
 
     private @NotNull Invslot getInvslotFromItemStack(ItemStack itemStack) {
-        Text name = itemStack.getCustomName();
+        Component name = itemStack.getCustomName();
 
         if (name == null) {
-            name = itemStack.getName();
+            name = itemStack.getHoverName();
         }
 
         String itemName = toFormattedText(name);
 
-        ComponentMap components = itemStack.getComponents();
+        DataComponentMap components = itemStack.getComponents();
 
-        LoreComponent loreComponent = components.get(DataComponentTypes.LORE);
+        ItemLore loreComponent = components.get(DataComponents.LORE);
 
-        List<Text> loreTexts = new ArrayList<>();
+        List<Component> loreTexts = new ArrayList<>();
         if (loreComponent != null) {
             loreTexts = loreComponent.styledLines();
         }
@@ -76,7 +76,7 @@ public class HoveredInvslotFinder implements FindHoveredInvslot {
         return new Invslot(itemName, loreLines);
     }
 
-    private static @NotNull String toFormattedText(Text text) {
+    private static @NotNull String toFormattedText(Component text) {
         StringBuilder sb = new StringBuilder();
 
         toFormattedText(text, sb);
@@ -84,7 +84,7 @@ public class HoveredInvslotFinder implements FindHoveredInvslot {
         return sb.toString();
     }
 
-    private static void toFormattedText(Text text, StringBuilder sb) {
+    private static void toFormattedText(Component text, StringBuilder sb) {
         // Assumption: Only leaf nodes contain literal text
 
         Style style = text.getStyle();
@@ -98,7 +98,7 @@ public class HoveredInvslotFinder implements FindHoveredInvslot {
             sb.append(string);
         }
 
-        for (Text siblingText : text.getSiblings()) {
+        for (Component siblingText : text.getSiblings()) {
             toFormattedText(siblingText, sb);
         }
     }
@@ -108,31 +108,31 @@ public class HoveredInvslotFinder implements FindHoveredInvslot {
 
         TextColor color = style.getColor();
         if (color != null) {
-            String colorName = style.getColor().getName();
-            Formatting formatting = Formatting.byName(colorName);
+            String colorName = style.getColor().serialize();
+            ChatFormatting formatting = ChatFormatting.getByName(colorName);
             if (formatting != null) {
                 sb.append(formatting);
             }
         }
 
         if (style.isObfuscated()) {
-            sb.append(Formatting.OBFUSCATED);
+            sb.append(ChatFormatting.OBFUSCATED);
         }
 
         if (style.isBold()) {
-            sb.append(Formatting.BOLD);
+            sb.append(ChatFormatting.BOLD);
         }
 
         if (style.isStrikethrough()) {
-            sb.append(Formatting.STRIKETHROUGH);
+            sb.append(ChatFormatting.STRIKETHROUGH);
         }
 
         if (style.isUnderlined()) {
-            sb.append(Formatting.UNDERLINE);
+            sb.append(ChatFormatting.UNDERLINE);
         }
 
         if (style.isItalic()) {
-            sb.append(Formatting.ITALIC);
+            sb.append(ChatFormatting.ITALIC);
         }
     }
 

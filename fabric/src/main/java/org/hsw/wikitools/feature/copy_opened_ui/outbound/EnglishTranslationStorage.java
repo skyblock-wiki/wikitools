@@ -1,38 +1,38 @@
 package org.hsw.wikitools.feature.copy_opened_ui.outbound;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.language.LanguageDefinition;
-import net.minecraft.client.resource.language.TranslationStorage;
-import net.minecraft.resource.ResourceManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.ClientLanguage;
+import net.minecraft.client.resources.language.LanguageInfo;
+import net.minecraft.server.packs.resources.ResourceManager;
 
 class EnglishTranslationStorage {
-    private static @Nullable TranslationStorage translationStorage = null;
+    private static @Nullable ClientLanguage translationStorage = null;
 
-    public static @NotNull TranslationStorage get() {
+    public static @NotNull ClientLanguage get() {
         if (EnglishTranslationStorage.translationStorage != null) {
             return EnglishTranslationStorage.translationStorage;
         }
 
-        TranslationStorage translationStorage = createEnglishTranslationStorage();
+        ClientLanguage translationStorage = createEnglishTranslationStorage();
         EnglishTranslationStorage.translationStorage = translationStorage;
         return translationStorage;
     }
 
-    private static TranslationStorage createEnglishTranslationStorage() {
-        ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
+    private static ClientLanguage createEnglishTranslationStorage() {
+        ResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
 
-        final LanguageDefinition ENGLISH_US = new LanguageDefinition("US", "English", false);
+        final LanguageInfo ENGLISH_US = new LanguageInfo("US", "English", false);
 
         List<String> list = Collections.singletonList("en_us");
 
-        boolean bl = ENGLISH_US.rightToLeft();
+        boolean bl = ENGLISH_US.bidirectional();
 
-        return TranslationStorage.load(resourceManager, list, bl);
+        return ClientLanguage.loadFrom(resourceManager, list, bl);
     }
 
 }

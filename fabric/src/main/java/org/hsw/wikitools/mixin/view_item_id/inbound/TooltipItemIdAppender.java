@@ -1,13 +1,5 @@
 package org.hsw.wikitools.mixin.view_item_id.inbound;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import org.hsw.wikitools.feature.view_item_id.app.GetItemIdHandler;
 import org.hsw.wikitools.feature.view_item_id.outbound.HoveredItemIdFinder;
 import org.jetbrains.annotations.NotNull;
@@ -20,12 +12,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.util.CommonColors;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 
 @Mixin(ItemStack.class)
 public class TooltipItemIdAppender {
-    @Inject(method = "getTooltip", at = @At("TAIL"), cancellable = true)
-    public void onGetTooltip(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir) {
-        boolean toDisplaySkyBlockItemId = MinecraftClient.getInstance().options.advancedItemTooltips;
+    @Inject(method = "getTooltipLines", at = @At("TAIL"), cancellable = true)
+    public void onGetTooltip(Item.TooltipContext context, @Nullable Player player, TooltipFlag type, CallbackInfoReturnable<List<Component>> cir) {
+        boolean toDisplaySkyBlockItemId = Minecraft.getInstance().options.advancedItemTooltips;
 
         if (!toDisplaySkyBlockItemId) {
             return;
@@ -50,11 +50,11 @@ public class TooltipItemIdAppender {
     }
 
     @Unique
-    private static void appendTooltipWithItemId(CallbackInfoReturnable<List<Text>> cir, String skyBlockItemId) {
-        Style textStyle = Style.EMPTY.withColor(Colors.GRAY);
-        List<Text> textsToAdd = Text.of("SkyBlock Item ID: " + skyBlockItemId).getWithStyle(textStyle);
+    private static void appendTooltipWithItemId(CallbackInfoReturnable<List<Component>> cir, String skyBlockItemId) {
+        Style textStyle = Style.EMPTY.withColor(CommonColors.GRAY);
+        List<Component> textsToAdd = Component.nullToEmpty("SkyBlock Item ID: " + skyBlockItemId).toFlatList(textStyle);
 
-        List<Text> textList = cir.getReturnValue();
+        List<Component> textList = cir.getReturnValue();
         textList.addAll(textsToAdd);
         cir.setReturnValue(textList);
     }

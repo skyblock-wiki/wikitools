@@ -1,21 +1,24 @@
 package org.hsw.wikitools.feature.copy_skull_id.outbound;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.PlayerHeadItem;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.players.ProfileResolver;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PlayerHeadItem;
+import net.minecraft.world.item.component.ResolvableProfile;
 import org.hsw.wikitools.feature.copy_skull_id.app.FindHoveredSkullItem;
 import org.hsw.wikitools.feature.copy_skull_id.app.Skull;
 import org.hsw.wikitools.mixin.common.outbound.HandledScreenAccessor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 public class HoveredSkullItemFinder implements FindHoveredSkullItem {
     @Override
@@ -30,20 +33,20 @@ public class HoveredSkullItemFinder implements FindHoveredSkullItem {
     }
 
     private static @NotNull Optional<ItemStack> findFocusedItemStack() {
-        MinecraftClient client = MinecraftClient.getInstance();
-        Screen screen = client.currentScreen;
+        Minecraft client = Minecraft.getInstance();
+        Screen screen = client.screen;
 
-        if (!(screen instanceof HandledScreen<?> handledScreen)) {
+        if (!(screen instanceof AbstractContainerScreen<?> handledScreen)) {
             return Optional.empty(); // Not a handled screen, cannot find hovered item
         }
 
-        Slot focusedSlot = ((HandledScreenAccessor) handledScreen).getFocusedSlot();
+        Slot focusedSlot = ((HandledScreenAccessor) handledScreen).getHoveredSlot();
 
         if (focusedSlot == null) {
             return Optional.empty(); // No focused slot, cannot find hovered item
         }
 
-        ItemStack focusedItemStack = focusedSlot.getStack();
+        ItemStack focusedItemStack = focusedSlot.getItem();
 
         if (focusedItemStack.isEmpty()) {
             return Optional.empty(); // No item hovered
@@ -57,15 +60,26 @@ public class HoveredSkullItemFinder implements FindHoveredSkullItem {
             return Optional.empty(); // Not a player head
         }
 
-        ComponentMap components = itemStack.getComponents();
+        DataComponentMap components = itemStack.getComponents();
 
-        ProfileComponent profileComponent = components.get(DataComponentTypes.PROFILE);
+        ResolvableProfile profileComponent = components.get(DataComponents.PROFILE);
 
         if (profileComponent == null) {
             return Optional.empty(); // Cannot find profile component
         }
 
-        Optional<Property> textureProperty = profileComponent.properties().get("textures").stream().findFirst();
+        GameProfile partialProfile = profileComponent.partialProfile();
+        Optional<Property> textureProperty = partialProfile.properties().get("textures").stream().findFirst();
+
+        if (textureProperty.isEmpty()) {
+            try {
+                Minecraft client = Minecraft.getInstance();
+                ProfileResolver profileResolver = client.services().profileResolver();
+                GameProfile fullProfile = profileComponent.resolveProfile(profileResolver).get();
+                textureProperty = fullProfile.properties().get("textures").stream().findFirst();
+            } catch (InterruptedException | ExecutionException ignored) {
+            }
+        }
 
         if (textureProperty.isEmpty()) {
             return Optional.empty(); // Cannot get texture property

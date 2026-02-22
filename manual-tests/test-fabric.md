@@ -2,9 +2,9 @@
 
 ## Environment
 
-- Minecraft 1.21.5
-- Fabric Loader 0.16.14
-- Mods: Fabric API 0.127.1+1.21.5, WikiTools 2.7.0+1.21.5
+- Minecraft 1.21.11
+- Fabric Loader 0.18.4
+- Mods: Fabric API 0.141.3+1.21.11, WikiTools 2.7.0+1.21.11
 
 ## Tests
 
@@ -15,7 +15,7 @@ Tester should set the following fields before or after performing tests. Tester 
 - Time taken: Not set
 - Comment/Suggestion (optional): Not set
 
-Tester should perform each test and write the test result in the `Result` field. The test result should be "OK" if the `Action` is accurate and the output exactly matches `Expected Output`. Otherwise, write down the problem.
+Tester should perform each test and write the test result in the `Result` field. The test result should be "OK" if the `Action` is accurate and the output exactly matches `Expected Output`. Otherwise, put "FAIL:" and write down the problem.
 
 ### Copy Hovered Item Tooltip
 
@@ -61,6 +61,20 @@ Tester should perform each test and write the test result in the `Result` field.
   - Clipboard content should end with: `4565e9`
 - Result: Not set
 
+#### Copy texture ID of a hovered player head item by pressing Z works with resolvable profiles
+- Action: Open a creative world with cheats on. Run the command `/give @p minecraft:player_head[profile=Player]`. Open the inventory and hover over the player head. Press Z.
+- Expected Output:
+  - Game message: `Copied skull ID`
+  - Clipboard content is a continuous string of numbers and letters of at least 56 characters
+- Result: Not set
+
+#### Copy texture ID of a placed player head by pressing Z works with resolvable profiles
+- Action: Open a creative world with cheats on. Run the command `/give @p minecraft:player_head[profile=Player]`. Place the player head and point cursor to the placed head. Press Z.
+- Expected Output:
+  - Game message: `Copied skull ID`
+  - Clipboard content is a continuous string of numbers and letters of at least 56 characters
+- Result: Not set
+
 ### View Item ID
 
 #### SkyBlock item ID is shown on hovered SkyBlock item when advanced tooltip is set to "shown"
@@ -81,8 +95,8 @@ Tester should perform each test and write the test result in the `Result` field.
 - Action: Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon. Press N.
 - Expected Output:
   - Game message: `Copied data tags`
-  - Clipboard content contains: `id:"minecraft:nether_star"`
-  - Clipboard content contains: `"minecraft:custom_data":{id:"SKYBLOCK_MENU"}`
+  - Clipboard content contains: `minecraft:nether_star`
+  - Clipboard content contains: `{id:"SKYBLOCK_MENU"}`
 - Result: Not set
 
 #### Copy data tags of facing NPC by pressing N
@@ -91,7 +105,7 @@ Tester should perform each test and write the test result in the `Result` field.
   - Game message: `Copied data tags`
   - Clipboard content contains: `Pos:[-10.0d,70.0d,-67.0d]`
   - Clipboard content contains: `__gameProfile:`
-  - Clipboard content contains: `value:"ewogICJ0aW`
+  - Clipboard content contains: `value=ewogICJ0aW`
 - Result: Not set
 
 #### Copy data tags of armor stands with floating text
@@ -106,10 +120,10 @@ Tester should perform each test and write the test result in the `Result` field.
 
 #### Copy opened UI in default mode by pressing C
 - Special setting: Change your game language to Afrikaans.
-- Action: Go to SkyBlock and open the Game Menu. Click the Collections icon. Click the Farming Collections icon, then click the Cactus icon to open the Cactus Collection UI. Press C.
+- Action: Go to SkyBlock and open the SkyBlock Menu. Click the Collections icon. Click the Farming Collections icon, then click the Cactus icon to open the Cactus Collection UI. Press C.
 - Expected output:
   - Game message starts with: `Copied UI`
-  - Clipboard content first line: `{{UI|SkyBlock Hub Selector`
+  - Clipboard content first line: `{{UI|Cactus Collection`
 - Expected output to verify that number of rows is correct:
   - Clipboard content contains line: `|rows=6`
 - Expected output to verify that close item is detected:
@@ -126,7 +140,7 @@ Tester should perform each test and write the test result in the `Result` field.
 
 #### Copy opened UI in fill with blank by default mode by pressing Shift-C
 - Special setting: Change your game language to Afrikaans.
-- Action: Go to the SkyBlock hub and head to 34 71 -96. Click the Zog NPC to open the Zog UI. Press Ctrl-C.
+- Action: Go to the SkyBlock hub and head to 34 71 -96. Click the Zog NPC to open the Zog UI. Press Shift-C.
 - Expected output:
   - Clipboard content contains line: `|close=none`
   - Clipboard content contains line: `|arrow=none`

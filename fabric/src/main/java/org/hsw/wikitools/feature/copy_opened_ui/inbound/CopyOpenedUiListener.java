@@ -3,23 +3,27 @@ package org.hsw.wikitools.feature.copy_opened_ui.inbound;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import org.hsw.wikitools.common.inbound.ClipboardHelper;
 import org.hsw.wikitools.feature.copy_opened_ui.app.GetOpenedUiHandler;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
+import static org.hsw.wikitools.WikiToolsIdentity.CATEGORY;
+
+import com.mojang.blaze3d.platform.InputConstants;
+
 public class CopyOpenedUiListener {
     private final GetOpenedUiHandler getOpenedUiHandler;
-    private final KeyBinding copyOpenedUiKeybinding;
+    private final KeyMapping copyOpenedUiKeybinding;
 
     public CopyOpenedUiListener(GetOpenedUiHandler getOpenedUiHandler) {
         this.getOpenedUiHandler = getOpenedUiHandler;
@@ -29,12 +33,12 @@ public class CopyOpenedUiListener {
         registerEvent();
     }
 
-    private KeyBinding registerKeyBinding() {
-        return KeyBindingHelper.registerKeyBinding(new KeyBinding(
+    private KeyMapping registerKeyBinding() {
+        return KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.wikitools.copy-opened-ui",
-                InputUtil.Type.KEYSYM,
+                InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_C,
-                "key.categories.wikitools"
+                CATEGORY
         ));
     }
 
@@ -45,25 +49,25 @@ public class CopyOpenedUiListener {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
             // Add a listener for keyboard events if the screen is a HandledScreen
 
-            if (!(screen instanceof HandledScreen<?>)) {
+            if (!(screen instanceof AbstractContainerScreen<?>)) {
                 return; // Only register for InventoryScreen
             }
 
-            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, key, scanCode, modifiers) -> onKeyPress(client, key, scanCode, modifiers));
+            ScreenKeyboardEvents.afterKeyPress(screen).register((screen1, keyInput) -> onKeyPress(client, keyInput));
         });
     }
 
-    private void onKeyPress(MinecraftClient client, int key, int scanCode, int modifiers) {
-        boolean cIsPressed = copyOpenedUiKeybinding.matchesKey(key, 0);
-        boolean cIsPressedWithShift = cIsPressed && (modifiers & GLFW.GLFW_MOD_SHIFT) > 0;
-        boolean cIsPressedWithControl = cIsPressed && (modifiers & GLFW.GLFW_MOD_CONTROL) > 0;
+    private void onKeyPress(Minecraft client, KeyEvent keyInput) {
+        boolean cIsPressed = copyOpenedUiKeybinding.matches(keyInput);
+        boolean cIsPressedWithShift = cIsPressed && (keyInput.hasShiftDown());
+        boolean cIsPressedWithControl = cIsPressed && (keyInput.hasControlDown());
 
         if (cIsPressed) {
             copyOpenedUiTemplateCall(client, cIsPressedWithShift, cIsPressedWithControl);
         }
     }
 
-    private void copyOpenedUiTemplateCall(MinecraftClient client, boolean fillWithBlankByDefault, boolean alwaysUseMcItemNameForNonSkullItems) {
+    private void copyOpenedUiTemplateCall(Minecraft client, boolean fillWithBlankByDefault, boolean alwaysUseMcItemNameForNonSkullItems) {
         GetOpenedUiHandler.GetOpenedUiRequest request = new GetOpenedUiHandler.GetOpenedUiRequest(
                 fillWithBlankByDefault,
                 alwaysUseMcItemNameForNonSkullItems
@@ -76,17 +80,17 @@ public class CopyOpenedUiListener {
         String stringToCopy = response.get().templateCall;
         ClipboardHelper.setClipboard(stringToCopy);
 
-        Text tick = Text.literal("(✔)");
-        Text cross = Text.literal("(✘)");
-        MutableText fwbbdOptionTips = Text.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent.ShowText(Text.literal("This mode is activated by Shift+Key."))));
-        MutableText auminfnsiOptionTips = Text.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent.ShowText(Text.literal("This mode is activated by Control+Key."))));
-        MutableText outputText = Text.literal("Copied UI").append("\n")
+        Component tick = Component.literal("(✔)");
+        Component cross = Component.literal("(✘)");
+        MutableComponent fwbbdOptionTips = Component.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
+                new HoverEvent.ShowText(Component.literal("This mode is activated by Shift+Key."))));
+        MutableComponent auminfnsiOptionTips = Component.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
+                new HoverEvent.ShowText(Component.literal("This mode is activated by Control+Key."))));
+        MutableComponent outputText = Component.literal("Copied UI").append("\n")
                 .append("├ ").append(fillWithBlankByDefault ? tick : cross).append(" ")
                     .append("fill with blank by default").append(" ").append(fwbbdOptionTips).append("\n")
                 .append("└ ").append(alwaysUseMcItemNameForNonSkullItems ? tick : cross).append(" ")
                     .append("always use Minecraft item name for non skull items").append(" ").append(auminfnsiOptionTips);
-        client.getMessageHandler().onGameMessage(outputText, false);
+        client.getChatListener().handleSystemMessage(outputText, false);
     }
 }

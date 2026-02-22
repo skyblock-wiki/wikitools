@@ -1,19 +1,5 @@
 package org.hsw.wikitools.feature.copy_opened_ui.outbound;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
-import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.LoreComponent;
-import net.minecraft.component.type.ProfileComponent;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.GenericContainerScreenHandler;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Formatting;
 import org.hsw.wikitools.feature.copy_opened_ui.app.ChestContainer;
 import org.hsw.wikitools.feature.copy_opened_ui.app.FindOpenedChestContainer;
 import org.hsw.wikitools.feature.copy_opened_ui.app.Invslot;
@@ -22,18 +8,32 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.ChestMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.component.ResolvableProfile;
 
 public class OpenedChestContainerFinder implements FindOpenedChestContainer {
 
     @Override
     public Optional<ChestContainer> findCurrentChestContainer() {
-        Screen currentScreen = MinecraftClient.getInstance().currentScreen;
+        Screen currentScreen = Minecraft.getInstance().screen;
 
         if (currentScreen == null) {
             return Optional.empty();  // Cannot find screen
         }
 
-        if (!(currentScreen instanceof GenericContainerScreen genericContainerScreen)) {
+        if (!(currentScreen instanceof ContainerScreen genericContainerScreen)) {
             return Optional.empty();  // Not a container screen
         }
 
@@ -42,14 +42,14 @@ public class OpenedChestContainerFinder implements FindOpenedChestContainer {
         return Optional.of(chestContainer);
     }
 
-    private @NotNull ChestContainer getChestContainerFromContainerScreen(GenericContainerScreen genericContainerScreen) {
-        GenericContainerScreenHandler screenHandler = genericContainerScreen.getScreenHandler();
-        Inventory inventory = screenHandler.getInventory();
+    private @NotNull ChestContainer getChestContainerFromContainerScreen(ContainerScreen genericContainerScreen) {
+        ChestMenu screenHandler = genericContainerScreen.getMenu();
+        Container inventory = screenHandler.getContainer();
 
         String containerName = genericContainerScreen.getTitle().getString();
-        ChestContainer chestContainer = new ChestContainer(containerName, screenHandler.getRows());
+        ChestContainer chestContainer = new ChestContainer(containerName, screenHandler.getRowCount());
         chestContainer.populateGrid(cellPosition -> {
-            ItemStack itemStack = inventory.getStack(cellPosition.i);
+            ItemStack itemStack = inventory.getItem(cellPosition.i);
 
             if (itemStack == ItemStack.EMPTY) {
                 return Optional.empty();  // Empty item stack
@@ -61,23 +61,23 @@ public class OpenedChestContainerFinder implements FindOpenedChestContainer {
     }
 
     private @NotNull Invslot getInvslotFromItemStack(ItemStack itemStack) {
-        String displayedName = toFormattedText(itemStack.getName());
+        String displayedName = toFormattedText(itemStack.getHoverName());
 
         String minecraftItemNameInEnglish = EnglishTranslationStorage.get()
-                .get(itemStack.getItem().getTranslationKey());
+                .getOrDefault(itemStack.getItem().getDescriptionId());
 
-        ComponentMap components = itemStack.getComponents();
+        DataComponentMap components = itemStack.getComponents();
 
-        LoreComponent loreComponent = components.get(DataComponentTypes.LORE);
+        ItemLore loreComponent = components.get(DataComponents.LORE);
 
-        List<Text> loreTexts = new ArrayList<>();
+        List<Component> loreTexts = new ArrayList<>();
         if (loreComponent != null) {
             loreTexts = loreComponent.styledLines();
         }
 
         List<String> loreLines = loreTexts.stream().map(OpenedChestContainerFinder::toFormattedText).toList();
 
-        ProfileComponent profileComponent = components.get(DataComponentTypes.PROFILE);
+        ResolvableProfile profileComponent = components.get(DataComponents.PROFILE);
         boolean isCustomSkull = profileComponent != null;
 
         return new Invslot(
@@ -86,11 +86,11 @@ public class OpenedChestContainerFinder implements FindOpenedChestContainer {
                 loreLines,
                 itemStack.getCount(),
                 isCustomSkull,
-                itemStack.hasGlint()
+                itemStack.hasFoil()
         );
     }
 
-    private static @NotNull String toFormattedText(Text text) {
+    private static @NotNull String toFormattedText(Component text) {
         StringBuilder sb = new StringBuilder();
 
         toFormattedText(text, sb);
@@ -98,7 +98,7 @@ public class OpenedChestContainerFinder implements FindOpenedChestContainer {
         return sb.toString();
     }
 
-    private static void toFormattedText(Text text, StringBuilder sb) {
+    private static void toFormattedText(Component text, StringBuilder sb) {
         // Assumption: Only leaf nodes contain literal text
 
         Style style = text.getStyle();
@@ -112,7 +112,7 @@ public class OpenedChestContainerFinder implements FindOpenedChestContainer {
             sb.append(string);
         }
 
-        for (Text siblingText : text.getSiblings()) {
+        for (Component siblingText : text.getSiblings()) {
             toFormattedText(siblingText, sb);
         }
     }
@@ -122,31 +122,31 @@ public class OpenedChestContainerFinder implements FindOpenedChestContainer {
 
         TextColor color = style.getColor();
         if (color != null) {
-            String colorName = style.getColor().getName();
-            Formatting formatting = Formatting.byName(colorName);
+            String colorName = style.getColor().serialize();
+            ChatFormatting formatting = ChatFormatting.getByName(colorName);
             if (formatting != null) {
                 sb.append(formatting);
             }
         }
 
         if (style.isObfuscated()) {
-            sb.append(Formatting.OBFUSCATED);
+            sb.append(ChatFormatting.OBFUSCATED);
         }
 
         if (style.isBold()) {
-            sb.append(Formatting.BOLD);
+            sb.append(ChatFormatting.BOLD);
         }
 
         if (style.isStrikethrough()) {
-            sb.append(Formatting.STRIKETHROUGH);
+            sb.append(ChatFormatting.STRIKETHROUGH);
         }
 
         if (style.isUnderlined()) {
-            sb.append(Formatting.UNDERLINE);
+            sb.append(ChatFormatting.UNDERLINE);
         }
 
         if (style.isItalic()) {
-            sb.append(Formatting.ITALIC);
+            sb.append(ChatFormatting.ITALIC);
         }
     }
 

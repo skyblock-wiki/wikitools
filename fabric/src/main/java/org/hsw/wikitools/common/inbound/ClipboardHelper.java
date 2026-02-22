@@ -1,19 +1,20 @@
 package org.hsw.wikitools.common.inbound;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.Clipboard;
+import com.mojang.blaze3d.platform.ClipboardManager;
+import com.mojang.blaze3d.platform.Window;
+import net.minecraft.client.Minecraft;
 
 public class ClipboardHelper {
     public static void setClipboard(String text) {
-        long windowHandle = MinecraftClient.getInstance().getWindow().getHandle();
-        Clipboard clipboard = new Clipboard();
-        clipboard.setClipboard(windowHandle, text);
+        Window window = Minecraft.getInstance().getWindow();
+        ClipboardManager clipboard = new ClipboardManager();
+        clipboard.setClipboard(window, text);
     }
 
     public static String getClipboard() {
-        long windowHandle = MinecraftClient.getInstance().getWindow().getHandle();
-        Clipboard clipboard = new Clipboard();
+        Window window = Minecraft.getInstance().getWindow();
+        ClipboardManager clipboard = new ClipboardManager();
 
-        return clipboard.getClipboard(windowHandle, (ret, args) -> {});
+        return clipboard.getClipboard(window, (ret, args) -> {});
     }
 }

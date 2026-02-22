@@ -1,17 +1,20 @@
 package org.hsw.wikitools.feature.copy_skull_id.outbound;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.SkullBlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.ProfileComponent;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.players.ProfileResolver;
+import net.minecraft.world.item.component.ResolvableProfile;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
+import net.minecraft.world.phys.HitResult;
 import org.hsw.wikitools.feature.copy_skull_id.app.FindFacingBlockSkull;
 import org.hsw.wikitools.feature.copy_skull_id.app.Skull;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 public class FacingBlockSkullFinder implements FindFacingBlockSkull {
     @Override
@@ -26,25 +29,25 @@ public class FacingBlockSkullFinder implements FindFacingBlockSkull {
     }
 
     private static @NotNull Optional<BlockEntity> findFacingBlock() {
-        MinecraftClient client = MinecraftClient.getInstance();
+        Minecraft client = Minecraft.getInstance();
 
-        HitResult crosshairTarget = client.crosshairTarget;
+        HitResult crosshairTarget = client.hitResult;
 
         if (crosshairTarget == null ||
                 !crosshairTarget.getType().equals(HitResult.Type.BLOCK)) {
             return Optional.empty(); // No mouseover block
         }
 
-        if (client.world == null) {
+        if (client.level == null) {
             return Optional.empty(); // No world
         }
 
-        if (!client.isOnThread()) {
+        if (!client.isSameThread()) {
             return Optional.empty(); // Not on thread
         }
 
-        BlockPos blockPos = BlockPos.ofFloored(crosshairTarget.getPos());
-        BlockEntity blockEntity = client.world.getBlockEntity(blockPos);
+        BlockPos blockPos = BlockPos.containing(crosshairTarget.getLocation());
+        BlockEntity blockEntity = client.level.getBlockEntity(blockPos);
 
         return Optional.ofNullable(blockEntity);
     }
@@ -54,12 +57,23 @@ public class FacingBlockSkullFinder implements FindFacingBlockSkull {
             return Optional.empty(); // Not a skull
         }
 
-        ProfileComponent profileComponent = ((SkullBlockEntity) blockEntity).getOwner();
+        ResolvableProfile profileComponent = ((SkullBlockEntity) blockEntity).getOwnerProfile();
         if (profileComponent == null) {
             return Optional.empty(); // Cannot find profile
         }
 
-        Optional<Property> textureProperty = profileComponent.properties().get("textures").stream().findFirst();
+        GameProfile partialProfile = profileComponent.partialProfile();
+        Optional<Property> textureProperty = partialProfile.properties().get("textures").stream().findFirst();
+
+        if (textureProperty.isEmpty()) {
+            try {
+                Minecraft client = Minecraft.getInstance();
+                ProfileResolver profileResolver = client.services().profileResolver();
+                GameProfile fullProfile = profileComponent.resolveProfile(profileResolver).get();
+                textureProperty = fullProfile.properties().get("textures").stream().findFirst();
+            } catch (InterruptedException | ExecutionException ignored) {
+            }
+        }
 
         if (textureProperty.isEmpty()) {
             return Optional.empty(); // Cannot find textures
