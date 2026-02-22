@@ -3,8 +3,8 @@
   "package": "org.hsw.wikitools.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "common.outbound.HandledScreenAccessor",
-    "view_item_id.inbound.TooltipItemIdAppender"
+    "common.HandledScreenAccessor",
+    "view_item_id.TooltipItemIdAppender"
   ],
   "injectors": {
     "defaultRequire": 1
