@@ -113,11 +113,6 @@ workspace "WikiTools" {
                     }
                 }
             }
-
-            wikitoolsRenders = container "WikiTools Renders" {
-                this -> moddingAPI "Uses"
-                moddingAPI -> this "Uses"
-            }
         }
     }
 
