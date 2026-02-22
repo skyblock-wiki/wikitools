@@ -1,7 +1,4 @@
-package org.hsw.wikitools.feature.copy_data_tags;
-
-import org.hsw.wikitools.feature.copy_data_tags.app.EntityDataTags;
-import org.hsw.wikitools.feature.copy_data_tags.app.FindFacingEntityDataTags;
+package org.hsw.wikitools.feature.copy_data_tags.app;
 
 import java.util.Optional;
 

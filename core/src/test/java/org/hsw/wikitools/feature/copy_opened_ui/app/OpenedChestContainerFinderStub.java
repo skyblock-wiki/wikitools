@@ -1,7 +1,4 @@
-package org.hsw.wikitools.feature.copy_opened_ui;
-
-import org.hsw.wikitools.feature.copy_opened_ui.app.ChestContainer;
-import org.hsw.wikitools.feature.copy_opened_ui.app.FindOpenedChestContainer;
+package org.hsw.wikitools.feature.copy_opened_ui.app;
 
 import java.util.Optional;
 

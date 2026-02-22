@@ -1,7 +1,4 @@
-package org.hsw.wikitools.feature.copy_skull_id;
-
-import org.hsw.wikitools.feature.copy_skull_id.app.FindHoveredSkullItem;
-import org.hsw.wikitools.feature.copy_skull_id.app.Skull;
+package org.hsw.wikitools.feature.copy_skull_id.app;
 
 import java.util.Optional;
 

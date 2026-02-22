@@ -1,6 +1,6 @@
 package org.hsw.wikitools.feature.copy_item_tooltip.app;
 
-import org.hsw.wikitools.common.InventoryItemFormattingService;
+import org.hsw.wikitools.common.app.InventoryItemFormattingService;
 
 class InventorySlotTemplateCall {
     public final String tooltip;

@@ -1,6 +1,6 @@
 package org.hsw.wikitools.feature.copy_opened_ui.app;
 
-import org.hsw.wikitools.common.InventoryItemFormattingService;
+import org.hsw.wikitools.common.app.InventoryItemFormattingService;
 
 import java.util.List;
 import java.util.Optional;

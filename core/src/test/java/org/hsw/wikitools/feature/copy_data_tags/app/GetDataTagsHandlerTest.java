@@ -1,8 +1,5 @@
-package org.hsw.wikitools.feature.copy_data_tags;
+package org.hsw.wikitools.feature.copy_data_tags.app;
 
-import org.hsw.wikitools.feature.copy_data_tags.app.EntityDataTags;
-import org.hsw.wikitools.feature.copy_data_tags.app.GetDataTagsHandler;
-import org.hsw.wikitools.feature.copy_data_tags.app.ItemDataTags;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 

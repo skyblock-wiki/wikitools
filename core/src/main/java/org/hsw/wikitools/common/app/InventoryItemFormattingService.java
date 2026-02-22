@@ -1,4 +1,4 @@
-package org.hsw.wikitools.common;
+package org.hsw.wikitools.common.app;
 
 import java.util.ArrayList;
 import java.util.List;

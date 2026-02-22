@@ -1,8 +1,5 @@
-package org.hsw.wikitools.feature.copy_opened_ui;
+package org.hsw.wikitools.feature.copy_opened_ui.app;
 
-import org.hsw.wikitools.feature.copy_opened_ui.app.ChestContainer;
-import org.hsw.wikitools.feature.copy_opened_ui.app.GetOpenedUiHandler;
-import org.hsw.wikitools.feature.copy_opened_ui.app.Invslot;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

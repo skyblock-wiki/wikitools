@@ -1,4 +1,4 @@
-package org.hsw.wikitools.common;
+package org.hsw.wikitools.common.app;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,4 @@
-package org.hsw.wikitools.feature.copy_item_tooltip;
-
-import org.hsw.wikitools.feature.copy_item_tooltip.app.FindHoveredInvslot;
-import org.hsw.wikitools.feature.copy_item_tooltip.app.Invslot;
+package org.hsw.wikitools.feature.copy_item_tooltip.app;
 
 import java.util.Optional;
 

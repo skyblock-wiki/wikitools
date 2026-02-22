@@ -1,7 +1,5 @@
-package org.hsw.wikitools.feature.copy_skull_id;
+package org.hsw.wikitools.feature.copy_skull_id.app;
 
-import org.hsw.wikitools.feature.copy_skull_id.app.GetSkullIdHandler;
-import org.hsw.wikitools.feature.copy_skull_id.app.Skull;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 

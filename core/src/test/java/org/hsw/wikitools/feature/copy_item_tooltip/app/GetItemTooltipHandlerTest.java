@@ -1,8 +1,5 @@
-package org.hsw.wikitools.feature.copy_item_tooltip;
+package org.hsw.wikitools.feature.copy_item_tooltip.app;
 
-import org.hsw.wikitools.feature.copy_item_tooltip.app.GetItemTooltipHandler;
-import org.hsw.wikitools.feature.copy_item_tooltip.app.FindHoveredInvslot;
-import org.hsw.wikitools.feature.copy_item_tooltip.app.Invslot;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
