@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.util.CommonColors;
 import org.hsw.wikitools.WikiToolsIdentity;
+import org.hsw.wikitools.common.ConfigProperties;
 
 import java.net.URI;
 
@@ -14,8 +15,6 @@ import java.net.URI;
 public class ModUpdateChecker {
 
     private final GetNewVersionHandler getNewVersionHandler;
-
-    private static String latestReleaseDownloadUrl = "https://github.com/skyblock-wiki/wikitools/releases/latest";
 
     public ModUpdateChecker(GetNewVersionHandler getNewVersionHandler) {
         this.getNewVersionHandler = getNewVersionHandler;
@@ -57,6 +56,7 @@ public class ModUpdateChecker {
         Component frontComponent = Component.translatable("message.wikitools.mod-update-checker.new-update", newVersionName)
                 .setStyle(Style.EMPTY.withColor(CommonColors.GREEN));
 
+        String latestReleaseDownloadUrl = ConfigProperties.getProperty("latestReleaseDownloadUrl");
         Style linkStyle = Style.EMPTY
                 .withColor(CommonColors.GRAY)
                 .withUnderlined(true)
@@ -74,7 +74,7 @@ public class ModUpdateChecker {
     }
 
     private static void warnFailure(String problemName) {
-        String warningText = Component.translatable("message.wikitools.mod-update-checker.error", problemName).toString();
+        String warningText = Component.translatable("message.wikitools.mod-update-checker.error", problemName).getString();
         WikiToolsIdentity.LOGGER.warn(warningText, false);
     }
 

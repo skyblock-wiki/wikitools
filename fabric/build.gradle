@@ -55,6 +55,11 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		expand "version": inputs.properties.version
 	}
+
+	filesMatching("config.properties") {
+		// Replace ${property} with values from gradle.properties
+		expand(project.properties)
+	}
 }
 
 tasks.withType(JavaCompile).configureEach {

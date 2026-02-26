@@ -1,6 +1,7 @@
 package org.hsw.wikitools.feature.mod_update_checker;
 
 import com.google.gson.Gson;
+import org.hsw.wikitools.common.ConfigProperties;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,7 +12,6 @@ import java.net.http.HttpResponse;
 public class GitHubLatestReleaseFinder implements FindModVersion {
 
     private final String githubApiBaseUrl;
-    private final String latestReleasePath = "/repos/skyblock-wiki/wikitools/releases/latest";
 
     public GitHubLatestReleaseFinder(String githubApiBaseUrl) {
         this.githubApiBaseUrl = githubApiBaseUrl;
@@ -19,6 +19,7 @@ public class GitHubLatestReleaseFinder implements FindModVersion {
 
     public FindModVersionResult findLatestVersion() {
         try (HttpClient client = HttpClient.newHttpClient()) {
+            String latestReleasePath = ConfigProperties.getProperty("latestReleasePath");
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(githubApiBaseUrl + latestReleasePath))
                     .header("Accept", "application/vnd.github+json")
@@ -27,7 +28,6 @@ public class GitHubLatestReleaseFinder implements FindModVersion {
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            String responseBody = response.body();
             Release release = new Gson().fromJson(response.body(), Release.class);
 
             if (release == null || release.tag_name == null) {

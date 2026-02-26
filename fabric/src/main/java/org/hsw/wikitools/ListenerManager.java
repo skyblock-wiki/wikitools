@@ -1,5 +1,6 @@
 package org.hsw.wikitools;
 
+import org.hsw.wikitools.common.ConfigProperties;
 import org.hsw.wikitools.feature.copy_data_tags.CopyDataTagsListener;
 import org.hsw.wikitools.feature.copy_data_tags.FacingEntityDataTagsFinder;
 import org.hsw.wikitools.feature.copy_data_tags.GetDataTagsHandler;
@@ -19,8 +20,6 @@ import org.hsw.wikitools.feature.mod_update_checker.ModUpdateChecker;
  * Manages the lifecycle and instantiation of listeners.
  */
 class ListenerManager {
-	private static final String githubApiBaseUrl = "https://api.github.com/";
-
     private final CopyHoveredItemTooltipListener copyHoveredItemTooltipListener;
 	private final CopySkullIdListener copySkullIdListener;
 	private final CopyDataTagsListener copyDataTagsListener;
@@ -63,6 +62,7 @@ class ListenerManager {
 	}
 
 	private ModUpdateChecker createModUpdateChecker() {
+		String githubApiBaseUrl = ConfigProperties.getProperty("githubApiBaseUrl");
 		GitHubLatestReleaseFinder gitHubLatestReleaseFinder = new GitHubLatestReleaseFinder(githubApiBaseUrl);
 		GetNewVersionHandler getNewVersionHandler = new GetNewVersionHandler(gitHubLatestReleaseFinder);
 		return new ModUpdateChecker(getNewVersionHandler);
