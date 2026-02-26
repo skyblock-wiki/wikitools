@@ -56,15 +56,15 @@ class GetItemTooltipHandlerTest {
     void shouldReturnMultiLineTooltip() {
         Optional<Invslot> invslot = Optional.of(new Invslot("Test Item", Arrays.asList("Lore line 1", "Lore line 2")));
         String expectedTemplateString = "{{Slot|Test Item|title=Test Item|text=Lore line 1\\nLore line 2}}";
-        String expectedModuleString = "['Test Item'] = { name = 'Test Item', title = 'Test Item', text = 'Lore line 1\\nLore line 2', },";
+        String expectedModuleString = "['Test Item'] = { name = 'Test Item', title = 'Test Item', text = 'Lore line 1\\\\nLore line 2', },";
         runTest(invslot, expectedTemplateString, expectedModuleString);
     }
 
     @Test
     void shouldFormatItem() {
-        Optional<Invslot> invslot = Optional.of(new Invslot("§5Formatted Item", Arrays.asList("Line with §a green text", "Line with §b blue text")));
-        String expectedTemplateString = "{{Slot|Formatted Item|title=&5Formatted Item|text=Line with &a green text\\nLine with &b blue text}}";
-        String expectedModuleString = "['Formatted Item'] = { name = 'Formatted Item', title = '&5Formatted Item', text = 'Line with &a green text\\nLine with &b blue text', },";
+        Optional<Invslot> invslot = Optional.of(new Invslot("§5Formatted Item", Arrays.asList("Line with §a green text and §b blue text")));
+        String expectedTemplateString = "{{Slot|Formatted Item|title=&5Formatted Item|text=Line with &a green text and &b blue text}}";
+        String expectedModuleString = "['Formatted Item'] = { name = 'Formatted Item', title = '&5Formatted Item', text = 'Line with &a green text and &b blue text', },";
         runTest(invslot, expectedTemplateString, expectedModuleString);
     }
 

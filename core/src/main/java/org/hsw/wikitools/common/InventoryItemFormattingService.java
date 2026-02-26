@@ -21,7 +21,8 @@ public class InventoryItemFormattingService {
 
     public static String formatLore(List<String> lore, boolean toTemplateFormatting) {
         List<String> loreList = new ArrayList<>();
-        String delimiter = "\\n";
+        String templateDelimiter = "\\n";
+        String moduleDelimiter = "\\\\n";
         boolean removeFormattingCode = false;
 
         for (String line : lore) {
@@ -31,7 +32,7 @@ public class InventoryItemFormattingService {
             loreList.add(formattedLine);
         }
 
-        return String.join(delimiter, loreList);
+        return String.join(toTemplateFormatting ? templateDelimiter : moduleDelimiter, loreList);
     }
 
     private static String formatTextForTemplate(String text, boolean removeFormattingCode) {
