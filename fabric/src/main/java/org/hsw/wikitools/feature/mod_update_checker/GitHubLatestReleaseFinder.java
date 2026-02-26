@@ -1,0 +1,55 @@
+package org.hsw.wikitools.feature.mod_update_checker;
+
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+public class GitHubLatestReleaseFinder implements FindModVersion {
+
+    private final String githubApiBaseUrl;
+    private final String latestReleasePath = "/repos/skyblock-wiki/wikitools/releases/latest";
+
+    public GitHubLatestReleaseFinder(String githubApiBaseUrl) {
+        this.githubApiBaseUrl = githubApiBaseUrl;
+    }
+
+    public FindModVersionResult findLatestVersion() {
+        try (HttpClient client = HttpClient.newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(githubApiBaseUrl + latestReleasePath))
+                    .header("Accept", "application/vnd.github+json")
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            String responseBody = response.body();
+            Release release = new Gson().fromJson(response.body(), Release.class);
+
+            if (release == null || release.tag_name == null) {
+                return FindModVersionResult.failure("Latest Release Fetch/Parse Failure (" + response.body() + ")");
+            }
+
+            String latestVersionName = release.tag_name;
+
+            // For version names like "v2.0.0",
+            // remove "v" from the start of string
+            if (latestVersionName.startsWith("v")) {
+                latestVersionName = latestVersionName.substring(1);
+            }
+
+            return FindModVersionResult.success(latestVersionName);
+        } catch (IOException | InterruptedException ignored) {
+            return FindModVersionResult.failure("Latest Release Fetch Failure");
+        }
+    }
+
+    private static class Release {
+        public String tag_name;
+    }
+
+}

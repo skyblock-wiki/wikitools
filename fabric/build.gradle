@@ -27,11 +27,26 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+	// Test dependencies
+	testImplementation('org.junit.jupiter:junit-jupiter:5.13.4')
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.13.4")
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.13.4")
+
+	testImplementation('org.mock-server:mockserver-netty-no-dependencies:5.15.0')
+	testImplementation('org.mock-server:mockserver-client-java-no-dependencies:5.15.0')
+
 	// Subproject dependencies
 	implementation project(":core")
 
 	include project(":core")
 
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
 }
 
 processResources {

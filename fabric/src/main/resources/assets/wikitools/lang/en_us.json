@@ -20,5 +20,9 @@
 
   "message.wikitools.copy-skull-id.success": "Copied skull ID",
 
+  "message.wikitools.mod-update-checker.new-update": "WikiTools has an update: %s.",
+  "message.wikitools.mod-update-checker.update-link-text": "Click here to see the new version.",
+  "message.wikitools.mod-update-checker.error": "WikiTools Mod Update Checker encountered an error: %s",
+
   "message.wikitools.view-item-id.item-id-display": "Item ID: %s"
 }

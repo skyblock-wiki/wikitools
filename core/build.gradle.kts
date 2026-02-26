@@ -24,6 +24,7 @@ dependencies {
     implementation(libs.guava)
     implementation(libs.jetbrains.annotations)
     implementation(libs.gson)
+    implementation(libs.java.semver)
 }
 
 testing {

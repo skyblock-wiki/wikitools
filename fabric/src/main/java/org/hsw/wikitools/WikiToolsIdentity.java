@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class WikiToolsIdentity {
     public static final String MOD_ID = "wikitools";
+    public static final String VERSION = "2.7.0";
 
     public static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "main"));
 

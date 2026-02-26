@@ -1,35 +1,38 @@
 package org.hsw.wikitools;
 
-import org.hsw.wikitools.feature.copy_data_tags.GetDataTagsHandler;
 import org.hsw.wikitools.feature.copy_data_tags.CopyDataTagsListener;
 import org.hsw.wikitools.feature.copy_data_tags.FacingEntityDataTagsFinder;
+import org.hsw.wikitools.feature.copy_data_tags.GetDataTagsHandler;
 import org.hsw.wikitools.feature.copy_data_tags.HoveredItemDataTagsFinder;
-import org.hsw.wikitools.feature.copy_item_tooltip.HoveredInvslotFinder;
 import org.hsw.wikitools.feature.copy_item_tooltip.CopyHoveredItemTooltipListener;
 import org.hsw.wikitools.feature.copy_item_tooltip.GetItemTooltipHandler;
-import org.hsw.wikitools.feature.copy_opened_ui.GetOpenedUiHandler;
+import org.hsw.wikitools.feature.copy_item_tooltip.HoveredInvslotFinder;
 import org.hsw.wikitools.feature.copy_opened_ui.CopyOpenedUiListener;
+import org.hsw.wikitools.feature.copy_opened_ui.GetOpenedUiHandler;
 import org.hsw.wikitools.feature.copy_opened_ui.OpenedChestContainerFinder;
-import org.hsw.wikitools.feature.copy_skull_id.GetSkullIdHandler;
-import org.hsw.wikitools.feature.copy_skull_id.CopySkullIdListener;
-import org.hsw.wikitools.feature.copy_skull_id.FacingBlockSkullFinder;
-import org.hsw.wikitools.feature.copy_skull_id.FacingEntitySkullFinder;
-import org.hsw.wikitools.feature.copy_skull_id.HoveredSkullItemFinder;
+import org.hsw.wikitools.feature.copy_skull_id.*;
+import org.hsw.wikitools.feature.mod_update_checker.GetNewVersionHandler;
+import org.hsw.wikitools.feature.mod_update_checker.GitHubLatestReleaseFinder;
+import org.hsw.wikitools.feature.mod_update_checker.ModUpdateChecker;
 
 /**
  * Manages the lifecycle and instantiation of listeners.
  */
 class ListenerManager {
+	private static final String githubApiBaseUrl = "https://api.github.com/";
+
     private final CopyHoveredItemTooltipListener copyHoveredItemTooltipListener;
 	private final CopySkullIdListener copySkullIdListener;
 	private final CopyDataTagsListener copyDataTagsListener;
 	private final CopyOpenedUiListener copyOpenedUiListener;
+	private final ModUpdateChecker modUpdateChecker;
 
 	public ListenerManager() {
 		copyHoveredItemTooltipListener = createCopyHoveredItemTooltipListener();
 		copySkullIdListener = createCopySkullIdListener();
 		copyDataTagsListener = createCopyDataTagsListener();
 		copyOpenedUiListener = createOpenedUiListener();
+		modUpdateChecker = createModUpdateChecker();
 	}
 
 	private CopyHoveredItemTooltipListener createCopyHoveredItemTooltipListener() {
@@ -57,6 +60,12 @@ class ListenerManager {
 		OpenedChestContainerFinder openedChestContainerFinder = new OpenedChestContainerFinder();
 		GetOpenedUiHandler getOpenedUiHandler = new GetOpenedUiHandler(openedChestContainerFinder);
 		return new CopyOpenedUiListener(getOpenedUiHandler);
+	}
+
+	private ModUpdateChecker createModUpdateChecker() {
+		GitHubLatestReleaseFinder gitHubLatestReleaseFinder = new GitHubLatestReleaseFinder(githubApiBaseUrl);
+		GetNewVersionHandler getNewVersionHandler = new GetNewVersionHandler(gitHubLatestReleaseFinder);
+		return new ModUpdateChecker(getNewVersionHandler);
 	}
 
 }
