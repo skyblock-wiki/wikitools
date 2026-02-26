@@ -9,9 +9,11 @@
 - Added Copy Opened UI (Key C): Copy the UI menu you have open into a Wiki UI format to your clipboard. Behaviors available:
   - Fill with blank by default mode
   - Always use Minecraft item name for non skull items mode
-- Add Copy Skull ID (Key: Z): Copy the texture ID of a skull to your clipboard. This feature works on:
+- Added Copy Skull ID (Key: Z): Copy the texture ID of a skull to your clipboard. This feature works on:
   - Placed player heads.
   - Entities wearing player heads (excluding Players and NPCs).
   - Player head items you are hovering over.
+- Add View Item ID (when Show Advanced Tooltips is on): Find the SkyBlock item ID of the item you are hovering over and append it to the tooltip shown on screen.
+- Add Mod Update Checker: Check for new WikiTools release on GitHub and send an update reminder message.
 
 [3.0.0]: https://github.com/skyblock-wiki/wikitools/tree/v3.0.0

@@ -13,6 +13,28 @@ workspace "WikiTools" {
 
         wikitoolsSystem = softwareSystem "WikiTools System" {
             wikitools = container "WikiTools" {
+                copyDataTags = group "copy_data_tags" {
+                    hoveredItemDataTagsFinder = component "HoveredItemDataTagsFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    facingEntityDataTagsFinder = component "FacingEntityDataTagsFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    getDataTagsHandler = component "GetDataTagsHandler" {
+                        tag "Core"
+
+                        this -> hoveredItemDataTagsFinder "Uses"
+                        this -> facingEntityDataTagsFinder "Uses"
+                    }
+
+                    copyDataTagsListener = component "CopyDataTagsListener" {
+                        this -> getDataTagsHandler "Uses"
+                        this -> moddingAPI "Registers event on"
+                    }
+                }
+
                 copyItemTooltip = group "copy_item_tooltip" {
                     hoveredInvslotFinder = component "HoveredInvslotFinder" {
                         this -> moddingAPI "Uses"
@@ -26,7 +48,24 @@ workspace "WikiTools" {
 
                     copyHoveredItemTooltipListener = component "CopyHoveredItemTooltipListener" {
                         this -> getItemTooltipHandler "Uses"
-                        moddingAPI -> this "Triggers"
+                        this -> moddingAPI "Registers event on"
+                    }
+                }
+
+                copyOpenedUi = group "copy_opened_ui" {
+                    openedChestContainerFinder = component "OpenedChestContainerFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    getOpenedUiHandler = component "GetOpenedUiHandler" {
+                        tag "Core"
+
+                        this -> openedChestContainerFinder "Uses"
+                    }
+
+                    copyOpenedUiListener = component "CopyOpenedUiListener" {
+                        this -> getOpenedUiHandler "Uses"
+                        this -> moddingAPI "Registers event on"
                     }
                 }
 
@@ -53,7 +92,24 @@ workspace "WikiTools" {
 
                     copySkullIdListener = component "CopySkullIdListener" {
                         this -> getSkullIdHandler "Uses"
-                        moddingApi -> this "Triggers"
+                        this -> moddingAPI "Registers event on"
+                    }
+                }
+
+                modUpdateCheckerGroup = group "mod_update_checker" {
+                    githubLatestReleaseFinder = component "GitHubLatestReleaseFinder" {
+                        this -> moddingAPI "Uses"
+                    }
+
+                    getNewVersionHandler = component "GetNewVersionHandler" {
+                        tag "Core"
+
+                        this -> githubLatestReleaseFinder "Uses"
+                    }
+
+                    modUpdateChecker = component "ModUpdateChecker" {
+                        this -> getNewVersionHandler "Uses"
+                        this -> moddingAPI "Registers event on"
                     }
                 }
 
@@ -70,46 +126,7 @@ workspace "WikiTools" {
 
                     tooltipItemIdAppender = component "TooltipItemIdAppender" {
                         this -> getItemIdHandler "Uses"
-                        moddingAPI -> this "Triggers"
-                    }
-                }
-
-                copyDataTags = group "copy_data_tags" {
-                    hoveredItemDataTagsFinder = component "HoveredItemDataTagsFinder" {
-                        this -> moddingAPI "Uses"
-                    }
-
-                    facingEntityDataTagsFinder = component "FacingEntityDataTagsFinder" {
-                        this -> moddingAPI "Uses"
-                    }
-
-                    getDataTagsHandler = component "GetDataTagsHandler" {
-                        tag "Core"
-
-                        this -> hoveredItemDataTagsFinder "Uses"
-                        this -> facingEntityDataTagsFinder "Uses"
-                    }
-
-                    copyDataTagsListener = component "CopyDataTagsListener" {
-                        this -> getDataTagsHandler "Uses"
-                        moddingAPI -> this "Triggers"
-                    }
-                }
-
-                copyOpenedUi = group "copy_opened_ui" {
-                    openedChestContainerFinder = component "OpenedChestContainerFinder" {
-                        this -> moddingAPI "Uses"
-                    }
-
-                    getOpenedUiHandler = component "GetOpenedUiHandler" {
-                        tag "Core"
-
-                        this -> openedChestContainerFinder "Uses"
-                    }
-
-                    copyOpenedUiListener = component "CopyOpenedUiListener" {
-                        this -> getOpenedUiHandler "Uses"
-                        moddingAPI -> this "Triggers"
+                        this -> moddingAPI "Registers event on"
                     }
                 }
             }
