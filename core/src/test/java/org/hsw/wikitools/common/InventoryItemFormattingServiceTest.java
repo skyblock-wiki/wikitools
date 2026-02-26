@@ -220,16 +220,23 @@ public class InventoryItemFormattingServiceTest {
         }
 
         @Test
-        void shouldJoinLinesUsingNewlineCharacter() {
-            List<String> lore = Arrays.asList(
-                    "Line 1",
-                    "Line 2",
-                    "Line 3"
-            );
+        void shouldUseTemplateLineSeparator() {
+            List<String> input = Arrays.asList("Line 1", "Line 2", "Line 3");
 
-            String result = InventoryItemFormattingService.formatLore(lore, true);
+            String result = InventoryItemFormattingService.formatLore(input, true);
 
-            String expected = "Line 1\\nLine 2\\nLine 3";
+            String expected = "Line 1/Line 2/Line 3";
+
+            assertEquals(expected, result);
+        }
+
+        @Test
+        void shouldUseModuleLineSeparator() {
+            List<String> input = Arrays.asList("Line 1", "Line 2", "Line 3");
+
+            String result = InventoryItemFormattingService.formatLore(input, false);
+
+            String expected = "Line 1/Line 2/Line 3";
 
             assertEquals(expected, result);
         }
@@ -265,28 +272,6 @@ public class InventoryItemFormattingServiceTest {
             String result = InventoryItemFormattingService.formatLore(input, false);
 
             String expected = "Line with \\\\\\\\ backslash";
-
-            assertEquals(expected, result);
-        }
-
-        @Test
-        void shouldUseTemplateLineSeparator() {
-            List<String> input = Arrays.asList("Line 1", "Line 2");
-
-            String result = InventoryItemFormattingService.formatLore(input, true);
-
-            String expected = "Line 1\\nLine 2";
-
-            assertEquals(expected, result);
-        }
-
-        @Test
-        void shouldUseModuleLineSeparator() {
-            List<String> input = Arrays.asList("Line 1", "Line 2");
-
-            String result = InventoryItemFormattingService.formatLore(input, false);
-
-            String expected = "Line 1\\\\nLine 2";
 
             assertEquals(expected, result);
         }

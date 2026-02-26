@@ -142,9 +142,9 @@ public class GetOpenedUiHandlerTest {
                     "|fill=false\n" +
                     "|close=none\n" +
                     "|arrow=none\n" +
-                    "|1, 1=Formatted Item, none, &5Formatted Item, Line &a green\\nLine &b blue\n" +
-                    "|1, 5=Formatted Item, none, &5Formatted Item, Line &a green\\nLine &b blue\n" +
-                    "|2, 9=Formatted Item, none, &5Formatted Item, Line &a green\\nLine &b blue\n" +
+                    "|1, 1=Formatted Item, none, &5Formatted Item, Line &a green/Line &b blue\n" +
+                    "|1, 5=Formatted Item, none, &5Formatted Item, Line &a green/Line &b blue\n" +
+                    "|2, 9=Formatted Item, none, &5Formatted Item, Line &a green/Line &b blue\n" +
                     "}}";
             assertTrue(response.isPresent());
             assertEquals(expected, response.get().templateCall);

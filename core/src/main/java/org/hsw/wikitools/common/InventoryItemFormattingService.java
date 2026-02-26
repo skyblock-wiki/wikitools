@@ -21,8 +21,8 @@ public class InventoryItemFormattingService {
 
     public static String formatLore(List<String> lore, boolean toTemplateFormatting) {
         List<String> loreList = new ArrayList<>();
-        String templateDelimiter = "\\n";
-        String moduleDelimiter = "\\\\n";
+        String templateDelimiter = "/";
+        String moduleDelimiter = "/";
         boolean removeFormattingCode = false;
 
         for (String line : lore) {

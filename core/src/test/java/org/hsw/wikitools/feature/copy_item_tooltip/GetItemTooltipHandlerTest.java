@@ -55,8 +55,8 @@ class GetItemTooltipHandlerTest {
     @Test
     void shouldReturnMultiLineTooltip() {
         Optional<Invslot> invslot = Optional.of(new Invslot("Test Item", Arrays.asList("Lore line 1", "Lore line 2")));
-        String expectedTemplateString = "{{Slot|Test Item|title=Test Item|text=Lore line 1\\nLore line 2}}";
-        String expectedModuleString = "['Test Item'] = { name = 'Test Item', title = 'Test Item', text = 'Lore line 1\\\\nLore line 2', },";
+        String expectedTemplateString = "{{Slot|Test Item|title=Test Item|text=Lore line 1/Lore line 2}}";
+        String expectedModuleString = "['Test Item'] = { name = 'Test Item', title = 'Test Item', text = 'Lore line 1/Lore line 2', },";
         runTest(invslot, expectedTemplateString, expectedModuleString);
     }
 
