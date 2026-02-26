@@ -13,7 +13,7 @@ import org.hsw.wikitools.feature.copy_opened_ui.GetOpenedUiHandler;
 import org.hsw.wikitools.feature.copy_opened_ui.OpenedChestContainerFinder;
 import org.hsw.wikitools.feature.copy_skull_id.*;
 import org.hsw.wikitools.feature.mod_update_checker.GetNewVersionHandler;
-import org.hsw.wikitools.feature.mod_update_checker.GitHubLatestReleaseFinder;
+import org.hsw.wikitools.feature.mod_update_checker.GithubLatestReleaseFinder;
 import org.hsw.wikitools.feature.mod_update_checker.ModUpdateChecker;
 
 /**
@@ -63,7 +63,7 @@ class ListenerManager {
 
 	private ModUpdateChecker createModUpdateChecker() {
 		String githubApiBaseUrl = ConfigProperties.getProperty("githubApiBaseUrl");
-		GitHubLatestReleaseFinder gitHubLatestReleaseFinder = new GitHubLatestReleaseFinder(githubApiBaseUrl);
+		GithubLatestReleaseFinder gitHubLatestReleaseFinder = new GithubLatestReleaseFinder(githubApiBaseUrl);
 		GetNewVersionHandler getNewVersionHandler = new GetNewVersionHandler(gitHubLatestReleaseFinder);
 		return new ModUpdateChecker(getNewVersionHandler);
 	}

@@ -13,7 +13,7 @@ import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
-public class GitHubLatestReleaseFinderTest {
+public class GithubLatestReleaseFinderTest {
     private static final Integer mockServerPort = 1080;
     private static final String mockServerBaseUrl = "http://localhost:" + mockServerPort;
     private static final String latestReleasePath = "/repos/skyblock-wiki/wikitools/releases/latest";
@@ -44,7 +44,7 @@ public class GitHubLatestReleaseFinderTest {
                         .withBody(responseBody)
         );
 
-        var classUnderTest = new GitHubLatestReleaseFinder(mockServerBaseUrl);
+        var classUnderTest = new GithubLatestReleaseFinder(mockServerBaseUrl);
         var result = classUnderTest.findLatestVersion();
         assertTrue(result.success);
         assertTrue(result.version.isPresent());
@@ -65,7 +65,7 @@ public class GitHubLatestReleaseFinderTest {
                         .withBody(responseBody)
         );
 
-        var classUnderTest = new GitHubLatestReleaseFinder(mockServerBaseUrl);
+        var classUnderTest = new GithubLatestReleaseFinder(mockServerBaseUrl);
         var result = classUnderTest.findLatestVersion();
         assertFalse(result.success);
         assertTrue(result.message.isPresent());

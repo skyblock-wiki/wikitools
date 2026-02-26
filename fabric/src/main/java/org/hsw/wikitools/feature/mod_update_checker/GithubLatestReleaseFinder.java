@@ -9,11 +9,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class GitHubLatestReleaseFinder implements FindModVersion {
+public class GithubLatestReleaseFinder implements FindModVersion {
 
     private final String githubApiBaseUrl;
 
-    public GitHubLatestReleaseFinder(String githubApiBaseUrl) {
+    public GithubLatestReleaseFinder(String githubApiBaseUrl) {
         this.githubApiBaseUrl = githubApiBaseUrl;
     }
 
