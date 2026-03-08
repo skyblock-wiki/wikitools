@@ -1,10 +1,11 @@
 {
 	"schemaVersion": 1,
-	"id": "wikitools",
+	"id": "${mod_id}",
 	"version": "${version}",
 	"name": "WikiTools",
 	"description": "Wiki-specific utilities for Minecraft",
 	"authors": [
+		"Hypixel SkyBlock Wiki"
 	],
 	"contact": {
 	},

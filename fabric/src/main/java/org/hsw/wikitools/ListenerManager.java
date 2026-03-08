@@ -1,6 +1,5 @@
 package org.hsw.wikitools;
 
-import org.hsw.wikitools.common.ConfigProperties;
 import org.hsw.wikitools.feature.copy_data_tags.CopyDataTagsListener;
 import org.hsw.wikitools.feature.copy_data_tags.FacingEntityDataTagsFinder;
 import org.hsw.wikitools.feature.copy_data_tags.GetDataTagsHandler;
@@ -62,7 +61,7 @@ class ListenerManager {
 	}
 
 	private ModUpdateChecker createModUpdateChecker() {
-		String githubApiBaseUrl = ConfigProperties.getProperty("githubApiBaseUrl");
+		String githubApiBaseUrl = WikiToolsProperties.GITHUB_API_BASE_URL;
 		GithubLatestReleaseFinder gitHubLatestReleaseFinder = new GithubLatestReleaseFinder(githubApiBaseUrl);
 		GetNewVersionHandler getNewVersionHandler = new GetNewVersionHandler(gitHubLatestReleaseFinder);
 		return new ModUpdateChecker(getNewVersionHandler);

@@ -55,10 +55,9 @@ test {
 }
 
 processResources {
-	inputs.property "version", project.version
-
 	filesMatching("fabric.mod.json") {
-		expand "version": inputs.properties.version
+		// Replace ${property} with values from gradle.properties
+		expand(project.properties)
 	}
 
 	filesMatching("config.properties") {
