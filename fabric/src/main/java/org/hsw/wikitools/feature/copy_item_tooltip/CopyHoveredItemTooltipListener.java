@@ -33,7 +33,7 @@ public class CopyHoveredItemTooltipListener {
 
      private KeyMapping registerKeyBinding() {
          return KeyBindingHelper.registerKeyBinding(new KeyMapping(
-             "key.wikitools.copy-tooltip",
+             "key.wikitools.copy_tooltip",
              InputConstants.Type.KEYSYM,
              GLFW.GLFW_KEY_X,
              CATEGORY
@@ -78,9 +78,9 @@ public class CopyHoveredItemTooltipListener {
 
         MutableComponent formattingModeTip = Component.literal("(◕‿◕)").setStyle(
                 Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Component.translatable(
-                        "message.wikitools.copy-tooltip.formatting-mode-tip"))));
-        MutableComponent outputText = Component.translatable("message.wikitools.copy-tooltip.success").append("\n")
-                .append("└ ").append(Component.translatable("message.wikitools.copy-tooltip.with-template-formatting")).append(" ").append(formattingModeTip);
+                        "message.wikitools.copy_tooltip.formatting_mode_tip"))));
+        MutableComponent outputText = Component.translatable("message.wikitools.copy_tooltip.success").append("\n")
+                .append("└ ").append(Component.translatable("message.wikitools.copy_tooltip.with_template_formatting")).append(" ").append(formattingModeTip);
         client.getChatListener().handleSystemMessage(Component.translationArg(outputText), false);
     }
 
@@ -96,9 +96,9 @@ public class CopyHoveredItemTooltipListener {
 
         MutableComponent formattingModeTip = Component.literal("(◕‿◕)").setStyle(
                 Style.EMPTY.withHoverEvent(new HoverEvent.ShowText(Component.translatable(
-                        "message.wikitools.copy-tooltip.formatting-mode-tip"))));
-        MutableComponent outputText = Component.translatable("message.wikitools.copy-tooltip.success").append("\n")
-                .append("└ ").append(Component.translatable("message.wikitools.copy-tooltip.with-module-formatting")).append(" ").append(formattingModeTip);
+                        "message.wikitools.copy_tooltip.formatting_mode_tip"))));
+        MutableComponent outputText = Component.translatable("message.wikitools.copy_tooltip.success").append("\n")
+                .append("└ ").append(Component.translatable("message.wikitools.copy_tooltip.with_module_formatting")).append(" ").append(formattingModeTip);
         client.getChatListener().handleSystemMessage(Component.translationArg(outputText), false);
     }
 

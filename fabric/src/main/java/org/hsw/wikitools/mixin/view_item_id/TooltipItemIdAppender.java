@@ -51,7 +51,7 @@ public class TooltipItemIdAppender {
     private static void appendTooltipWithItemId(CallbackInfoReturnable<List<Component>> cir, String skyBlockItemId) {
         Style textStyle = Style.EMPTY.withColor(CommonColors.GRAY);
         Component textToAdd = Component
-                .translatable("message.wikitools.view-item-id.item-id-display", skyBlockItemId.strip())
+                .translatable("message.wikitools.view_item_id.item_id_display", skyBlockItemId.strip())
                 .setStyle(textStyle);
 
         List<Component> textList = cir.getReturnValue();

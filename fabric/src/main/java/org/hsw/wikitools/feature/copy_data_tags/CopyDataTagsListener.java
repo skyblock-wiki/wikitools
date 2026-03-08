@@ -31,7 +31,7 @@ public class CopyDataTagsListener {
 
      private KeyMapping registerKeyBinding() {
          return KeyBindingHelper.registerKeyBinding(new KeyMapping(
-             "key.wikitools.copy-data-tags",
+             "key.wikitools.copy_data_tags",
              InputConstants.Type.KEYSYM,
              GLFW.GLFW_KEY_N,
              CATEGORY
@@ -74,6 +74,6 @@ public class CopyDataTagsListener {
         }
         String stringToCopy = response.get().dataTags;
         ClipboardHelper.setClipboard(stringToCopy);
-        client.getChatListener().handleSystemMessage(Component.translatable("message.wikitools.copy-data-tags.success"), false);
+        client.getChatListener().handleSystemMessage(Component.translatable("message.wikitools.copy_data_tags.success"), false);
     }
 }

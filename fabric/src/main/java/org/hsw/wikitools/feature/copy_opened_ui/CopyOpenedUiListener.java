@@ -33,7 +33,7 @@ public class CopyOpenedUiListener {
 
     private KeyMapping registerKeyBinding() {
         return KeyBindingHelper.registerKeyBinding(new KeyMapping(
-                "key.wikitools.copy-opened-ui",
+                "key.wikitools.copy_opened_ui",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_C,
                 CATEGORY
@@ -81,15 +81,15 @@ public class CopyOpenedUiListener {
         Component tick = Component.literal("(✔)");
         Component cross = Component.literal("(✘)");
         MutableComponent fwbbdOptionTips = Component.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent.ShowText(Component.translatable("message.wikitools.copy-opened-ui.fwbbd-mode-tip"))));
+                new HoverEvent.ShowText(Component.translatable("message.wikitools.copy_opened_ui.fwbbd_mode_tip"))));
         MutableComponent auminfnsiOptionTips = Component.literal("(◕‿◕)").setStyle(Style.EMPTY.withHoverEvent(
-                new HoverEvent.ShowText(Component.translatable("message.wikitools.copy-opened-ui.auminfnsi-mode-tip"))));
-        MutableComponent outputText = Component.translatable("message.wikitools.copy-opened-ui.success").append("\n")
+                new HoverEvent.ShowText(Component.translatable("message.wikitools.copy_opened_ui.auminfnsi_mode_tip"))));
+        MutableComponent outputText = Component.translatable("message.wikitools.copy_opened_ui.success").append("\n")
                 .append("├ ").append(fillWithBlankByDefault ? tick : cross).append(" ")
-                    .append(Component.translatable("message.wikitools.copy-opened-ui.fwbbd-mode-name")).append(" ")
+                    .append(Component.translatable("message.wikitools.copy_opened_ui.fwbbd_mode_name")).append(" ")
                     .append(fwbbdOptionTips).append("\n")
                 .append("└ ").append(alwaysUseMcItemNameForNonSkullItems ? tick : cross).append(" ")
-                    .append(Component.translatable("message.wikitools.copy-opened-ui.auminfnsi-mode-name")).append(" ")
+                    .append(Component.translatable("message.wikitools.copy_opened_ui.auminfnsi_mode_name")).append(" ")
                     .append(auminfnsiOptionTips);
         client.getChatListener().handleSystemMessage(outputText, false);
     }

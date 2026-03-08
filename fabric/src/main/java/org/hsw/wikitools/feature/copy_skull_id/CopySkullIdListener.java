@@ -31,7 +31,7 @@ public class CopySkullIdListener {
 
      private KeyMapping registerKeyBinding() {
          return KeyBindingHelper.registerKeyBinding(new KeyMapping(
-             "key.wikitools.copy-skull-id",
+             "key.wikitools.copy_skull_id",
              InputConstants.Type.KEYSYM,
              GLFW.GLFW_KEY_Z,
              CATEGORY
@@ -74,6 +74,6 @@ public class CopySkullIdListener {
         }
         String stringToCopy = response.get().textureId;
         ClipboardHelper.setClipboard(stringToCopy);
-        client.getChatListener().handleSystemMessage(Component.translatable("message.wikitools.copy-skull-id.success"), false);
+        client.getChatListener().handleSystemMessage(Component.translatable("message.wikitools.copy_skull_id.success"), false);
     }
 }

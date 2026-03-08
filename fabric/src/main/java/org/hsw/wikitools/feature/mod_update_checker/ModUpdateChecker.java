@@ -53,7 +53,7 @@ public class ModUpdateChecker {
     private static void remindUserToUpdateMod(String newVersionName) {
         Minecraft client = Minecraft.getInstance();
 
-        Component frontComponent = Component.translatable("message.wikitools.mod-update-checker.new-update", newVersionName)
+        Component frontComponent = Component.translatable("message.wikitools.mod_update_checker.new_update", newVersionName)
                 .setStyle(Style.EMPTY.withColor(CommonColors.GREEN));
 
         String latestReleaseDownloadUrl = ConfigProperties.getProperty("latestReleaseDownloadUrl");
@@ -62,7 +62,7 @@ public class ModUpdateChecker {
                 .withUnderlined(true)
                 .withClickEvent(new ClickEvent.OpenUrl(URI.create(latestReleaseDownloadUrl)));
 
-        Component linkComponent = Component.translatable("message.wikitools.mod-update-checker.update-link-text")
+        Component linkComponent = Component.translatable("message.wikitools.mod_update_checker.update_link_text")
                 .setStyle(linkStyle);
 
         Component messageComponent = Component.literal("")
@@ -74,7 +74,7 @@ public class ModUpdateChecker {
     }
 
     private static void warnFailure(String problemName) {
-        String warningText = Component.translatable("message.wikitools.mod-update-checker.error", problemName).getString();
+        String warningText = Component.translatable("message.wikitools.mod_update_checker.error", problemName).getString();
         WikiToolsIdentity.LOGGER.warn(warningText, false);
     }
 
