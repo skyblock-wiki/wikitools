@@ -28,9 +28,9 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Test dependencies
-	testImplementation('org.junit.jupiter:junit-jupiter:5.13.4')
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.13.4")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.13.4")
+	testImplementation(platform("org.junit:junit-bom:5.14.3"))
+	testImplementation("org.junit.jupiter:junit-jupiter")
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	testImplementation('org.mock-server:mockserver-netty-no-dependencies:5.15.0')
 	testImplementation('org.mock-server:mockserver-client-java-no-dependencies:5.15.0')

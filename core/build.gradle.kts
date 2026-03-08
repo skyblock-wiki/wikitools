@@ -25,15 +25,17 @@ dependencies {
     implementation(libs.jetbrains.annotations)
     implementation(libs.gson)
     implementation(libs.java.semver)
+
+    // Test dependencies
+    testImplementation(platform("org.junit:junit-bom:5.14.3"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        val test by getting(JvmTestSuite::class) {
-            // Use JUnit Jupiter test framework
-            useJUnitJupiter("5.12.1")
-        }
+tasks.test {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
     }
 }
 
