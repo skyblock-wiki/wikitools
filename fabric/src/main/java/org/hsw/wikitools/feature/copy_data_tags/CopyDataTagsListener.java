@@ -19,12 +19,12 @@ import static org.hsw.wikitools.WikiToolsProperties.CATEGORY;
 
 public class CopyDataTagsListener {
     private final GetDataTagsHandler getDataTagsHandler;
-    private final KeyMapping copyTooltipKeyBinding;
+    private final KeyMapping copyDataTagsKeyBinding;
 
     public CopyDataTagsListener(GetDataTagsHandler getDataTagsHandler) {
         this.getDataTagsHandler = getDataTagsHandler;
 
-        this.copyTooltipKeyBinding = registerKeyBinding();
+        this.copyDataTagsKeyBinding = registerKeyBinding();
 
         registerEvent();
     }
@@ -56,13 +56,13 @@ public class CopyDataTagsListener {
     }
 
     private void onClientTick(Minecraft client) {
-        while (client.screen == null && copyTooltipKeyBinding.consumeClick()) {
+        while (client.screen == null && copyDataTagsKeyBinding.consumeClick()) {
             copyDataTags(client);
         }
     }
 
     private void onKeyPress(Minecraft client, KeyEvent keyInput) {
-        if (copyTooltipKeyBinding.matches(keyInput)) {
+        if (copyDataTagsKeyBinding.matches(keyInput)) {
             copyDataTags(client);
         }
     }

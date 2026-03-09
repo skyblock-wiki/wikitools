@@ -1,9 +1,6 @@
 package org.hsw.wikitools;
 
-import org.hsw.wikitools.feature.copy_data_tags.CopyDataTagsListener;
-import org.hsw.wikitools.feature.copy_data_tags.FacingEntityDataTagsFinder;
-import org.hsw.wikitools.feature.copy_data_tags.GetDataTagsHandler;
-import org.hsw.wikitools.feature.copy_data_tags.HoveredItemDataTagsFinder;
+import org.hsw.wikitools.feature.copy_data_tags.*;
 import org.hsw.wikitools.feature.copy_item_tooltip.CopyHoveredItemTooltipListener;
 import org.hsw.wikitools.feature.copy_item_tooltip.GetItemTooltipHandler;
 import org.hsw.wikitools.feature.copy_item_tooltip.HoveredInvslotFinder;
@@ -50,7 +47,8 @@ class ListenerManager {
 	private CopyDataTagsListener createCopyDataTagsListener() {
 		HoveredItemDataTagsFinder hoveredItemDataTagsFinder = new HoveredItemDataTagsFinder();
 		FacingEntityDataTagsFinder facingEntityDataTagsFinder = new FacingEntityDataTagsFinder();
-		GetDataTagsHandler getDataTagsHandler = new GetDataTagsHandler(hoveredItemDataTagsFinder, facingEntityDataTagsFinder);
+		FacingBlockDataTagsFinder facingBlockDataTagsFinder = new FacingBlockDataTagsFinder();
+		GetDataTagsHandler getDataTagsHandler = new GetDataTagsHandler(hoveredItemDataTagsFinder, facingEntityDataTagsFinder, facingBlockDataTagsFinder);
 		return new CopyDataTagsListener(getDataTagsHandler);
 	}
 
