@@ -36,16 +36,18 @@ public class GithubLatestReleaseFinder implements FindModVersion {
 
             String latestVersionName = release.tag_name;
 
-            // For version names like "v2.0.0",
-            // remove "v" from the start of string
-            if (latestVersionName.startsWith("v")) {
-                latestVersionName = latestVersionName.substring(1);
-            }
-
-            return FindModVersionResult.success(latestVersionName);
+            return createValidVersionResult(latestVersionName);
         } catch (IOException | InterruptedException ignored) {
             return FindModVersionResult.failure("Latest Release Fetch Failure");
         }
+    }
+
+    private static FindModVersionResult createValidVersionResult(String latestVersionName) {
+        if (latestVersionName.startsWith("v")) {
+            latestVersionName = latestVersionName.substring(1);
+        }
+
+        return FindModVersionResult.success(latestVersionName);
     }
 
     private static class Release {

@@ -19,12 +19,12 @@ import static org.hsw.wikitools.WikiToolsProperties.CATEGORY;
 
 public class CopySkullIdListener {
     private final GetSkullIdHandler getSkullIdHandler;
-    private final KeyMapping copyTooltipKeyBinding;
+    private final KeyMapping copySkullIdKeyBinding;
 
     public CopySkullIdListener(GetSkullIdHandler getSkullIdHandler) {
         this.getSkullIdHandler = getSkullIdHandler;
 
-        this.copyTooltipKeyBinding = registerKeyBinding();
+        this.copySkullIdKeyBinding = registerKeyBinding();
 
         registerEvent();
     }
@@ -56,13 +56,13 @@ public class CopySkullIdListener {
     }
 
     private void onClientTick(Minecraft client) {
-        while (client.screen == null && copyTooltipKeyBinding.consumeClick()) {
+        while (client.screen == null && copySkullIdKeyBinding.consumeClick()) {
             copySkullId(client);
         }
     }
 
     private void onKeyPress(Minecraft client, KeyEvent keyInput) {
-        if (copyTooltipKeyBinding.matches(keyInput)) {
+        if (copySkullIdKeyBinding.matches(keyInput)) {
             copySkullId(client);
         }
     }
