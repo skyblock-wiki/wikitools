@@ -75,34 +75,24 @@ public class HoveredInvslotFinder implements FindHoveredInvslot {
     }
 
     private static @NotNull String toFormattedText(Component text) {
-        StringBuilder sb = new StringBuilder();
+        boolean isLeafNode = text.getSiblings().isEmpty();
 
-        toFormattedText(text, sb);
-
-        return sb.toString();
-    }
-
-    private static void toFormattedText(Component text, StringBuilder sb) {
-        // Assumption: Only leaf nodes contain literal text
-
-        Style style = text.getStyle();
-        String string = text.getString();
-        boolean hasSiblings = !text.getSiblings().isEmpty();
-
-        toFormattedStyle(style, sb);
-
-        if (!hasSiblings) {
-            // It is a leaf node
-            sb.append(string);
+        if (isLeafNode) {
+            Style style = text.getStyle();
+            String styleTag = toFormattedStyle(style);
+            String content = text.getString();
+            return styleTag + content;
         }
 
-        for (Component siblingText : text.getSiblings()) {
-            toFormattedText(siblingText, sb);
-        }
+        List<Component> lineComponents = text.toFlatList();
+        List<String> lines = lineComponents.stream().map(HoveredInvslotFinder::toFormattedText).toList();
+        return String.join("", lines);
     }
 
-    private static void toFormattedStyle(Style style, StringBuilder sb) {
+    private static String toFormattedStyle(Style style) {
         // Assumption: All colors are identified by color names (not rgb values)
+
+        StringBuilder sb = new StringBuilder();
 
         TextColor color = style.getColor();
         if (color != null) {
@@ -132,6 +122,8 @@ public class HoveredInvslotFinder implements FindHoveredInvslot {
         if (style.isItalic()) {
             sb.append(ChatFormatting.ITALIC);
         }
+
+        return sb.toString();
     }
 
 }
