@@ -1,11 +1,18 @@
 package org.hsw.wikitools.feature.copy_opened_ui;
 
-import org.hsw.wikitools.common.InventoryItemFormattingService;
+import org.hsw.wikitools.common.MctextTemplateFormatter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 public class Invslot {
+    private static final HashMap<String, String> uiItemExtraEscapes = new HashMap<String, String>() {{
+        put(",", "\\\\,"); // Replace , with \,
+    }};
+    private static final MctextTemplateFormatter uiItemFormatter =
+            new MctextTemplateFormatter(uiItemExtraEscapes);
+
     private static final String DEFAULT_BLANK_ITEM_COLOR = "Black";
 
     private final String displayName;
@@ -83,7 +90,7 @@ public class Invslot {
     }
 
     public String getLoreText() {
-        return InventoryItemFormattingService.formatLore(lore, true);
+        return uiItemFormatter.formatLore(lore);
     }
 
     public static Optional<String> formatEmptySlotAsTemplateItemValue(boolean fillWithBlankByDefault) {
@@ -95,15 +102,15 @@ public class Invslot {
     }
 
     private static String formatWithFourPartExpression(String itemName) {
-        String name = InventoryItemFormattingService.formatName(itemName, true);
+        String name = uiItemFormatter.formatName(itemName);
 
         return name + ", none";
     }
 
     private static String formatWithFourPartExpression(String itemName, String displayedName, List<String> lore, int stackSize) {
-        String name = InventoryItemFormattingService.formatName(itemName, true);
-        String title = InventoryItemFormattingService.formatTitle(displayedName, true);
-        String text = InventoryItemFormattingService.formatLore(lore, true);
+        String name = uiItemFormatter.formatName(itemName);
+        String title = uiItemFormatter.formatTitle(displayedName);
+        String text = uiItemFormatter.formatLore(lore);
 
         boolean titleNotProvided = title.isEmpty();
         boolean textNotProvided = text.isEmpty();

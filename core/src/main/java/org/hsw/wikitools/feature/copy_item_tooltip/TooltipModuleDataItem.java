@@ -1,8 +1,7 @@
 package org.hsw.wikitools.feature.copy_item_tooltip;
 
-import org.hsw.wikitools.common.InventoryItemFormattingService;
-
 class TooltipModuleDataItem {
+    private static final MctextModuleFormatter itemFormatter = new MctextModuleFormatter();
     public final String tooltip;
 
     private TooltipModuleDataItem(String name, String title, String text) {
@@ -10,11 +9,9 @@ class TooltipModuleDataItem {
     }
 
     public static TooltipModuleDataItem of(Invslot invslot) {
-        boolean toTemplateFormatting = false;
-
-        String name = InventoryItemFormattingService.formatName(invslot.name, toTemplateFormatting);
-        String title = InventoryItemFormattingService.formatTitle(invslot.name, toTemplateFormatting);
-        String loreString = InventoryItemFormattingService.formatLore(invslot.lore, toTemplateFormatting);
+        String name = itemFormatter.formatName(invslot.name);
+        String title = itemFormatter.formatTitle(invslot.name);
+        String loreString = itemFormatter.formatLore(invslot.lore);
 
         return new TooltipModuleDataItem(name, title, loreString);
     }

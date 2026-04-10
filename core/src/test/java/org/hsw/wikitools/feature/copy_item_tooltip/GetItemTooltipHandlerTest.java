@@ -68,4 +68,12 @@ class GetItemTooltipHandlerTest {
         runTest(invslot, expectedTemplateString, expectedModuleString);
     }
 
+    @Test
+    void shouldFormatItemWithCorrectEscapes() {
+        Optional<Invslot> invslot = Optional.of(new Invslot("Item", Arrays.asList("Comma , is not escaped but backslash \\ is.")));
+        String expectedTemplateString = "{{Slot|Item|title=Item|text=Comma , is not escaped but backslash \\\\ is.}}";
+        String expectedModuleString = "['Item'] = { name = 'Item', title = 'Item', text = 'Comma , is not escaped but backslash \\\\\\\\ is.', },";
+        runTest(invslot, expectedTemplateString, expectedModuleString);
+    }
+
 }

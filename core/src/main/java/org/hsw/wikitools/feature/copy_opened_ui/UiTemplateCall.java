@@ -1,12 +1,16 @@
 package org.hsw.wikitools.feature.copy_opened_ui;
 
-import org.hsw.wikitools.common.InventoryItemFormattingService;
+import org.hsw.wikitools.common.MctextTemplateFormatter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 class UiTemplateCall {
+    private static final MctextTemplateFormatter uiNameFormatter =
+            new MctextTemplateFormatter(new HashMap<>());
+
     private final String uiName;
 
     private final CompleteUiGrid completeUiGrid;
@@ -84,7 +88,7 @@ class UiTemplateCall {
     public String formatAsTemplateCall() {
         List<String> lines = new ArrayList<>();
 
-        String name = InventoryItemFormattingService.formatName(uiName, true);
+        String name = uiNameFormatter.formatName(uiName);
 
         lines.add("{{UI|" + name);
 

@@ -150,6 +150,27 @@ public class GetOpenedUiHandlerTest {
             assertEquals(expected, response.get().templateCall);
         }
 
+        @Test
+        void uiWithItemsShouldBeCorrectlyEscaped() {
+            Invslot invslotForTest = new Invslot(
+                    "Item",
+                    "Item",
+                    Arrays.asList("Both comma , and backslash \\ are escaped."),
+                    1,
+                    false,
+                    false
+            );
+            GetOpenedUiHandler classUnderTest = handlerOfUnfilledUiWithOneItem(invslotForTest);
+
+            GetOpenedUiHandler.GetOpenedUiRequest request =
+                    new GetOpenedUiHandler.GetOpenedUiRequest(false, false);
+            Optional<GetOpenedUiHandler.GetOpenedUiResponse> response = classUnderTest.getOpenedUiTemplateCall(request);
+
+            String expected = wrapperForUnfilledUi(Collections.singletonList("|1, 1=Item, none, Item, Both comma \\, and backslash \\\\ are escaped."));
+            assertTrue(response.isPresent());
+            assertEquals(expected, response.get().templateCall);
+        }
+
         @Nested
         class ExpectStackSizeIsShown {
             @Test

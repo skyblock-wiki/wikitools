@@ -1,8 +1,11 @@
 package org.hsw.wikitools.feature.copy_item_tooltip;
 
-import org.hsw.wikitools.common.InventoryItemFormattingService;
+import org.hsw.wikitools.common.MctextTemplateFormatter;
+
+import java.util.HashMap;
 
 class InventorySlotTemplateCall {
+    private static final MctextTemplateFormatter itemFormatter = new MctextTemplateFormatter(new HashMap<>());
     public final String tooltip;
 
     private InventorySlotTemplateCall(String name, String title, String text) {
@@ -10,11 +13,9 @@ class InventorySlotTemplateCall {
     }
 
     public static InventorySlotTemplateCall of(Invslot invslot) {
-        boolean toTemplateFormatting = true;
-
-        String name = InventoryItemFormattingService.formatName(invslot.name, toTemplateFormatting);
-        String title = InventoryItemFormattingService.formatTitle(invslot.name, toTemplateFormatting);
-        String loreString = InventoryItemFormattingService.formatLore(invslot.lore, toTemplateFormatting);
+        String name = itemFormatter.formatName(invslot.name);
+        String title = itemFormatter.formatTitle(invslot.name);
+        String loreString = itemFormatter.formatLore(invslot.lore);
 
         return new InventorySlotTemplateCall(name, title, loreString);
     }
