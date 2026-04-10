@@ -1,6 +1,6 @@
 # WikiTools
 
-WikiTools is a Minecraft mod that performs tasks to support the workflow of the Hypixel SkyBlock Wiki.
+WikiTools is a Minecraft mod that performs tasks to support the workflow of wikis of Minecraft servers.
 
 This mod focuses on non-rendering tasks. There is a separate mod, [WikiRenderer](https://github.com/skyblock-wiki/WikiRenderer), for rendering tasks.
 
@@ -14,46 +14,80 @@ This mod focuses on non-rendering tasks. There is a separate mod, [WikiRenderer]
 
 ## Features
 
-- Copy Data Tags
-    - **Key**: N
-    - **Description**: Copy data tags (NBT) to your clipboard. This feature works on:
-      - Entities you are looking at; The texture ID of the player skin is included (if applicable).
-      - Items you are hovering over.
+#### Copy Data Tags
 
-- Copy Item Tooltip
-  - **Key**: X
-  - **Description**: Copy tooltip data of the item you are hovering over to your clipboard.
-  - **Available Behaviors**:
-    - Default: Copy tooltip data in the format of an inventory slot template call.
-    - Shift+Key: Copy tooltip data in the format of a tooltip module data item.
+Copy data tags (NBT) to your clipboard.
 
-- Copy Opened UI
-    - **Key**: C
-    - **Description**: Copy the opened UI to your clipboard in the UI template format.
-    - **Available Behaviors**:
-        - Default: The empty slot is the implicit slot and thus will not be added explicitly. The displayed name on an item is used as item name in the UI template item definition.
-        - Shift+Key: Fill with blank by default mode: Change the implicit slot to Black Stained Glass Pane (Blank), so it will not be added explicitly. The empty slot will be added explicitly.
-        - Control+Key: Always use Minecraft item name for non skull items mode:
-          - For player heads, since the item name "Player Head" is often not useful, the displayed name is used as item name in the UI template item definition.
-          - For all other items, the English Minecraft item name is used as item name in the UI template item definition. If an item is enchanted, the item name becomes `Enchanted <Minecraft item name>`.
+![Copy Data Tags](./assets/copy-data-tags.jpg)
 
-- Copy Skull ID
-    - **Key**: Z
-    - **Description**: Copy the texture ID of a skull to your clipboard. With this ID, the corresponding skin file can be downloaded on `https://textures.minecraft.net/texture/<ID>`. This feature works on:
-      - Placed player heads.
-      - Entities wearing player heads (excluding Players and NPCs).
-      - Player head items you are hovering over.
+**Key**: N
 
-- View Item ID
-  - **Condition**: This feature is active when Show Advanced Tooltips (F3+H) is on.
-  - **Description**: Find the SkyBlock item ID of the item you are hovering over and append it to the tooltip shown on screen.
+This feature works on:
+- Entities you are looking at; The texture ID of the player skin is included (if applicable).
+- Items you are hovering over.
 
-- Mod Update Checker
-  - **Description**: Check for new WikiTools release on GitHub and send an update reminder message.
+#### Copy Item Tooltip
+
+Copy tooltip data of the item you are hovering over to your clipboard.
+
+![Copy Item Tooltip](./assets/copy-item-tooltip.jpg)
+
+**Key**: X
+
+Available Behaviors:
+- Default: Copy tooltip data in the format of an inventory slot template call.
+- Shift+Key: Copy tooltip data in the format of a tooltip module data item.
+
+#### Copy Opened UI
+
+Copy the opened UI to your clipboard in the UI template format.
+
+![Copy Opened UI](./assets/copy-opened-ui.jpg)
+
+**Key**: C
+
+Available Behaviors:
+- Default: The empty slot is the implicit slot and thus will not be added explicitly. The displayed name on an item is used as item name in the UI template item definition.
+- Shift+Key: Fill with blank by default mode: Change the implicit slot to Black Stained Glass Pane (Blank), so it will not be added explicitly. The empty slot will be added explicitly.
+- Control+Key: Always use Minecraft item name for non skull items mode:
+  - For player heads, since the item name "Player Head" is often not useful, the displayed name is used as item name in the UI template item definition.
+  - For all other items, the English Minecraft item name is used as item name in the UI template item definition. If an item is enchanted, the item name becomes `Enchanted <Minecraft item name>`.
+
+#### Copy Skull ID
+
+Copy the texture ID of a skull to your clipboard. With this ID, the corresponding skin file can be downloaded on `https://textures.minecraft.net/texture/<ID>`.
+
+![Copy Skull ID](./assets/copy-skull-id.jpg)
+
+This feature works on:
+- Placed player heads.
+- Entities wearing player heads (excluding Players and NPCs).
+- Player head items you are hovering over.
+
+**Key**: Z
+
+#### Mod Update Checker
+
+Check for new WikiTools release on GitHub and send an update reminder message.
+
+![Mod Update Checker](./assets/mod-update-checker.jpg)
+
+#### View Item ID
+
+Find the SkyBlock item ID of the item you are hovering over and append it to the tooltip shown on screen.
+
+![View Item ID](./assets/view-item-id.jpg)
+
+This feature is active when Show Advanced Tooltips (F3+H) is on.
+
+## License
+
+WikiTools is licensed under [LGPL-3.0-or-later](./LICENSE).
 
 ## Other Pages
 
-- [Changelog](CHANGELOG.md)
-- [Contributing](CONTRIBUTING.md)
+- [Attribution](./ATTRIBUTION.md)
+- [Changelog](./CHANGELOG.md)
+- [Contributing](./CONTRIBUTING.md)
 
 [Releases]: https://github.com/skyblock-wiki/wikitools/releases
