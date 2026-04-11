@@ -2,9 +2,9 @@
 
 ## Environment
 
-- Minecraft 1.21.11
-- Fabric Loader 0.18.4
-- Mods: Fabric API 0.141.3+1.21.11, WikiTools 2.7.0+1.21.11
+- Minecraft 26.1.2
+- Fabric Loader 0.18.6
+- Mods: Fabric API 0.145.4+26.1.2, WikiTools 3.0.0+26.1.2
 
 ## Tests
 

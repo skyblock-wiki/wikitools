@@ -1,7 +1,7 @@
 package org.hsw.wikitools.feature.copy_item_tooltip;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenKeyboardEvents;
 import net.minecraft.client.KeyMapping;
@@ -32,7 +32,7 @@ public class CopyHoveredItemTooltipListener {
     }
 
      private KeyMapping registerKeyBinding() {
-         return KeyBindingHelper.registerKeyBinding(new KeyMapping(
+         return KeyMappingHelper.registerKeyMapping(new KeyMapping(
              "key.wikitools.copy_tooltip",
              InputConstants.Type.KEYSYM,
              GLFW.GLFW_KEY_X,
