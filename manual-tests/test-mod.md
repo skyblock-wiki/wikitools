@@ -1,4 +1,4 @@
-# Manual Tests (Fabric)
+# Manual Tests (Mod)
 
 ## Environment
 
@@ -6,9 +6,9 @@
 - Fabric Loader 0.18.6
 - Mods: Fabric API 0.145.4+26.1.2, WikiTools 3.0.0+26.1.2
 
-## Tests
+## Instruction
 
-Tester should set the following fields before or after performing tests. Tester should time their test session, which should include the time to launch Minecraft with the test environment. If there is any ambiguity in the test document or suggestions for new tests, please write down in the `Comment/Suggestion` field.
+Tester should set the following fields before or after performing tests. Tester should time their test session, which should include the time to prepare the test environment. If there is any ambiguity in the test document or suggestions for new tests, please write down in the `Comment/Suggestion` field.
 
 - Tester: Not set
 - Test date: Not set
@@ -16,6 +16,8 @@ Tester should set the following fields before or after performing tests. Tester 
 - Comment/Suggestion (optional): Not set
 
 Tester should perform each test and write the test result in the `Result` field. The test result should be "OK" if the `Action` is accurate and the output exactly matches `Expected Output`. Otherwise, put "FAIL:" and write down the problem.
+
+## Test Cases
 
 ### Copy Data Tags
 
@@ -28,29 +30,29 @@ Tester should perform each test and write the test result in the `Result` field.
 - Result: Not set
 
 #### Copy data tags of facing NPC by pressing N
-- Action: Go to the SkyBlock hub and head to -9 70 -67. When facing the Hub Selector NPC, press N.
+- Action: Go to the SkyBlock hub and head to -5 69 -21. When facing the Hub Selector NPC, press N.
 - Expected Output:
   - Game message: `Copied data tags`
-  - Clipboard content contains: `Pos:[-10.0d,70.0d,-67.0d]`
+  - Clipboard content contains: `Pos:[-5.5d,69.0d,-22.5d]`
   - Clipboard content contains: `__gameProfile:`
   - Clipboard content contains: `value=ewogICJ0aW`
 - Result: Not set
 
 #### Copy data tags of armor stands with floating text by pressing N
-- Action: Go to the SkyBlock hub and head to -9 70 -67. Stand within one block of the Hub Selector NPC and point cursor at the lower half of the "CLICK" text above the NPC. Press N.
+- Action: Go to the SkyBlock hub and head to -5 69 -21. Stand within one block of the Hub Selector NPC and point cursor at the lower half of the "CLICK" text above the NPC. Press N.
 - Expected Output:
   - Game message: `Copied data tags`
   - Clipboard content contains: `Hub Selector`
-  - Clipboard content contains: `Pos:[-10.0d,70.0d,-67.0d]`
+  - Clipboard content contains: `Pos:[-5.5d,69.0d,-22.5d]`
 - Result: Not set
 
 #### Copy data tags of a block entity head by pressing N
-- Action: Go to the SkyBlock hub and head to -25 68 -116. Point cursor to the placed player head of a mini TNT block. Press N.
+- Action: Go to the SkyBlock hub and head to 5 71 -52. Point cursor to the placed player head of a mini TNT block you are standing on. Press N.
 - Expected Output:
   - Game message: `Copied data tags`
-  - Clipboard content contains coordinate positions of the skull
+  - Clipboard content contains: `x:5,y:71,z:-53`
   - Clipboard content contains: `__gameProfile:`
-  - Clipboard content contains: `value=`
+  - Clipboard content contains: `value=eyJ0ZXh0dX`
 - Result: Not set
 
 ### Copy Hovered Item Tooltip
@@ -60,7 +62,7 @@ Tester should perform each test and write the test result in the `Result` field.
 - Expected Output:
   - Game message starts with: `Copied tooltip`
   - Game message contains: `template formatting`
-  - Clipboard content: `{{Slot|Game Menu (Right Click)|title=&aGame Menu &7(Right Click)|text=&5&7Right Click to bring up the Game Menu!}}`
+  - Clipboard content: `{{Slot|Game Menu (Right Click)|title=&aGame Menu &7(Right Click)|text=&7Right Click to bring up the Game Menu!}}`
 - Result: Not set
 
 #### Copy tooltip of hovered item as module data by pressing Shift-X
@@ -68,26 +70,26 @@ Tester should perform each test and write the test result in the `Result` field.
 - Expected Output:
   - Game message starts with: `Copied tooltip`
   - Game message contains: `module formatting`
-  - Clipboard content: `['Game Menu (Right Click)'] = { name = 'Game Menu (Right Click)', title = '&aGame Menu &7(Right Click)', text = '&5&7Right Click to bring up the Game Menu!', },`
+  - Clipboard content: `['Game Menu (Right Click)'] = { name = 'Game Menu (Right Click)', title = '&aGame Menu &7(Right Click)', text = '&7Right Click to bring up the Game Menu!', },`
 - Result: Not set
 
 ### Copy Opened UI
 
 #### Copy opened UI in default mode by pressing C
 - Special setting: Change your game language to Afrikaans.
-- Action: Go to SkyBlock and open the SkyBlock Menu. Click the Collections icon. Click the Farming Collections icon, then click the Cactus icon to open the Cactus Collection UI. Press C.
+- Action: Go to SkyBlock and open the SkyBlock Menu. Click the Collections icon. Click the Mining Collections icon, then click the Cobblestone icon to open the Cobblestone Collection UI. Press C.
 - Expected output:
   - Game message starts with: `Copied UI`
-  - Clipboard content first line: `{{UI|Cactus Collection`
+  - Clipboard content first line: `{{UI|Cobblestone Collection`
 - Expected output to verify that number of rows is correct:
   - Clipboard content contains line: `|rows=6`
 - Expected output to verify that close item is detected:
   - Clipboard content contains line: `|close=6, 5`
 - Expected output to verify that go-back item is detected:
   - Clipboard content contains line: `|arrow=6, 4`
-  - Clipboard content contains line: `|goback=&5&7To Farming Collections`
+  - Clipboard content contains line: `|goback=&7To Mining Collections`
 - Expected output to verify that stack size is correct and copying mode is correct:
-  - Clipboard content contains line that starts with: `|3, 2=Cactus II; 2, none,`
+  - Clipboard content contains line that starts with: `|3, 2=Cobblestone II; 2, none,`
 - Expected output to verify that copying mode is correct:
   - Clipboard content contains line: `|fill=false`
   - Clipboard content contains line: `|1, 1=Blank, none`
@@ -95,21 +97,21 @@ Tester should perform each test and write the test result in the `Result` field.
 
 #### Copy opened UI in fill with blank by default mode by pressing Shift-C
 - Special setting: Change your game language to Afrikaans.
-- Action: Go to the SkyBlock hub and head to 34 71 -96. Click the Zog NPC to open the Zog UI. Press Shift-C.
+- Action: Go to the SkyBlock hub and head to 8 69 -70. Click the Zog NPC to open the Zog UI. Press Shift-C.
 - Expected output:
   - Clipboard content contains line: `|close=none`
   - Clipboard content contains line: `|arrow=none`
 - Expected output to verify that copying mode is correct:
-  - Clipboard content does not contain line: `|fill=false`
+  - Clipboard content *does not* contain line: `|fill=false`
   - Clipboard content contains line: `|5, 2= , none`
 - Result: Not set
 
 #### Copy opened UI in always use Minecraft item name for non skull items mode by pressing Ctrl-C
 - Special setting: Change your game language to Afrikaans.
-- Action: Go to the SkyBlock hub and head to 34 71 -96. Click the Zog NPC to open the Zog UI. Press Ctrl-C.
+- Action: Go to the SkyBlock hub and head to 8 69 -70. Click the Zog NPC to open the Zog UI. Press Ctrl-C.
 - Expected output to verify that non-skull items are copied in Minecraft item name in English, displayed name and lore are copied correctly:
   - Clipboard content contains line that starts with: `|6, 5=Hopper, none,`
-  - Clipboard content contains line that ends with: `&aSell Item, &5&7Click items in your inventory to sell\n&5&7them to this Shop!`
+  - Clipboard content contains line that ends with: `&aSell Item, &7Click items in your inventory to sell/&7them to this Shop!`
 - Expected output to verify that enchanted works:
   - Clipboard content contains line that starts with: `|2, 2=Enchanted Iron Sword, none,`
 - Expected output to verify that skull items are copied in displayed name:
@@ -127,7 +129,7 @@ Tester should perform each test and write the test result in the `Result` field.
 - Result: Not set
 
 #### Copy texture ID of the head equipment slot of an entity by pressing Z
-- Action: Go to the SkyBlock hub and head to -15 69 -109. Slowly sink into the village well at the next water block while facing East. A fairy soul can be seen at -15 65 -109. Point the cursor at it and press Z.
+- Action: Go to the SkyBlock hub and head to 18 72 -2. Slowly sink into the village well at the next water block while facing East. A fairy soul can be seen at 18 68 -2. Point the cursor at it and press Z.
 - Expected Output:
   - Game message: `Copied skull ID`
   - Clipboard content should start with: `299ea1`
@@ -135,11 +137,11 @@ Tester should perform each test and write the test result in the `Result` field.
 - Result: Not set
 
 #### Copy texture ID of a placed player head by pressing Z
-- Action: Go to the SkyBlock hub and head to -25 68 -116. Point cursor to the placed player head of a mini TNT block. Press Z.
+- Action: Go to the SkyBlock hub and head to 5 71 -52. Point cursor to the placed player head of a mini TNT block you are standing on. Press Z.
 - Expected Output:
   - Game message: `Copied skull ID`
-  - Clipboard content should start with: `3af597`
-  - Clipboard content should end with: `4565e9`
+  - Clipboard content should start with: `dc75cd`
+  - Clipboard content should end with: `b6d294`
 - Result: Not set
 
 #### Copy texture ID of a hovered player head item by pressing Z works with resolvable profiles
