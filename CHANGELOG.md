@@ -1,4 +1,4 @@
-## [3.0] - 2026-02-28
+## [3.0.0] - 2026-04-15
 
 - Added Copy Data Tags (Key: N): Copy data tags (NBT) to your clipboard. This feature works on:
   - Entities you are looking at; The player skin texture ID (if any) is also retrieved

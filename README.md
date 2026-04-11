@@ -18,7 +18,7 @@ This mod focuses on non-rendering tasks. There is a separate mod, [WikiRenderer]
 
 Copy data tags (NBT) to your clipboard.
 
-![Copy Data Tags](./assets/copy-data-tags.jpg)
+<img src="./assets/copy-data-tags.jpg" width="600" alt="Copy Data Tags">
 
 **Key**: N
 
@@ -30,7 +30,7 @@ This feature works on:
 
 Copy tooltip data of the item you are hovering over to your clipboard.
 
-![Copy Item Tooltip](./assets/copy-item-tooltip.jpg)
+<img src="./assets/copy-item-tooltip.jpg" width="600" alt="Copy Item Tooltip">
 
 **Key**: X
 
@@ -42,7 +42,7 @@ Available Behaviors:
 
 Copy the opened UI to your clipboard in the UI template format.
 
-![Copy Opened UI](./assets/copy-opened-ui.jpg)
+<img src="./assets/copy-opened-ui.jpg" width="600" alt="Copy Opened UI">
 
 **Key**: C
 
@@ -57,7 +57,7 @@ Available Behaviors:
 
 Copy the texture ID of a skull to your clipboard. With this ID, the corresponding skin file can be downloaded on `https://textures.minecraft.net/texture/<ID>`.
 
-![Copy Skull ID](./assets/copy-skull-id.jpg)
+<img src="./assets/copy-skull-id.jpg" width="600" alt="Copy Skull ID">
 
 This feature works on:
 - Placed player heads.
@@ -70,13 +70,13 @@ This feature works on:
 
 Check for new WikiTools release on GitHub and send an update reminder message.
 
-![Mod Update Checker](./assets/mod-update-checker.jpg)
+<img src="./assets/mod-update-checker.jpg" width="600" alt="Mod Update Checker">
 
 #### View Item ID
 
 Find the SkyBlock item ID of the item you are hovering over and append it to the tooltip shown on screen.
 
-![View Item ID](./assets/view-item-id.jpg)
+<img src="./assets/view-item-id.jpg" width="150" alt="View Item ID">
 
 This feature is active when Show Advanced Tooltips (F3+H) is on.
 
