@@ -1,7 +1,7 @@
 package org.hsw.wikitools.feature.mod_update_checker;
 
 import com.google.gson.Gson;
-import org.hsw.wikitools.WikiToolsProperties;
+import org.hsw.wikitools.ModProperties;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,7 +19,7 @@ public class GithubLatestReleaseFinder implements FindModVersion {
 
     public FindModVersionResult findLatestVersion() {
         try (HttpClient client = HttpClient.newHttpClient()) {
-            String latestReleasePath = WikiToolsProperties.LATEST_RELEASE_PATH;
+            String latestReleasePath = ModProperties.LATEST_RELEASE_PATH;
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(githubApiBaseUrl + latestReleasePath))
                     .header("Accept", "application/vnd.github+json")

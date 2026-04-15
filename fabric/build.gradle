@@ -54,12 +54,7 @@ test {
 }
 
 processResources {
-	filesMatching("fabric.mod.json") {
-		// Replace ${property} with values from gradle.properties
-		expand(project.properties)
-	}
-
-	filesMatching("config.properties") {
+	filesMatching(["fabric.mod.json", "config.properties"]) {
 		// Replace ${property} with values from gradle.properties
 		expand(project.properties)
 	}

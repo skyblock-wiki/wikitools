@@ -15,7 +15,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
-import static org.hsw.wikitools.WikiToolsProperties.CATEGORY;
+import static org.hsw.wikitools.ModProperties.CATEGORY;
 
 public class CopyDataTagsListener {
     private final GetDataTagsHandler getDataTagsHandler;

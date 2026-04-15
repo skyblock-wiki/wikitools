@@ -6,7 +6,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.util.CommonColors;
-import org.hsw.wikitools.WikiToolsProperties;
+import org.hsw.wikitools.ModProperties;
 
 import java.net.URI;
 
@@ -34,11 +34,11 @@ public class ModUpdateChecker {
     }
 
     private void handleModUpdateCheck() {
-        String currentVersionName = WikiToolsProperties.MOD_VERSION;
+        String currentVersionName = ModProperties.MOD_VERSION;
         getNewVersionHandler.getNewVersion(
                 new GetNewVersionHandler.GetNewVersionRequest(currentVersionName))
                 .thenAccept((response) -> {
-                    if (!response.success || !response.result.isPresent()) {
+                    if (!response.success || response.result.isEmpty()) {
                         warnFailure(response.message.orElse("Unknown error"));
                         return;
                     }
@@ -55,7 +55,7 @@ public class ModUpdateChecker {
         Component frontComponent = Component.translatable("message.wikitools.mod_update_checker.new_update", newVersionName)
                 .setStyle(Style.EMPTY.withColor(CommonColors.GREEN));
 
-        String latestReleaseDownloadUrl = WikiToolsProperties.LATEST_RELEASE_DOWNLOAD_URL;
+        String latestReleaseDownloadUrl = ModProperties.LATEST_RELEASE_DOWNLOAD_URL;
         Style linkStyle = Style.EMPTY
                 .withColor(CommonColors.GRAY)
                 .withUnderlined(true)
@@ -74,7 +74,7 @@ public class ModUpdateChecker {
 
     private static void warnFailure(String problemName) {
         String warningText = Component.translatable("message.wikitools.mod_update_checker.error", problemName).getString();
-        WikiToolsProperties.LOGGER.warn(warningText, false);
+        ModProperties.LOGGER.warn(warningText, false);
     }
 
 }

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class WikiToolsProperties {
+public class ModProperties {
     private static final ConfigReader configReader = new ConfigReader("config.properties");
 
     public static final String MOD_ID = configReader.getProperty("MOD_ID");

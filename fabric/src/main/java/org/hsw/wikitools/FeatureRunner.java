@@ -12,17 +12,14 @@ import org.hsw.wikitools.feature.mod_update_checker.GetNewVersionHandler;
 import org.hsw.wikitools.feature.mod_update_checker.GithubLatestReleaseFinder;
 import org.hsw.wikitools.feature.mod_update_checker.ModUpdateChecker;
 
-/**
- * Manages the lifecycle and instantiation of listeners.
- */
-class ListenerManager {
+class FeatureRunner {
     private final CopyHoveredItemTooltipListener copyHoveredItemTooltipListener;
 	private final CopySkullIdListener copySkullIdListener;
 	private final CopyDataTagsListener copyDataTagsListener;
 	private final CopyOpenedUiListener copyOpenedUiListener;
 	private final ModUpdateChecker modUpdateChecker;
 
-	public ListenerManager() {
+	public FeatureRunner() {
 		copyHoveredItemTooltipListener = createCopyHoveredItemTooltipListener();
 		copySkullIdListener = createCopySkullIdListener();
 		copyDataTagsListener = createCopyDataTagsListener();
@@ -59,7 +56,7 @@ class ListenerManager {
 	}
 
 	private ModUpdateChecker createModUpdateChecker() {
-		String githubApiBaseUrl = WikiToolsProperties.GITHUB_API_BASE_URL;
+		String githubApiBaseUrl = ModProperties.GITHUB_API_BASE_URL;
 		GithubLatestReleaseFinder gitHubLatestReleaseFinder = new GithubLatestReleaseFinder(githubApiBaseUrl);
 		GetNewVersionHandler getNewVersionHandler = new GetNewVersionHandler(gitHubLatestReleaseFinder);
 		return new ModUpdateChecker(getNewVersionHandler);

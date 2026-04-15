@@ -20,9 +20,6 @@
   - Tests are located in `src/test/...`.
   - Test libraries currently in use: JUnit5, MockServer (for mocking external API)
 - Manual tests are located in the `manual-tests` directory. To ensure correctness, it is recommended to write manual tests to test code that is not covered in automated tests.
-- Diagrams, documentations, and ADRs are located in the `structurizr` directory. It is recommended to keep these up to date.
-  - The web interface can be opened by running the Structurizr local docker image (see [Quickstart](https://docs.structurizr.com/local/quickstart)).
-  - Example command to run in the project folder: `docker run -it --rm -p 8080:8080 -v ./structurizr:/usr/local/structurizr structurizr/lite`
 
 ## Important Files
 
@@ -36,6 +33,10 @@ In the fabric project, there are several important files:
 
 We set up `build.gradle` in a way that properties defined in `gradle.properties` can be used in `fabric.mod.json` and `config.properties` using the `${...}` format.
 
-To bump mod version, update `mod_version` in `gradle.properties`.
+To bump mod version, update `mod_version` in `gradle.properties`. Refresh Gradle.
 
-To update Minecraft version, update the fabric properties and dependency versions in `gradle.properties`, and also the `depends` object in `resources/fabric.mod.json`. If Java version changes, also update 
+To update Minecraft version, update the fabric properties and dependency versions in `gradle.properties`, and also the `depends` object in `resources/fabric.mod.json`. There may be more things that needs updating - see [fabric porting guide](https://docs.fabricmc.net/develop/porting/) for your Minecraft version. Refresh Gradle.
+
+## Development Environment
+
+[DevAuth](https://github.com/DJtheRedstoner/DevAuth) can be optionally enabled to authenticate Minecraft accounts in development environments.

@@ -3,7 +3,7 @@ package org.hsw.wikitools;
 import net.fabricmc.api.ClientModInitializer;
 
 public class WikiTools implements ClientModInitializer {
-    private final ListenerManager listenerManager = new ListenerManager();
+    private final FeatureRunner featureRunner = new FeatureRunner();
 
     @Override
     public void onInitializeClient() {
