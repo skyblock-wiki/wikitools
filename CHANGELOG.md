@@ -1,4 +1,17 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
 ## [3.0.0] - 2026-04-15
+
+This version is a rewrite of the last WikiTools version for the latest Minecraft versions and the Fabric platform.
+
+### Added
 
 - Add Copy Data Tags (Key: N): Copy data tags (NBT) to your clipboard. This feature works on:
   - Entities you are looking at; The player skin texture ID (if any) is also retrieved
@@ -17,4 +30,5 @@
 - Add Mod Update Checker: Check for new WikiTools release on GitHub and send an update reminder message.
 - Add license: LGPL-3.0-or-later
 
+[unreleased]: https://github.com/skyblock-wiki/wikitools/compare/v3.0.0...HEAD
 [3.0.0]: https://github.com/skyblock-wiki/wikitools/tree/v3.0.0
