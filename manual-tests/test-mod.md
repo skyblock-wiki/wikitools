@@ -5,15 +5,15 @@
 - Minecraft 1.21.11
 - Fabric Loader 0.18.4
 - Mods: Fabric API 0.141.3+1.21.11, WikiTools 3.0.0+1.21.11
+- Internet connection
 
 ## Instruction
 
-Tester should set the following fields before or after performing tests. Tester should time their test session, which should include the time to prepare the test environment. If there is any ambiguity in the test document or suggestions for new tests, please write down in the `Comment/Suggestion` field.
+Tester should set the following fields before or after performing tests. Tester should time their test session, which should include the time to prepare the test environment.
 
 - Tester: Not set
 - Test date: Not set
 - Time taken: Not set
-- Comment/Suggestion (optional): Not set
 
 Tester should perform each test and write the test result in the `Result` field. The test result should be "OK" if the `Action` is accurate and the output exactly matches `Expected Output`. Otherwise, put "FAIL:" and write down the problem.
 
@@ -22,7 +22,7 @@ Tester should perform each test and write the test result in the `Result` field.
 ### Copy Data Tags
 
 #### Copy data tags of hovered item by pressing N
-- Action: Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon. Press N.
+- Action: Join Hypixel SkyBlock and go to the SkyBlock hub, and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon. Press N.
 - Expected Output:
   - Game message: `Copied data tags`
   - Clipboard content contains: `minecraft:nether_star`
@@ -30,7 +30,7 @@ Tester should perform each test and write the test result in the `Result` field.
 - Result: Not set
 
 #### Copy data tags of facing NPC by pressing N
-- Action: Go to the SkyBlock hub and head to -5 69 -21. When facing the Hub Selector NPC, press N.
+- Action: Join Hypixel SkyBlock, go to the SkyBlock hub, and head to -5 69 -21. When facing the Hub Selector NPC, press N.
 - Expected Output:
   - Game message: `Copied data tags`
   - Clipboard content contains: `Pos:[-5.5d,69.0d,-22.5d]`
@@ -39,7 +39,7 @@ Tester should perform each test and write the test result in the `Result` field.
 - Result: Not set
 
 #### Copy data tags of armor stands with floating text by pressing N
-- Action: Go to the SkyBlock hub and head to -5 69 -21. Stand within one block of the Hub Selector NPC and point cursor at the lower half of the "CLICK" text above the NPC. Press N.
+- Action: Join Hypixel SkyBlock, go to the SkyBlock hub, and head to -5 69 -21. Stand within one block of the Hub Selector NPC and point cursor at the lower half of the "CLICK" text above the NPC. Press N.
 - Expected Output:
   - Game message: `Copied data tags`
   - Clipboard content contains: `Hub Selector`
@@ -47,7 +47,7 @@ Tester should perform each test and write the test result in the `Result` field.
 - Result: Not set
 
 #### Copy data tags of a block entity head by pressing N
-- Action: Go to the SkyBlock hub and head to 5 71 -52. Point cursor to the placed player head of a mini TNT block you are standing on. Press N.
+- Action: Join Hypixel SkyBlock, go to the SkyBlock hub, and head to 5 71 -52. Point cursor to the placed player head of a mini TNT block you are standing on. Press N.
 - Expected Output:
   - Game message: `Copied data tags`
   - Clipboard content contains: `x:5,y:71,z:-53`
@@ -97,7 +97,7 @@ Tester should perform each test and write the test result in the `Result` field.
 
 #### Copy opened UI in fill with blank by default mode by pressing Shift-C
 - Special setting: Change your game language to Afrikaans.
-- Action: Go to the SkyBlock hub and head to 8 69 -70. Click the Zog NPC to open the Zog UI. Press Shift-C.
+- Action: Join Hypixel SkyBlock, go to the SkyBlock hub, and head to 8 69 -70. Click the Zog NPC to open the Zog UI. Press Shift-C.
 - Expected output:
   - Clipboard content contains line: `|close=none`
   - Clipboard content contains line: `|arrow=none`
@@ -108,7 +108,7 @@ Tester should perform each test and write the test result in the `Result` field.
 
 #### Copy opened UI in always use Minecraft item name for non skull items mode by pressing Ctrl-C
 - Special setting: Change your game language to Afrikaans.
-- Action: Go to the SkyBlock hub and head to 8 69 -70. Click the Zog NPC to open the Zog UI. Press Ctrl-C.
+- Action: Join Hypixel SkyBlock, go to the SkyBlock hub, and head to 8 69 -70. Click the Zog NPC to open the Zog UI. Press Ctrl-C.
 - Expected output to verify that non-skull items are copied in Minecraft item name in English, displayed name and lore are copied correctly:
   - Clipboard content contains line that starts with: `|6, 5=Hopper, none,`
   - Clipboard content contains line that ends with: `&aSell Item, &7Click items in your inventory to sell/&7them to this Shop!`
@@ -129,7 +129,7 @@ Tester should perform each test and write the test result in the `Result` field.
 - Result: Not set
 
 #### Copy texture ID of the head equipment slot of an entity by pressing Z
-- Action: Go to the SkyBlock hub and head to 18 72 -2. Slowly sink into the village well at the next water block while facing East. A fairy soul can be seen at 18 68 -2. Point the cursor at it and press Z.
+- Action: Join Hypixel SkyBlock, go to the SkyBlock hub, and head to 18 72 -2. Slowly sink into the village well at the next water block while facing East. A fairy soul can be seen at 18 68 -2. Point the cursor at it and press Z.
 - Expected Output:
   - Game message: `Copied skull ID`
   - Clipboard content should start with: `299ea1`
@@ -137,7 +137,7 @@ Tester should perform each test and write the test result in the `Result` field.
 - Result: Not set
 
 #### Copy texture ID of a placed player head by pressing Z
-- Action: Go to the SkyBlock hub and head to 5 71 -52. Point cursor to the placed player head of a mini TNT block you are standing on. Press Z.
+- Action: Join Hypixel SkyBlock, go to the SkyBlock hub, and head to 5 71 -52. Point cursor to the placed player head of a mini TNT block you are standing on. Press Z.
 - Expected Output:
   - Game message: `Copied skull ID`
   - Clipboard content should start with: `dc75cd`
@@ -161,13 +161,21 @@ Tester should perform each test and write the test result in the `Result` field.
 ### View Item ID
 
 #### Item ID is shown on hovered SkyBlock item when advanced tooltip is set to "shown"
-- Action: Toggle advanced tooltip to "shown" by using F3+H. Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon.
+- Action: Toggle advanced tooltip to "shown" by using F3+H. Join Hypixel SkyBlock, go to the SkyBlock hub, and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon.
 - Expected Output:
-  - Displayed tooltip content should end with: Item ID: `SKYBLOCK_MENU`
+  - Displayed tooltip content should end with: `Item ID: SKYBLOCK_MENU`
 - Result: Not set
 
 #### SkyBlock item ID is not shown on hovered SkyBlock item when advanced tooltip is set to "hidden"
-- Action: Toggle advanced tooltip to "hidden" by using F3+H. Go to the SkyBlock hub and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon.
+- Action: Toggle advanced tooltip to "hidden" by using F3+H. Join Hypixel SkyBlock, go to the SkyBlock hub, and open the inventory. At the bottom-right, hover over the SkyBlock Menu icon.
 - Expected Output:
   - Displayed tooltip content should end with: `Click to open!`
 - Result: Not set
+
+### Any Other Tests (Optional)
+
+Testers can test the mod with whatever conditions they want and write any problem they found here.
+
+### Comments and Suggestions (Optional)
+
+Testers can provide their comments and suggestions about the mod and/or the manual tests here. They can also report any ambiguity in the test document or suggest new tests here.
