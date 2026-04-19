@@ -50,8 +50,6 @@ public class ModUpdateChecker {
     }
 
     private static void remindUserToUpdateMod(String newVersionName) {
-        Minecraft client = Minecraft.getInstance();
-
         Component frontComponent = Component.translatable("message.wikitools.mod_update_checker.new_update", newVersionName)
                 .setStyle(Style.EMPTY.withColor(CommonColors.GREEN));
 
@@ -69,7 +67,12 @@ public class ModUpdateChecker {
                 .append(" ")
                 .append(linkComponent);
 
-        client.getChatListener().handleSystemMessage(messageComponent, false);
+        printMessageInMainThread(messageComponent);
+    }
+
+    private static void printMessageInMainThread(Component message) {
+        Minecraft client = Minecraft.getInstance();
+        client.execute(() -> client.gui.getChat().addMessage(message));
     }
 
     private static void warnFailure(String problemName) {
