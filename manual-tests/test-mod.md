@@ -4,7 +4,7 @@
 
 - Minecraft 26.1.2
 - Fabric Loader 0.18.6
-- Mods: Fabric API 0.145.4+26.1.2, WikiTools 3.0.0+26.1.2
+- Mods: Fabric API 0.145.4+26.1.2, WikiTools 3.0.1+26.1.2
 - Internet connection
 
 ## Instruction

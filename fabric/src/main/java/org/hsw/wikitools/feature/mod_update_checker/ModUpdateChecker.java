@@ -14,6 +14,7 @@ import java.net.URI;
 public class ModUpdateChecker {
 
     private final GetNewVersionHandler getNewVersionHandler;
+    private boolean ranOnceAfterClientLaunch = false;
 
     public ModUpdateChecker(GetNewVersionHandler getNewVersionHandler) {
         this.getNewVersionHandler = getNewVersionHandler;
@@ -24,8 +25,9 @@ public class ModUpdateChecker {
     private void registerEvent() {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             var isSelfJoin = client.player == Minecraft.getInstance().player;
+            var isSinglePlayer = client.isSingleplayer();
 
-            if (!isSelfJoin) {
+            if (!isSelfJoin || isSinglePlayer) {
                 return;
             }
 
@@ -34,6 +36,11 @@ public class ModUpdateChecker {
     }
 
     private void handleModUpdateCheck() {
+        if (ranOnceAfterClientLaunch) {
+            return;
+        }
+        ranOnceAfterClientLaunch = true;
+
         String currentVersionName = ModProperties.MOD_VERSION;
         getNewVersionHandler.getNewVersion(
                 new GetNewVersionHandler.GetNewVersionRequest(currentVersionName))
@@ -50,8 +57,6 @@ public class ModUpdateChecker {
     }
 
     private static void remindUserToUpdateMod(String newVersionName) {
-        Minecraft client = Minecraft.getInstance();
-
         Component frontComponent = Component.translatable("message.wikitools.mod_update_checker.new_update", newVersionName)
                 .setStyle(Style.EMPTY.withColor(CommonColors.GREEN));
 
@@ -69,7 +74,12 @@ public class ModUpdateChecker {
                 .append(" ")
                 .append(linkComponent);
 
-        client.getChatListener().handleSystemMessage(messageComponent, false);
+        printMessageInMainThread(messageComponent);
+    }
+
+    private static void printMessageInMainThread(Component message) {
+        Minecraft client = Minecraft.getInstance();
+        client.execute(() -> client.gui.getChat().addClientSystemMessage(message));
     }
 
     private static void warnFailure(String problemName) {

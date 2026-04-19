@@ -33,7 +33,7 @@ In the fabric project, there are several important files:
 
 We set up `build.gradle` in a way that properties defined in `gradle.properties` can be used in `fabric.mod.json` and `config.properties` using the `${...}` format.
 
-To bump mod version, update `mod_version` in `gradle.properties`. Refresh Gradle.
+To bump mod version, update `mod_version` in `gradle.properties`. Refresh Gradle. In addition, `CHANGELOG.md` and manual test files may need to be updated with information of the new version.
 
 To update Minecraft version, update the fabric properties and dependency versions in `gradle.properties`, and also the `depends` object in `resources/fabric.mod.json`. There may be more things that needs updating - see [fabric porting guide](https://docs.fabricmc.net/develop/porting/) for your Minecraft version. Refresh Gradle.
 
