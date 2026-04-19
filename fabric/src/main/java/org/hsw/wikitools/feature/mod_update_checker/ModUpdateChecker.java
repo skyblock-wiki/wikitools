@@ -14,6 +14,7 @@ import java.net.URI;
 public class ModUpdateChecker {
 
     private final GetNewVersionHandler getNewVersionHandler;
+    private boolean ranOnceAfterClientLaunch = false;
 
     public ModUpdateChecker(GetNewVersionHandler getNewVersionHandler) {
         this.getNewVersionHandler = getNewVersionHandler;
@@ -24,8 +25,9 @@ public class ModUpdateChecker {
     private void registerEvent() {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             var isSelfJoin = client.player == Minecraft.getInstance().player;
+            var isSinglePlayer = client.isSingleplayer();
 
-            if (!isSelfJoin) {
+            if (!isSelfJoin || isSinglePlayer) {
                 return;
             }
 
@@ -34,6 +36,11 @@ public class ModUpdateChecker {
     }
 
     private void handleModUpdateCheck() {
+        if (ranOnceAfterClientLaunch) {
+            return;
+        }
+        ranOnceAfterClientLaunch = true;
+
         String currentVersionName = ModProperties.MOD_VERSION;
         getNewVersionHandler.getNewVersion(
                 new GetNewVersionHandler.GetNewVersionRequest(currentVersionName))
