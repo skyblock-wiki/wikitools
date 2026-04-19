@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] - 2026-04-19
+
 ### Changed
 
 - Mod Update Checker now only runs when user joins a server for the first time after Minecraft client launch
@@ -38,5 +40,6 @@ This version is a rewrite of the last WikiTools version for the latest Minecraft
 - Add Mod Update Checker: Check for new WikiTools release on GitHub and send an update reminder message
 - Add license: LGPL-3.0-or-later
 
-[unreleased]: https://github.com/skyblock-wiki/wikitools/compare/v3.0.0...HEAD
+[unreleased]: https://github.com/skyblock-wiki/wikitools/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/skyblock-wiki/wikitools/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/skyblock-wiki/wikitools/tree/v3.0.0

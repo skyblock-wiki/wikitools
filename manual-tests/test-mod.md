@@ -4,7 +4,7 @@
 
 - Minecraft 1.21.11
 - Fabric Loader 0.18.4
-- Mods: Fabric API 0.141.3+1.21.11, WikiTools 3.0.0+1.21.11
+- Mods: Fabric API 0.141.3+1.21.11, WikiTools 3.0.1+1.21.11
 - Internet connection
 
 ## Instruction
